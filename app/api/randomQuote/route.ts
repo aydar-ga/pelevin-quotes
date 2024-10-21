@@ -17,7 +17,11 @@ export async function GET() {
     if (quotes && quotes.length > 0) {
       const randomIndex = Math.floor(Math.random() * quotes.length);
       const randomQuote = quotes[randomIndex];
-      return NextResponse.json(randomQuote);
+
+      // create response with no-cache headers
+      const response = NextResponse.json(randomQuote);
+      response.headers.set("Cache-Control", "no-store, max-age=0");
+      return response;
     } else {
       console.warn("No quotes available in Supabase");
       return NextResponse.json(
