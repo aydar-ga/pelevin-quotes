@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { supabase } from "../../../lib/supabaseClient";
 
+// Define the type for a quote object
+type Quote = {
+  id: string;
+  text: string;
+  book: string;
+};
+
 // Helper function to shuffle array (Fisher-Yates Algorithm)
-function shuffleArray(array: any[]) {
+function shuffleArray(array: Quote[]): Quote[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -31,7 +38,8 @@ export async function GET() {
 
     // Pick a random quote using a shuffle to ensure better randomness
     if (quotes && quotes.length > 0) {
-      const shuffledQuotes = shuffleArray(quotes);
+      // Cast the data to an array of Quote objects
+      const shuffledQuotes = shuffleArray(quotes as Quote[]);
       const randomQuote = shuffledQuotes[0];
       console.log("Selected quote:", randomQuote);
 
