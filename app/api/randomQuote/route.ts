@@ -11,10 +11,7 @@ export async function GET() {
     );
 
     // Fetch all quotes from Supabase
-    const { data: quotes, error } = await supabase
-      .from("quotes")
-      .select("*")
-      .neq("id", Math.random().toString()); // Random condition to make each query unique
+    const { data: quotes, error } = await supabase.from("quotes").select("*");
 
     if (error) {
       console.error("Error fetching quotes from Supabase:", error);
