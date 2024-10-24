@@ -1,13 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase } from "../../../lib/supabaseClient";
 
-// Define the type for a quote object
-type Quote = {
-  id: string;
-  text: string;
-  book: string;
-};
-
 export async function GET(request: Request) {
   // Extract the random query parameter from the URL (for uniqueness)
   const url = new URL(request.url);
