@@ -18,9 +18,13 @@ function shuffleArray(array: Quote[]): Quote[] {
 }
 
 export async function GET(request: Request) {
+  // Extract the random query parameter from the URL (for uniqueness)
   const url = new URL(request.url);
   const randomParam =
     url.searchParams.get("random") || Math.random().toString();
+
+  // Logging the random parameter to ensure it's not unused
+  console.log("Random parameter for uniqueness:", randomParam);
 
   try {
     console.log("Environment Variables in Production:");
@@ -42,6 +46,7 @@ export async function GET(request: Request) {
 
     // Pick a random quote using a shuffle to ensure better randomness
     if (quotes && quotes.length > 0) {
+      // Cast the data to an array of Quote objects
       const shuffledQuotes = shuffleArray(quotes as Quote[]);
       const randomQuote = shuffledQuotes[0];
       console.log("Selected quote:", randomQuote);
