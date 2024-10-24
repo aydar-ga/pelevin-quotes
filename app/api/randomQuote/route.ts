@@ -8,15 +8,6 @@ type Quote = {
   book: string;
 };
 
-// Helper function to shuffle array (Fisher-Yates Algorithm)
-function shuffleArray(array: Quote[]): Quote[] {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 export async function GET(request: Request) {
   // Extract the random query parameter from the URL (for uniqueness)
   const url = new URL(request.url);
@@ -44,21 +35,15 @@ export async function GET(request: Request) {
 
     console.log("Fetched quotes:", quotes); // Log the quotes fetched
 
-    // Pick a random quote using a shuffle to ensure better randomness
+    // Pick a random quote directly from the fetched data
     if (quotes && quotes.length > 0) {
-      // Cast the data to an array of Quote objects
-      const shuffledQuotes = shuffleArray(quotes as Quote[]);
-      const randomQuote = shuffledQuotes[0];
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      const randomQuote = quotes[randomIndex];
       console.log("Selected quote:", randomQuote);
 
-      // Create response with no-cache headers
+      // Create response without complex cache headers
       const response = NextResponse.json(randomQuote);
-      response.headers.set(
-        "Cache-Control",
-        "no-store, max-age=0, must-revalidate, proxy-revalidate"
-      );
-      response.headers.set("Pragma", "no-cache");
-      response.headers.set("Expires", "0");
+      response.headers.set("Cache-Control", "no-store");
       return response;
     } else {
       console.warn("No quotes available in Supabase");
