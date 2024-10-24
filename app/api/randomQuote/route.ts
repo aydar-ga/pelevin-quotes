@@ -17,7 +17,11 @@ function shuffleArray(array: Quote[]): Quote[] {
   return array;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const randomParam =
+    url.searchParams.get("random") || Math.random().toString();
+
   try {
     console.log("Environment Variables in Production:");
     console.log("Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL);
@@ -38,14 +42,16 @@ export async function GET() {
 
     // Pick a random quote using a shuffle to ensure better randomness
     if (quotes && quotes.length > 0) {
-      // Cast the data to an array of Quote objects
       const shuffledQuotes = shuffleArray(quotes as Quote[]);
       const randomQuote = shuffledQuotes[0];
       console.log("Selected quote:", randomQuote);
 
       // Create response with no-cache headers
       const response = NextResponse.json(randomQuote);
-      response.headers.set("Cache-Control", "no-store, max-age=0");
+      response.headers.set(
+        "Cache-Control",
+        "no-store, max-age=0, must-revalidate, proxy-revalidate"
+      );
       response.headers.set("Pragma", "no-cache");
       response.headers.set("Expires", "0");
       return response;
