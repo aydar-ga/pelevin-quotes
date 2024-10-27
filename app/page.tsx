@@ -5,10 +5,9 @@ import { RefreshCw } from "lucide-react";
 import QuoteCard from '../components/QuoteCard';
 
 const Home = () => {
-  const authorName = "John Doe"; // Fixed author name
 
   const [quote, setQuote] = useState({
-    text: "Click the button to generate a random quote.",
+    text: "Нажми на кнопку, чтобы получить цитатку.",
     book: "",
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +34,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black p-4">
       <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white text-center">
-        Quotes Generator by {authorName}
+        Цитатки из Пелевина
       </h1>
       <QuoteCard quote={quote.text} book={quote.book} />
       <button
@@ -48,7 +47,7 @@ const Home = () => {
         ) : (
           <RefreshCw className="mr-2 h-5 w-5" />
         )}
-        Generate Quote
+        Давай цитатку
       </button>
     </div>
   );

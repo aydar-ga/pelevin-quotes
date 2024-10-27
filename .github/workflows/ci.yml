@@ -1,0 +1,38 @@
+name: Pelevin-Quotes Project CI Workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - "feature/*"
+      - "fix/*"
+      - "release/*"
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Lint
+        run: echo "Linting step placeholder"
+
+      - name: Run Type Check
+        run: npm run type-check
+
+      - name: Run Unit Tests
+        run: echo "No unit tests yet"
