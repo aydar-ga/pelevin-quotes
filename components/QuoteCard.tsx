@@ -23,4 +23,3 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ quote, book }) => {
 };
 
 export default QuoteCard;
-// Update commit to use the correct author
