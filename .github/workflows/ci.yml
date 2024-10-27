@@ -1,4 +1,4 @@
-name: Simple CI Workflow
+name: Pelevin-Quotes Project CI Workflow
 
 on:
   push:
@@ -26,3 +26,9 @@ jobs:
 
       - name: Run Lint
         run: echo "Linting step placeholder"
+
+      - name: Type Check
+        run: npm run type-check
+
+      - name: Run Unit Tests
+        run: echo "No unit tests yet"
