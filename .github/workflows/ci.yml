@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - develop
+      - "feature/*"
+      - "fix/*"
   pull_request:
     branches:
       - main
+      - develop
 
 jobs:
   build:
@@ -27,7 +30,7 @@ jobs:
       - name: Run Lint
         run: echo "Linting step placeholder"
 
-      - name: Type Check
+      - name: Run Type Check
         run: npm run type-check
 
       - name: Run Unit Tests
