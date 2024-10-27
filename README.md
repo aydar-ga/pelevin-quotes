@@ -2,11 +2,11 @@
 
 This is my pet-project inspired by reading Victor Pelevin's works. I wanted to create a parallel universe of his books that would retain the Pelevin's literary spirit: i.e. witty satirical takes on our life. I have no doubts that some literary critics would note that the very essence of this project is partly a reflection of the slightly changed nature (sic!) of Pelevin's work in recent years. Viktor Olegovich, please don't take offense 😉
 
-## Current project status ✔️
+## Current status ✔️
 
-I wanted to have a minimalist web-site where you can get tease your literature taste. Foolproof simple as AK-47: hit the button and the machine will give you a new dose.
+I wanted to have a minimalist web-site where you can tease your literature tastes. Foolproof simple as AK-47: hit the button and the machine will give you a new dose.
 
-## Planned product enhancements 🏁
+## Planned enhancements 🏁
 
 I'm planning to implement these changes:
 
