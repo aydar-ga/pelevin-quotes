@@ -1,0 +1,70 @@
+# CLAUDE.md
+
+Project notes for Claude Code (and any other AI assistant) working in this repo.
+
+This file mirrors `AGENTS.md` — keep them in sync if you edit one. Both are
+short on purpose; the deep documentation lives in [`docs/`](./docs).
+
+## TL;DR
+
+A minimalist Next.js app that serves random Pelevin quotes from a Neon
+Postgres table. Deployed on Vercel.
+
+```
+Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
+                  │
+                  └──▶ Vercel (hosting + CI/CD)
+```
+
+## Where to look first
+
+| Doc                                                       | When you need it                              |
+| --------------------------------------------------------- | --------------------------------------------- |
+| [docs/01-architecture.md](./docs/01-architecture.md)      | Understand the module layout                  |
+| [docs/02-framework-selection.md](./docs/02-framework-selection.md) | Why each library — before swapping anything |
+| [docs/03-database.md](./docs/03-database.md)              | Schema, seeding, migrations                   |
+| [docs/04-development.md](./docs/04-development.md)        | Scripts, conventions, local setup             |
+| [docs/05-deployment.md](./docs/05-deployment.md)          | Vercel deploys, env vars, rollback            |
+| [docs/06-testing.md](./docs/06-testing.md)                | Vitest + Testing Library                      |
+
+## Hard rules
+
+- **Don't reintroduce Supabase.** We migrated away from it intentionally
+  (see `CHANGELOG.md` v2.0.0).
+- **Don't add comments that explain *what* code does.** Only *why*, when
+  non-obvious.
+- **Don't co-locate tests next to source files.** Put them in `tests/`.
+- **Don't use `any`.** Lean on Drizzle's inferred types.
+- **Don't bypass the precommit hook** (`--no-verify`) unless a human asks.
+- **Don't run `npm run db:seed` against production.** It drops the table.
+- **User-facing copy is Russian.** Code/comments/commits/docs are English.
+
+## Common tasks (cheat-sheet)
+
+| You want to…                              | Run / edit                                          |
+| ----------------------------------------- | --------------------------------------------------- |
+| Add a quote                               | Edit `scripts/quotes.json` → `npm run db:seed` (local) |
+| Add a column                              | Edit `lib/schema.ts` → `npm run db:push`            |
+| Add a UI component                        | New file under `components/` + a test in `tests/`   |
+| Add an API route                          | `app/api/<name>/route.ts` (App Router conventions)  |
+| Change theme colours                      | CSS variables in `app/globals.css`                  |
+| Tweak the precommit hook                  | `.husky/pre-commit`                                 |
+
+## Verification before declaring "done"
+
+```bash
+npm run lint && npm run type-check && npm test && npm run build
+```
+
+All four must pass. CI runs the first three; precommit runs lint+type-check+test.
+
+## Deploy
+
+`git push origin main` deploys to production automatically. Branches/PRs get
+preview URLs. Manual:
+
+```bash
+vercel deploy --prod
+```
+
+See [`docs/05-deployment.md`](./docs/05-deployment.md).

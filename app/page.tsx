@@ -1,52 +1,68 @@
 "use client";
 
-import React, { useState } from 'react';
 import { RefreshCw } from "lucide-react";
-import QuoteCard from '../components/QuoteCard';
+import { useState } from "react";
+import ErrorBanner from "../components/ErrorBanner";
+import PelevinIcon from "../components/PelevinIcon";
+import QuoteCard from "../components/QuoteCard";
+import ThemeToggle from "../components/ThemeToggle";
+
+const PLACEHOLDER = "Нажми на кнопку, чтобы получить цитатку.";
 
 const Home = () => {
-
   const [quote, setQuote] = useState({
-    text: "Нажми на кнопку, чтобы получить цитатку.",
+    text: PLACEHOLDER,
     book: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const generateQuote = async () => {
     setIsLoading(true);
+    setError(null);
     try {
-      const response = await fetch('/api/randomQuote');
+      const response = await fetch("/api/randomQuote", { cache: "no-store" });
       if (!response.ok) {
-        throw new Error('Failed to fetch quote');
+        throw new Error(
+          `Сервер вернул статус ${response.status}. Попробуй ещё раз.`,
+        );
       }
       const data = await response.json();
-      setQuote({
-        text: data.text,
-        book: data.book,
-      });
-    } catch (error) {
-      console.error("Error fetching quote:", error);
+      setQuote({ text: data.text, book: data.book });
+    } catch (err) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Не удалось загрузить цитату. Проверь соединение.";
+      setError(message);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black p-4">
-      <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white text-center">
-        Цитатки из Пелевина
-      </h1>
-      <QuoteCard quote={quote.text} book={quote.book} />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--background)] p-4">
+      <ThemeToggle />
+      <div className="mb-6 flex items-center gap-4 text-[var(--foreground)]">
+        <PelevinIcon size={56} />
+        <h1 className="text-4xl font-bold md:text-5xl">
+          Цитатки из Пелевина
+        </h1>
+      </div>
+      <QuoteCard
+        quote={quote.text}
+        book={quote.book}
+        empty={quote.text === PLACEHOLDER}
+      />
+      {error && <ErrorBanner message={error} onRetry={generateQuote} />}
       <button
         onClick={generateQuote}
         disabled={isLoading}
-        className="flex items-center mt-6 bg-white text-black font-semibold py-3 px-6 rounded-full hover:bg-gray-200 transition-colors duration-300 shadow-lg"
+        className="mt-6 flex items-center rounded-full bg-[var(--accent)] px-6 py-3 font-semibold text-[var(--accent-foreground)] shadow-lg transition-opacity duration-300 hover:opacity-90 disabled:opacity-60"
       >
-        {isLoading ? (
-          <RefreshCw className="mr-2 h-5 w-5 animate-spin" />
-        ) : (
-          <RefreshCw className="mr-2 h-5 w-5" />
-        )}
+        <RefreshCw
+          className={`mr-2 h-5 w-5 ${isLoading ? "animate-spin" : ""}`}
+        />
         Давай цитатку
       </button>
     </div>
