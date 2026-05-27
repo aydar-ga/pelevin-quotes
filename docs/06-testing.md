@@ -1,5 +1,18 @@
 # Testing
 
+## TDD is the default
+
+This repo treats unit tests as a hard requirement, not a nice-to-have:
+
+1. Before you change behaviour, add or update a failing test under `tests/`.
+2. Implement the change until that test (and every other) passes.
+3. Commit. The Husky pre-commit hook re-runs `lint-staged → tsc → vitest` and
+   will block a red suite.
+
+Don't bypass the hook with `--no-verify`. If a change is genuinely untestable
+(e.g. visual-only tweak verified in a browser), note *why* in the commit
+message.
+
 ## Stack
 
 - **[Vitest](https://vitest.dev)** as the runner (Vite-native, instant).

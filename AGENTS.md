@@ -37,6 +37,13 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 
 ## Hard rules
 
+- **TDD is the default.** Every code change in `app/`, `components/`, or
+  `lib/` ships with a test in `tests/`. Write the failing test first, then
+  make it pass. Never commit with a red suite.
+- **Keep the README in sync.** Any change that affects the pitch, tech stack,
+  scripts, "Shipped" section, or roadmap must update `README.md` *in the same
+  commit* — not in a follow-up. The README is a live document, not a launch
+  artifact.
 - **Don't reintroduce Supabase.** Migrated away intentionally (CHANGELOG v2.0.0).
 - **Don't add comments explaining *what* code does.** Only *why*, when non-obvious.
 - **Don't co-locate tests next to source files.** Put them in `tests/`.
@@ -44,6 +51,16 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 - **Don't bypass the precommit hook** (`--no-verify`) unless a human asks.
 - **Don't run `npm run db:seed` against production.** It drops the table.
 - **User-facing copy is Russian.** Code/comments/commits/docs are English.
+
+## Automatic workflow (every code change)
+
+1. Add or update a failing test under `tests/`.
+2. Implement the change.
+3. Run `npm run lint && npm run type-check && npm test && npm run build`.
+4. Update `README.md` (and any relevant `docs/` page) if user-visible
+   behaviour, the stack, scripts, "Shipped", or the roadmap changed.
+5. Commit (precommit hook re-runs lint-staged + type-check + tests).
+6. Push.
 
 ## Programmatic checks (must pass)
 
