@@ -5,58 +5,83 @@ interface PelevinIconProps extends React.SVGProps<SVGSVGElement> {
   title?: string;
 }
 
+const PIXELS: readonly string[] = [
+  "BBBBBBBBBBBBBBBBBBBBBBBB",
+  "B......................B",
+  "B......................B",
+  "B........HHHHHHHH......B",
+  "B.......HHHHHHHHHH.....B",
+  "B......HHHHHHHHHHHH....B",
+  "B.....HHHHHHHHHHHHH....B",
+  "B....HHHSSSSSSSSHHHH...B",
+  "B....HHSSSSSSSSSSHHH...B",
+  "B....HSGGGGSGGGGGSHH...B",
+  "B....HSGGGGGGGGGGSHH...B",
+  "B....HSSSSSSSSSSSSSH...B",
+  "B.....SSSDDSSSSDDSS....B",
+  "B.....SSSSSDDSSSSSS....B",
+  "B......SSSSSSSSSSS.....B",
+  "B.......SSDDDDSSS......B",
+  "B........SSSSSSS.......B",
+  "B........SSSSSSS.......B",
+  "B....TTTTTTTTTTTTTT....B",
+  "B...TTTTTTTTTTTTTTTT...B",
+  "B..TTTTTTTbttbTTTTTTT..B",
+  "B..TTTTTTTbtttTTTTTTT..B",
+  "B..TTTTTTTTTTTTTTTTTT..B",
+  "BBBBBBBBBBBBBBBBBBBBBBBB",
+];
+
+const PALETTE: Record<string, string> = {
+  B: "#fbbf24",
+  ".": "#1f1410",
+  H: "#16100a",
+  S: "#d4a07a",
+  D: "#a67050",
+  G: "#000000",
+  T: "#c8b88a",
+  t: "#8a7a4c",
+  b: "#5a4a2c",
+};
+
 const PelevinIcon: React.FC<PelevinIconProps> = ({
-  size = 64,
+  size = 96,
   title = "Виктор Пелевин",
   ...rest
 }) => {
+  const rects: React.ReactElement[] = [];
+  for (let y = 0; y < PIXELS.length; y++) {
+    const row = PIXELS[y];
+    for (let x = 0; x < row.length; x++) {
+      const ch = row[x];
+      const fill = PALETTE[ch];
+      if (!fill) continue;
+      rects.push(
+        <rect
+          key={`${x}-${y}`}
+          x={x * 4}
+          y={y * 4}
+          width={4}
+          height={4}
+          fill={fill}
+        />,
+      );
+    }
+  }
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 128 128"
+      viewBox="0 0 96 96"
       width={size}
       height={size}
+      shapeRendering="crispEdges"
       role="img"
       aria-label={title}
       {...rest}
     >
       <title>{title}</title>
-      <defs>
-        <linearGradient id="pelevin-bg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="currentColor" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="currentColor" stopOpacity="0.18" />
-        </linearGradient>
-      </defs>
-
-      <circle cx="64" cy="64" r="62" fill="url(#pelevin-bg)" />
-
-      <path
-        d="M64 22c-15 0-26 11-26 26 0 5 1 9 3 13l-4 14c-1 3 1 6 4 6h6l-2 16c-0.3 3 2 5 5 5h28c3 0 5-2 5-5l-2-16h6c3 0 5-3 4-6l-4-14c2-4 3-8 3-13 0-15-11-26-26-26z"
-        fill="currentColor"
-      />
-
-      <ellipse cx="51" cy="52" rx="12" ry="9" fill="#0a0a0a" />
-      <ellipse cx="77" cy="52" rx="12" ry="9" fill="#0a0a0a" />
-      <rect x="62" y="50" width="4" height="3" fill="#0a0a0a" />
-      <rect x="39" y="50" width="3" height="3" fill="#0a0a0a" />
-      <rect x="86" y="50" width="3" height="3" fill="#0a0a0a" />
-
-      <path
-        d="M48 53q3-3 6 0"
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity="0.35"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M74 53q3-3 6 0"
-        fill="none"
-        stroke="#ffffff"
-        strokeOpacity="0.35"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-      />
+      {rects}
     </svg>
   );
 };
