@@ -1,0 +1,9 @@
+See AGENTS.md and docs/ for full project guidance.
+
+TL;DR:
+- Next.js 16 (App Router, React 19) + Drizzle + Neon Postgres on Vercel.
+- Don't reintroduce Supabase.
+- No "what" comments — only "why", when non-obvious.
+- Tests live in tests/, never co-located. Run with `npm test`.
+- Verify with: npm run lint && npm run type-check && npm test && npm run build
+- User-facing copy is Russian; code/docs are English.
