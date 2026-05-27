@@ -1,49 +1,35 @@
 import { NextResponse } from "next/server";
-import { supabase } from "../../../lib/supabaseClient";
+import { sql } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { quotes } from "@/lib/schema";
 
-export async function GET(request: Request) {
-  // Step 1: Extract the random query parameter from the URL to ensure uniqueness for each request
-  const url = new URL(request.url);
-  const randomParam =
-    url.searchParams.get("random") || Math.random().toString();
-  console.log("Random parameter for uniqueness:", randomParam); // Log the param (for debugging)
+export const dynamic = "force-dynamic";
 
+export async function GET() {
   try {
-    // Step 2: Fetch all quotes from Supabase
-    const { data: quotes, error } = await supabase.from("quotes").select("*");
+    const rows = await db
+      .select()
+      .from(quotes)
+      .orderBy(sql`random()`)
+      .limit(1);
 
-    // Step 3: Handle errors that occur while fetching data
-    if (error) {
-      console.error("Error fetching quotes from Supabase:", error);
-      throw new Error("Error fetching quotes from Supabase");
-    }
-
-    console.log("Fetched quotes:", quotes); // Log the fetched quotes (for debugging)
-
-    // Step 4: Pick a random quote if the fetched data is not empty
-    if (quotes && quotes.length > 0) {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      const randomQuote = quotes[randomIndex];
-      console.log("Selected quote:", randomQuote); // Log the selected random quote
-
-      // Step 5: Create response with minimal cache headers to prevent caching
-      const response = NextResponse.json(randomQuote);
-      response.headers.set("Cache-Control", "no-store"); // Ensure the response is not cached
-      return response;
-    } else {
-      // Step 6: If no quotes are available, return a 404 response with a message
-      console.warn("No quotes available in Supabase");
+    if (rows.length === 0) {
       return NextResponse.json(
         { message: "No quotes available" },
-        { status: 404 }
+        { status: 404 },
       );
     }
+
+    const q = rows[0];
+    return NextResponse.json(
+      { id: q.id, text: q.text, book: q.book, author: q.author },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   } catch (error) {
-    // Step 8: Handle any errors that occur during the process and return a 500 response
-    console.error("Error fetching quote:", error);
+    console.error("Error fetching random quote:", error);
     return NextResponse.json(
       { error: "Failed to fetch quote" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
