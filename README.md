@@ -38,7 +38,40 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Roadmap 🏁
 
-- Save favourite punchlines
-- User-contributed quotes
-- Categories & voting
-- UI polish
+### UI / UX
+
+- [ ] **Pelevin avatar / iconography.** Commission (or AI-generate) a stylised
+      Viktor Pelevin face/silhouette in a single consistent visual language and
+      use it across the header, favicon, social cards and empty states to give
+      the site a recognisable identity.
+- [ ] **Dark & light theme.** System-aware by default with a manual toggle
+      persisted to `localStorage`. Wire CSS variables in `globals.css` and a
+      `<ThemeProvider>` in `app/layout.tsx`.
+- [ ] **Graceful error & loading feedback.** Replace silent `console.error`
+      with user-visible toasts / inline messages for fetch failures, empty
+      states and rate-limit responses.
+
+### Features
+
+- [ ] **Auth flow.** Add sign-in (email magic link + GitHub/Google) via a
+      Vercel-Marketplace provider (Clerk or Auth.js + Neon). Required as the
+      foundation for everything below.
+- [ ] **Bookmarks.** Logged-in users can ❤️ a quote; persist `(user_id, quote_id)`
+      in a `bookmarks` table and expose `/bookmarks` page.
+- [ ] **AI quote generation.** Stream synthetic "Pelevin-style" quotes via the
+      Vercel AI SDK (AI Gateway). Mark generated quotes clearly as AI-authored
+      and store them in a separate `ai_quotes` table so they never pollute the
+      canonical dataset.
+- [ ] **Community submissions.** Authenticated users can propose new quotes
+      with source/book metadata. Submissions land in a `pending` queue and
+      become public after lightweight moderation.
+- [ ] **Public ranking.** Up/down-vote quotes; surface a `/top` leaderboard
+      with trending (last 7d) and all-time tabs. Use a materialised view or
+      Neon's read replicas to keep the hot read path cheap.
+
+### Infra / quality (nice-to-haves)
+
+- [ ] Playwright smoke tests in CI (golden path: load page → fetch quote → render).
+- [ ] OpenGraph / Twitter card images per quote (generated via `@vercel/og`).
+- [ ] Rate-limiting on `/api/randomQuote` via Vercel KV / Upstash to keep AI
+      generation costs predictable once enabled.
