@@ -1,0 +1,2402 @@
+[
+  {
+    "id": 1,
+    "quote": "Вы пытаетесь осветить мир карманным фонариком.",
+    "book_title": "Литинститут: выступление (1989)",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 2,
+    "quote": "Мнения автора могут не совпадать с его точкой зрения.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 3,
+    "quote": "Антирусский заговор, безусловно, существует.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 4,
+    "quote": "Герой нашего времени — телезритель.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 5,
+    "quote": "Реклама мечтает быть государством.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 6,
+    "quote": "Массовое сознание питается картинками.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 7,
+    "quote": "Рынок производит даже бунт.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 8,
+    "quote": "Вера, которую не разделяют, — шизофрения.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 9,
+    "quote": "Жить надо чисто.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 10,
+    "quote": "Империя — это эффект гламура.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 11,
+    "quote": "Гламур — это секс, выраженный через деньги.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 12,
+    "quote": "Мы любим тех, кому сделали добро мы сами.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 13,
+    "quote": "Кровь мира течёт по сосудам рынка.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 14,
+    "quote": "Сосу не я, сосут все остальные.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 15,
+    "quote": "Баблос — универсальный эликсир.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 16,
+    "quote": "Сила всегда в силе. И ни в чём другом.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 17,
+    "quote": "Война — это медиаформат.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 18,
+    "quote": "Революции делают для телевидения.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 19,
+    "quote": "Правда — то, что остаётся без камеры.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 20,
+    "quote": "Орков придумали потом.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 21,
+    "quote": "В оркских деревнях боятся СВЧ-печек.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 22,
+    "quote": "Моё название — полицейско-литературный робот.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 23,
+    "quote": "Меня не существует в прямом смысле.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 24,
+    "quote": "Люди — класс бесов, питающихся чужой болью.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 25,
+    "quote": "Счастье — позволено отойти от стола.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 26,
+    "quote": "То, чего нет в словаре, не существует.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 27,
+    "quote": "Понимание происходящего не даёт смысла.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 28,
+    "quote": "Прошлое — локомотив, тянущий будущее.",
+    "book_title": "Жёлтая стрела",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 29,
+    "quote": "Настоящий свет — любой, до которого долетишь.",
+    "book_title": "Жизнь насекомых",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 30,
+    "quote": "Он понял нечто и перестал здороваться.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 31,
+    "quote": "Совесть зовёт в космос, а не в новости.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 32,
+    "quote": "Вообще не важно, откуда глядишь.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 33,
+    "quote": "Пустота — лучший политический советник.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 34,
+    "quote": "Чтобы спасти тонущего, мало протянуть руку.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 35,
+    "quote": "О, чёрт бы взял эту вечную достоевщину!",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 36,
+    "quote": "Было нечего надеть, стало некуда носить.",
+    "book_title": "Тайные виды на гору Фудзи",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 37,
+    "quote": "В этом мире есть лишь поток изменений.",
+    "book_title": "Тайные виды на гору Фудзи",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 38,
+    "quote": "Про жизнь бессмысленно думать — её живут.",
+    "book_title": "Непобедимое Солнце",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 39,
+    "quote": "Деточка, о жизни нельзя думать в стороне.",
+    "book_title": "Непобедимое Солнце",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 40,
+    "quote": "Существование — не выстрел из пушки.",
+    "book_title": "t",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 41,
+    "quote": "Жизнь — текст, который пишет сам себя.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 42,
+    "quote": "Реальность — оксюморон из одного слова.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 43,
+    "quote": "Реальность — любая галлюцинация на 100%.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 44,
+    "quote": "Государство существует прежде всего в голове.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 45,
+    "quote": "Пропаганда — технология внимания.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 46,
+    "quote": "Культура — вирус внимания.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 47,
+    "quote": "Любая идеология — упаковка страха.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 48,
+    "quote": "Свобода — внимательное наблюдение за умом.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 49,
+    "quote": "Быть свободным — видеть свой ум.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 50,
+    "quote": "Интернет — множество карманных телевизоров.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 51,
+    "quote": "Система объяснит тебе тебя самого.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 52,
+    "quote": "Нацидея — упаковка для пустоты.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 53,
+    "quote": "Россия — пространство внутренней эмиграции.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 54,
+    "quote": "Россия — страна несбыточных новостей.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 55,
+    "quote": "Карта новостей — желания элиты.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 56,
+    "quote": "Праздник жизни у нас делает Минкульт.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 57,
+    "quote": "Любовь — контент, который не устаревает.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 58,
+    "quote": "Инфа высоких рангов в блоги не попадёт.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 59,
+    "quote": "Любая система имитирует свободу выбора.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 60,
+    "quote": "Свобода начинается с отказа верить картинке.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 61,
+    "quote": "Границы проходят внутри головы.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 62,
+    "quote": "Сатана в России — чиновник с портфелем.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 63,
+    "quote": "Любое СМИ — инструмент монтажа реальности.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 64,
+    "quote": "Партия — бренд, а не судьба.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 65,
+    "quote": "Кино сильнее реальности, если верить в него.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 66,
+    "quote": "Русь стоит на магии слова.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 67,
+    "quote": "Наркотики решают лишь свои проблемы.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 68,
+    "quote": "Счастье — внимательное дыхание.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 69,
+    "quote": "Ты — центр, откуда исходит свет.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 70,
+    "quote": "Слово «реальность» издевается над собой.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 71,
+    "quote": "Вера в вечность держится на вере других.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 72,
+    "quote": "Когда исчезает субъект вечности, — всё исчезает.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 73,
+    "quote": "Русский космос — состояние души.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 74,
+    "quote": "Жизнь — это личный проект.",
+    "book_title": "Тайные виды на гору Фудзи",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 75,
+    "quote": "Любовь придаёт смысл, которого нет.",
+    "book_title": "Затворник и Шестипалый",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 76,
+    "quote": "Те, кто близко к кормушке, счастливы.",
+    "book_title": "Затворник и Шестипалый",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 77,
+    "quote": "Человек человеку уже не волк.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 78,
+    "quote": "Homo homini lupus est — устарело.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 79,
+    "quote": "Вампир в России — больше чем вампир.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 80,
+    "quote": "Россия — страна, где кино и новости смешаны.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 81,
+    "quote": "Сатира — хирургия языка.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 82,
+    "quote": "Культура — упаковка страха.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 83,
+    "quote": "Политика — жанр мифотворчества.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 84,
+    "quote": "Власть — это дискурс, а не люди.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 85,
+    "quote": "Любая революция — смена декораций.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 86,
+    "quote": "Рынок пережёвывает даже духовность.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 87,
+    "quote": "Государство тоже хочет лайков.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 88,
+    "quote": "Россия — страна несбыточной утопии эфира.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 89,
+    "quote": "Словарь определяет пределы мира.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 90,
+    "quote": "Счастье — позволено отойти от стола.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 91,
+    "quote": "Русь живёт вниманием к словам.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 92,
+    "quote": "Кино побеждает реальность монтажом.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 93,
+    "quote": "Война — контент, а не судьба.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 94,
+    "quote": "Субъект вечности — память о ней.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 95,
+    "quote": "Слово «я» — процесс, не субстанция.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 96,
+    "quote": "Инфляция счастья растёт.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 97,
+    "quote": "Чистая вера держится на других.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 98,
+    "quote": "Любая власть — сценарий.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 99,
+    "quote": "Гламур и дискурс — инь и ян.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 100,
+    "quote": "Дискурс — мерцание бессодержательных смыслов.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 101,
+    "quote": "Правда там, где жизнь.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 102,
+    "quote": "Про жизнь — не думать, а жить.",
+    "book_title": "Непобедимое Солнце",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 103,
+    "quote": "Герой — зритель, обученный хлопать.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 104,
+    "quote": "Любая идеология — форма страха.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 105,
+    "quote": "Свобода воли — интерпретация интерпретации.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 106,
+    "quote": "Всё уже было, но не со мной.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 107,
+    "quote": "Карта желаний элиты — это новости.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 108,
+    "quote": "Государство — интерфейс внимания.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 109,
+    "quote": "Любая система любит симулировать выбор.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 110,
+    "quote": "Русь — магия знаков и смыслов.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 111,
+    "quote": "Медиа создают видимость истории.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 112,
+    "quote": "Реклама сильнее факта, пока верят.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 113,
+    "quote": "Политика — PR, а PR — магия.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 114,
+    "quote": "Россия — страна сменных декораций.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 115,
+    "quote": "Счастье — быть целиком в сейчас.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 116,
+    "quote": "Ты — точка сборки внимания.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 117,
+    "quote": "Литературный робот тоже мечтает.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 118,
+    "quote": "Слова и есть реальность экрана.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 119,
+    "quote": "Субъект номер два — зритель.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 120,
+    "quote": "Россия — страна, где мифы рулят.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 121,
+    "quote": "Государство — рекламный кабинет.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 122,
+    "quote": "Кино — наркотик реальности.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 123,
+    "quote": "Свобода — увидеть свою картинку.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 124,
+    "quote": "Пустота — учитель политики.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 125,
+    "quote": "Гламур — религия денег.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 126,
+    "quote": "Вампиры — менеджеры смысла.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 127,
+    "quote": "Империя питается вниманием.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 128,
+    "quote": "Правда начинается за кадром.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 129,
+    "quote": "Слова важнее углов зрения.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 130,
+    "quote": "Смысл — это то, что видишь.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 131,
+    "quote": "Русь — страна внутреннего сюжета.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 132,
+    "quote": "Политический сюжет — монтаж страха.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 133,
+    "quote": "Счастье — отойти от стола игры.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 134,
+    "quote": "«Я» — бесконечный комментарий к себе.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 135,
+    "quote": "Мир — текст, пишущий сам себя.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 136,
+    "quote": "Россия — эффект коллективной фантазии.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 137,
+    "quote": "Рынок — зеркало бессмертных желаний.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 138,
+    "quote": "Государство — машина нарративов.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 139,
+    "quote": "Вера — режим отображения мира.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 140,
+    "quote": "Россия — страна, где эфир важнее факта.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 141,
+    "quote": "Словарь — границы восприятия.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 142,
+    "quote": "Метафора старше закона.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 143,
+    "quote": "Любая власть — игра в символы.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 144,
+    "quote": "Реклама — армия образов.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 145,
+    "quote": "Империя — медиа-эффект.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 146,
+    "quote": "Свобода — внимательность к уму.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 147,
+    "quote": "Гламур — фетиш прозрачных денег.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 148,
+    "quote": "Политика — дизайн внимания.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 149,
+    "quote": "Русь — ухо, настроенное на знак.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 150,
+    "quote": "Реальность — монтаж верований.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 151,
+    "quote": "Россия — где новости играют жизнь.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 152,
+    "quote": "Пустота — лучший спичрайтер.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 153,
+    "quote": "Кино — способ дышать эпохой.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 154,
+    "quote": "Любовь — единственный нескучный контент.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 155,
+    "quote": "Русь — это магия слуха и текста.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 156,
+    "quote": "Государство любит счётчики лайков.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 157,
+    "quote": "Субъект вечности — тот, кто помнит.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 158,
+    "quote": "Дискурс сильнее персонажей.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 159,
+    "quote": "Война — шоу для зрителя.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 160,
+    "quote": "Россия — хроника желаний экрана.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 161,
+    "quote": "Мы живем в визуальном обществе.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 162,
+    "quote": "Остальное — картинка.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 163,
+    "quote": "Глобальные урки мечтают о Лондоне.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 164,
+    "quote": "Потом сидят в Лондоне и смотрят Уркаину.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 165,
+    "quote": "Реклама сильнее факта, пока верят.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 166,
+    "quote": "Массовое сознание питается картинками.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 167,
+    "quote": "Партия — это бренд, а не судьба.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 168,
+    "quote": "Государство существует прежде всего в голове.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 169,
+    "quote": "Россия — пространство внутренней эмиграции.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 170,
+    "quote": "Карта новостей — желания элиты.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 171,
+    "quote": "Вера, которую не разделяют, — шизофрения.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 172,
+    "quote": "Когда исчезает субъект вечности — всё исчезает.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 173,
+    "quote": "Гламур — это секс, выраженный через деньги.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 174,
+    "quote": "Империя — это эффект гламура.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 175,
+    "quote": "Кровь мира течёт по сосудам рынка.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 176,
+    "quote": "Вампир в России — больше чем вампир.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 177,
+    "quote": "Интернет — множество карманных телевизоров.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 178,
+    "quote": "Система объяснит тебе тебя самого.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 179,
+    "quote": "Свобода — внимательное наблюдение за умом.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 180,
+    "quote": "Свобода воли — интерпретация интерпретации.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 181,
+    "quote": "Война — это медиаформат.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 182,
+    "quote": "Правда — то, что остаётся без камеры.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 183,
+    "quote": "Революции делают для телевидения.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 184,
+    "quote": "Герой нашего времени — телезритель.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 185,
+    "quote": "Русь стоит на магии слова.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 186,
+    "quote": "Реклама мечтает быть государством.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 187,
+    "quote": "Мир — текст, пишущий сам себя.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 188,
+    "quote": "Слова и есть реальность экрана.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 189,
+    "quote": "Россия — страна, где мифы рулят.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 190,
+    "quote": "Политика — PR, а PR — магия.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 191,
+    "quote": "Нацидея — упаковка для пустоты.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 192,
+    "quote": "Кино сильнее реальности, если верить.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 193,
+    "quote": "Сила всегда в силе. И ни в чём другом.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 194,
+    "quote": "Жизнь — текст, который пишет сам себя.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 195,
+    "quote": "Россия — страна несбыточных новостей.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 196,
+    "quote": "Любая идеология — упаковка страха.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 197,
+    "quote": "Империя питается вниманием.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 198,
+    "quote": "Гламур и дискурс — инь и ян.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 199,
+    "quote": "Любая власть — сценарий.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 200,
+    "quote": "Любое СМИ — монтаж реальности.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 201,
+    "quote": "Россия — пространство, где новости и кино легко меняются местами; иногда достаточно сменить титры, чтобы поменять жизнь.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 202,
+    "quote": "Государство существует прежде всего в голове: карты власти — это карты внимания, которые рисуют нам на экранах.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 203,
+    "quote": "Империя — это эффект гламура: он держится не на фактах, а на свечении, которое придаёт вещам значение.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 204,
+    "quote": "Реклама мечтает быть государством, а государство мечтает рекламой — чтобы вместо реальности показывать людям картинку.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 205,
+    "quote": "Политика — это PR, а PR — это магия: кто управляет образом, тот управляет «реальным» для большинства.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 206,
+    "quote": "Массовое сознание питается картинками, а не доводами; потому и спорят о роликах, а не о смыслах.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 207,
+    "quote": "В России на нас лежит особая ответственность: слишком много людей верит в то, что видит по телевизору.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 208,
+    "quote": "Свобода начинается с отказа верить картинке — не потому, что она лжёт, а потому, что она заменяет собой жизнь.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 209,
+    "quote": "Герой нашего времени — телезритель: он совершает подвиги удалённым кликом, а потом забывает, что кликал.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 210,
+    "quote": "Война — это медиаформат; для неё нужен режиссёр, монтаж и зритель, иначе она не состоится.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 211,
+    "quote": "Правда — это то, что остаётся без камеры; всё остальное зависит от угла, света и сметы.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 212,
+    "quote": "Революции делают для телевидения: если не вышло в эфир — значит, не произошло.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 213,
+    "quote": "Россия — страна внутренней эмиграции: здесь легче уехать из головы, чем из государства.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 214,
+    "quote": "Национальная идея — упаковка для пустоты; она хороша ровно настолько, насколько хорош дизайн обёртки.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 215,
+    "quote": "Любая идеология — это способ упаковать страх так, чтобы его можно было покупать и дарить.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 216,
+    "quote": "Россия понимает Запад слишком буквально, а Запад Россию — как сюжет; отсюда и вечное недоразумение.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 217,
+    "quote": "Империи всегда питаются вниманием; когда внимание иссякает, империя исчезает с экрана и из памяти.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 218,
+    "quote": "Гламур — религия прозрачных денег; у неё есть святые, мощи и обязательный чудесный свет.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 219,
+    "quote": "Сосу не я, сосут все остальные — и в этом признании больше честности, чем в целой речи о рынке.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 220,
+    "quote": "Вампир в России — больше чем вампир: у него есть управленческий функционал.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 221,
+    "quote": "Интернет — множество карманных телевизоров; люди стали экранами друг для друга и живут друг у друга в голове.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 222,
+    "quote": "Слова важнее углов зрения: от слов зависят и углы, и сам предмет.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 223,
+    "quote": "Русский космос — состояние души: оттуда проще позвонить Богу, чем соседу по лестничной клетке.",
+    "book_title": "Омон Ра",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 224,
+    "quote": "Пустота — лучший политический советник: она даёт возможность не сказать лишнего и услышать чужое.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 225,
+    "quote": "Чтобы спасти тонущего, мало протянуть руку — надо, чтобы он тоже захотел выплыть из своей истории.",
+    "book_title": "Чапаев и Пустота",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 226,
+    "quote": "Прошлое — локомотив, который тянет будущее; иногда лучше отвязать вагон, чем добавлять угля.",
+    "book_title": "Жёлтая стрела",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 227,
+    "quote": "Настоящий свет — любой, до которого ты долетишь, но не тот, о котором расскажут в новостях.",
+    "book_title": "Жизнь насекомых",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 228,
+    "quote": "То, для чего нет слова, для большинства не существует; поэтому словари — важнее конституций.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 229,
+    "quote": "Понимание происходящего не означает, что у происходящего есть смысл — особенно в ленте новостей.",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 230,
+    "quote": "Было нечего надеть, стало некуда носить — так цивилизация превращается в гардероб для памяти.",
+    "book_title": "Тайные виды на гору Фудзи",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 231,
+    "quote": "В этом мире есть только бесконечный поток изменений; стабильность — это рекламная акция.",
+    "book_title": "Тайные виды на гору Фудзи",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 232,
+    "quote": "Про жизнь бесполезно думать — жизнь можно только жить; остальное — обсуждение декораций.",
+    "book_title": "Непобедимое Солнце",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 233,
+    "quote": "Люди — специфический класс мелких бесов, питающихся чужой болью; новостные комментarii — их храм.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 234,
+    "quote": "Счастье — не в выигрыше, а в праве уйти от стола; новости не отпускают, пока не нажмёшь крестик.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 235,
+    "quote": "Россия — хроника желаний экрана; сюжет меняется, когда у владельцев канала меняются цели.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 236,
+    "quote": "Запад не понимает Россию, потому что ищет жанр; Россия не понимает Запад, потому что ищет автора.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 237,
+    "quote": "Карта новостей — это карта желаний элиты; остальное дорисуют зрители.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 238,
+    "quote": "Рынок пережёвывает даже духовность: он продаёт упаковку «смысл», внутри которой воздух.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 239,
+    "quote": "Праздник жизни у нас делает Минкульт — чтобы никто не перепутал радость с удовольствием.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 240,
+    "quote": "Россия — страна несбыточных новостей: то, что было вчера, сегодня снимают и называют завтра.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 241,
+    "quote": "Гламур и дискурс соотносятся как инь и ян: один мерцает, другой объясняет мерцание.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 242,
+    "quote": "Дискурс — мерцающая игра бессодержательных смыслов; зато он прекрасен на больших экранах.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 243,
+    "quote": "Империя питается вниманием — переливание «крови мира» идёт по медиаканалам.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 244,
+    "quote": "Герой — зритель, которого научили хлопать; дальше хлопает уже техника измерения рейтингов.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 245,
+    "quote": "Война — шоу для зрителя; без зрителя она скучна и нерентабельна.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 246,
+    "quote": "Правда начинается за кадром; кадр заканчивается там, где заканчивается бюджет.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 247,
+    "quote": "Россия — ухо, настроенное на знак; Запад предпочитает букву контракта.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 248,
+    "quote": "Словарь определяет границы мира; отсюда — вечная путаница переводов между «нами» и «ими».",
+    "book_title": "Бэтман Аполло",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 249,
+    "quote": "Свобода — внимательное наблюдение за умом; без этого свобода превращается в рекламный слоган.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 250,
+    "quote": "Реальность — это любая галлюцинация, в которую веришь на сто процентов; дело не в правде, а в ставке.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 251,
+    "quote": "Счастье — быть целиком в сейчас; любая идеология предлагает «потом», чтобы не отвечать за «сейчас».",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 252,
+    "quote": "Любая власть — сценарий; когда сценарий кончается, власть ищет продюсера.",
+    "book_title": "Generation «П»",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 253,
+    "quote": "Любая революция — смена декораций; зрители узнают это только на генеральной репетиции.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 254,
+    "quote": "Россия — это магия слова; иногда одно слово меняет больше, чем сотня законов.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 255,
+    "quote": "Русь живёт вниманием к словам: поэтому спорят не о смысле, а о произношении.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 256,
+    "quote": "Партия — бренд, а не судьба; судьбу придумывают копирайтеры.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 257,
+    "quote": "Слово «реальность» само издевается над собой; это лучший русский постмодернизм.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 258,
+    "quote": "Система всегда объяснит тебе тебя самого; это её самый популярный жанр.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 259,
+    "quote": "Информация высоких рангов в блогосферу не попадает; туда попадает то, что удобно обсуждать.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 260,
+    "quote": "Русь — страна внутреннего сюжета; иногда проще изменить сюжет, чем улицу.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 261,
+    "quote": "Государство — интерфейс внимания; чем ярче кнопки, тем меньше возможностей.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 262,
+    "quote": "Любовь — единственный контент, который не устаревает; остальное зависит от прошивки зрителя.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 263,
+    "quote": "Россия — где мифы рулят, а факты подвозят реквизит.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 264,
+    "quote": "Гламур — это секс, выраженный через деньги; потому он понятен всем языкам без перевода.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 265,
+    "quote": "Мы любим тех, кому сделали добро мы сами — это самый экономичный гуманизм.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 266,
+    "quote": "Баблос — универсальный эликсир; он лечит от сомнений в реальности.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Fiction"
+  },
+  {
+    "id": 267,
+    "quote": "Существование — не выстрел из пушки; это медленное задымление смысла.",
+    "book_title": "t",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 268,
+    "quote": "Жизнь — текст, который пишет сам себя; иногда автор — орфографический словарь.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 269,
+    "quote": "Русь — магия слуха и текста: слухи пишут новости, а тексты им подмигивают.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 270,
+    "quote": "Россия — страна сменных декораций; декорации вечные, труппа временная.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 271,
+    "quote": "Империя — медиа-эффект: исчезает, когда выключают подсветку.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 272,
+    "quote": "Кино побеждает реальность монтажом; потому реальность всегда на шаг позади.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 273,
+    "quote": "Счастье — внимательное дыхание; для него не нужен продюсер.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 274,
+    "quote": "Ты — точка сборки внимания; чужие новости собирают тебя изнутри.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 275,
+    "quote": "Россия — страна несбыточной утопии эфира; зато эфир всегда есть.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 276,
+    "quote": "Русь — ухо, настроенное на знак; Запад — глаз, настроенный на фасад.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 277,
+    "quote": "Любая система любит симулировать выбор; симуляция дешевле реформы.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 278,
+    "quote": "Свобода воли — интерпретация интерпретации; свобода жизни — выдох.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 279,
+    "quote": "Империя — это свет вокруг пустоты; чем пустота глубже, тем свет мягче.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 280,
+    "quote": "Гламур и власть обмениваются вниманием; итог — рейтинги вместо смысла.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 281,
+    "quote": "Россия — страна, где эфир важнее факта; факт можно доснять.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 282,
+    "quote": "Любая идеология начинает с титров; потом забывают, что это титры.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 283,
+    "quote": "Счастье — позволено отойти от стола; несчастье — когда стол круглосуточный.",
+    "book_title": "iPhuck 10",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 284,
+    "quote": "Слова и есть реальность экрана; меняешь слова — меняешь историю.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 285,
+    "quote": "Кино — способ дышать эпохой; воздух там фильтрует монтажёр.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 286,
+    "quote": "Россия — эффект коллективной фантазии; впрочем, любая страна — тоже.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 287,
+    "quote": "Государство — машина нарративов; иногда она буксует на слове «мы».",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 288,
+    "quote": "Русь — это магия знаков и смыслов; смысл распределяется по звукам.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 289,
+    "quote": "Политический сюжет — монтаж страха; бюджет — спецэффекты.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 290,
+    "quote": "Империя — всегда о свете; тьма ей нужна для контраста, не для смысла.",
+    "book_title": "Empire V",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 291,
+    "quote": "Россия — где мифы старше инструкций; инструкции всё равно не читают.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 292,
+    "quote": "Герой — зритель, обученный хлопать; зритель — герой, обученный молчать.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 293,
+    "quote": "Правда — то, что остаётся без камеры; совесть — то, что выключает свет.",
+    "book_title": "S.N.U.F.F.",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 294,
+    "quote": "Империя питается вниманием; Россия питается смыслом, который не продаётся.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 295,
+    "quote": "Запад видит Россию как жанр; Россия видит Запад как технологию.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 296,
+    "quote": "Русь — страна внутреннего сюжета; финалы тут не пишут, их переживают.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 297,
+    "quote": "Государство тоже хочет лайков; оно ставит их себе указами и отчётами.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 298,
+    "quote": "Свобода — увидеть свою картинку; несвобода — комментировать чужую.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 299,
+    "quote": "Россия — место, где слова сильнее стен; стены это помнят.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  },
+  {
+    "id": 300,
+    "quote": "Империя — медиа-эффект, Россия — акустический: у нас важнее услышать, чем увидеть.",
+    "book_title": "Интервью",
+    "author": "Виктор Пелевин",
+    "language": "Russian",
+    "category": "Philosophy"
+  }
+]

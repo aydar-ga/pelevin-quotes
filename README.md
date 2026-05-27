@@ -1,23 +1,44 @@
 ## About 📖
 
-This is my pet-project inspired by reading Victor Pelevin's works. I wanted to create a parallel universe of his books that would retain the Pelevin's literary spirit: i.e. witty satirical takes on our life. I have no doubts that some literary critics would note that the very essence of this project is partly a reflection of the slightly changed nature (sic!) of Pelevin's work in recent years. Viktor Olegovich, please don't take offense 😉
+A minimalist web app that serves witty quotes from Viktor Pelevin's works. Hit
+the button, get a fresh dose. Inspired by the spirit of his books — sharp
+satire on the slightly absurd nature of our reality.
 
-## Current status ✔️
+## Tech stack 🤖
 
-I wanted to have a minimalist web-site where you can tease your literature tastes. Foolproof simple as AK-47: hit the button and the machine will give you a new dose.
+- **Next.js 16** (App Router) on **Node.js 24**
+- **React 19**, **Tailwind CSS v4**, **TypeScript 6**
+- **Neon Postgres** (serverless) via Vercel Marketplace
+- **Drizzle ORM** for typed queries & migrations
+- **Vercel** for hosting & CI/CD
+- **GitHub Actions** for lint / type-check / build
 
-## Planned enhancements 🏁
+## Local development 🛠️
 
-I'm planning to implement these changes:
+```bash
+npm install
+vercel link            # link to the Vercel project
+vercel env pull .env.local   # download Neon connection string
+npm run db:seed        # one-off: seed 300 quotes into Neon
+npm run dev
+```
 
-- save your favourite punchlines
-- be able to contribute your versions of punchlines
-- have an option to categorise your punchlines
-- vote for your favourites
-- some UI sugar etc ...
+Open [http://localhost:3000](http://localhost:3000).
 
-## Technical setup 🤖
+## Project scripts
 
-- Next.js & Vercel & Supabase
-- GitHub Actions
-- Playwright
+| Script              | Purpose                                |
+| ------------------- | -------------------------------------- |
+| `npm run dev`       | Start Next.js dev server               |
+| `npm run build`     | Production build                       |
+| `npm run lint`      | ESLint (flat config)                   |
+| `npm run type-check`| `tsc --noEmit`                         |
+| `npm run db:push`   | Push Drizzle schema to Neon            |
+| `npm run db:seed`   | Reseed quotes table from `scripts/quotes.json` |
+
+## Roadmap 🏁
+
+- Save favourite punchlines
+- User-contributed quotes
+- Categories & voting
+- UI polish
