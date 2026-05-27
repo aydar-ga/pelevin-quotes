@@ -2,6 +2,10 @@ See AGENTS.md and docs/ for full project guidance.
 
 TL;DR:
 - Next.js 16 (App Router, React 19) + Drizzle + Neon Postgres on Vercel.
+- TDD is the default. Write a failing test in tests/ first, then implement.
+  Never commit with red tests. Precommit hook enforces it.
+- Keep README.md in sync with code in the SAME commit when the change
+  affects the pitch, stack, scripts, "Shipped", or roadmap.
 - Don't reintroduce Supabase.
 - No "what" comments — only "why", when non-obvious.
 - Tests live in tests/, never co-located. Run with `npm test`.
