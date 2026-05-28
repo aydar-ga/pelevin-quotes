@@ -1,6 +1,7 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import ErrorBanner from "../components/ErrorBanner";
 import PelevinIcon from "../components/PelevinIcon";
@@ -43,6 +44,12 @@ const Home = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--background)] p-4">
       <ThemeToggle />
+      <Link
+        href="/sign-in"
+        className="fixed top-4 left-4 rounded-md border border-[var(--card-border)] bg-[var(--card)] px-3 py-2 text-sm font-medium text-[var(--foreground)] hover:opacity-80"
+      >
+        Войти
+      </Link>
       <div className="mb-6 flex items-center gap-4 text-[var(--foreground)]">
         <PelevinIcon size={56} />
         <h1 className="text-4xl font-bold md:text-5xl">
