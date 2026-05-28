@@ -12,7 +12,10 @@ Live: **<https://pelevin-quotes.vercel.app>**
 - **React 19**, **Tailwind CSS v4**, **TypeScript 6**
 - **Neon Postgres** (serverless) via Vercel Marketplace
 - **Drizzle ORM** for typed queries & migrations
+- **Better Auth** (MIT) with magic-link sign-in
+- **Resend** for transactional email (optional; falls back to logging)
 - **Vitest** + **Testing Library** for unit tests (TDD by default — see below)
+- **Playwright** + **mail.tm** for E2E (auth flow against a real temp inbox)
 - **Husky** + **lint-staged** for the precommit gate
 - **Vercel** for hosting & CI/CD
 - **GitHub Actions** for lint / type-check / test / build
@@ -40,6 +43,7 @@ Open <http://localhost:3000>.
 | `npm test`              | Vitest, single run                               |
 | `npm run test:watch`    | Vitest in watch mode (TDD loop)                  |
 | `npm run test:coverage` | Vitest with v8 coverage → `coverage/index.html`  |
+| `npm run test:e2e`      | Playwright E2E (spawns a dedicated dev server)   |
 | `npm run db:push`       | Push Drizzle schema to Neon                      |
 | `npm run db:seed`       | Reseed quotes table from `scripts/quotes.json`   |
 
@@ -70,6 +74,7 @@ The README is the elevator pitch. Everything else lives in [`docs/`](./docs):
 - [Development](./docs/04-development.md)
 - [Deployment](./docs/05-deployment.md)
 - [Testing](./docs/06-testing.md)
+- [Authentication](./docs/07-auth.md)
 
 AI assistants pick up rules from [`AGENTS.md`](./AGENTS.md) (Codex / Cursor /
 Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
@@ -81,6 +86,10 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 ## Shipped ✅
 
+- **Magic-link auth** via Better Auth (MIT, OSS). Passwordless, one-field UX,
+  with `/sign-in` and a server-protected `/me` page.
+- **Playwright E2E** covering the full auth flow against a real temp inbox
+  (mail.tm) — see [`e2e/auth.spec.ts`](./e2e/auth.spec.ts).
 - Dark / light theme with FOUC-free bootstrap and a toggle
 - Inline error feedback with retry on API failures
 - 8-bit pixel-art Pelevin portrait used as header avatar, dynamic favicon,
@@ -94,9 +103,9 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 ### Features
 
-- [ ] **Auth flow.** Sign-in (email magic link + GitHub/Google) via a
-      Vercel-Marketplace provider (Clerk or Auth.js + Neon). Foundation for
-      everything below.
+- [ ] **OAuth providers.** Add Yandex + Google (and optionally Apple /
+      Telegram) sign-in to complement magic link. Better Auth handles them as
+      plugins.
 - [ ] **Bookmarks.** Logged-in users can ❤️ a quote; persist
       `(user_id, quote_id)` in a `bookmarks` table and expose a `/bookmarks`
       page.
@@ -113,7 +122,10 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 ### Infra / quality
 
-- [ ] Playwright smoke tests in CI (golden path: load page → fetch quote → render).
+- [ ] Run Playwright E2E in CI (smoke + auth path).
+- [ ] Verified sender domain on Resend so magic links actually deliver in
+      production (currently real email is only sent if `RESEND_API_KEY` is set
+      and a sender is verified).
 - [ ] OpenGraph / Twitter card images **per quote** (generated via
       `@vercel/og`).
 - [ ] Rate-limiting on `/api/randomQuote` via Upstash Redis to keep AI

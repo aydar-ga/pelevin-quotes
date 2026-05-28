@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Magic-link authentication via Better Auth (MIT) with the Drizzle adapter
+- `/sign-in` page + server-protected `/me` page + sign-out
+- Resend integration in `lib/email.ts` (no-ops gracefully without API key)
+- Playwright E2E test (`e2e/auth.spec.ts`) covering the full auth flow against
+  a real mail.tm temp inbox
+- `auth`-related tables (`user`, `session`, `account`, `verification`) pushed
+  to Neon
+- `npm run test:e2e` script
+- `docs/07-auth.md`
+
 ## [2.0.0] - 2026-05-27
 
 ### Changed
