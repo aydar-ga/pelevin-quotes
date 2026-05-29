@@ -8,6 +8,8 @@ import {
 describe("dev-test-auth", () => {
   beforeEach(() => {
     vi.unstubAllEnvs();
+    // Vitest inherits process env (e.g. Playwright step in CI); unit tests assert defaults.
+    delete process.env.DEV_TEST_AUTH;
   });
 
   afterEach(() => {
