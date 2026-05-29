@@ -1,17 +1,11 @@
 import { expect, test } from "@playwright/test";
-import { E2E_TEST_USER_EMAIL, signInViaMagicLink } from "./helpers/auth";
+import { DEV_TEST_USER_EMAIL, signInForE2E, signOutViaUI } from "./helpers/auth";
 
-test.describe("auth (magic link)", () => {
-  test("user lands on the home dashboard after magic link sign-in", async ({
+test.describe("auth (dev test login)", () => {
+  test("user lands on home, sees account panel, and can sign out", async ({
     page,
-    baseURL,
   }) => {
-    test.info().annotations.push({
-      type: "email",
-      description: E2E_TEST_USER_EMAIL,
-    });
-
-    await signInViaMagicLink(page, baseURL!);
+    await signInForE2E(page);
 
     await expect(
       page.getByRole("heading", { name: /цитатки из пелевина/i }),
@@ -19,11 +13,10 @@ test.describe("auth (magic link)", () => {
 
     await page.getByTestId("auth-menu-trigger").click();
     await expect(page.getByTestId("account-panel-email")).toHaveText(
-      E2E_TEST_USER_EMAIL,
+      DEV_TEST_USER_EMAIL,
     );
 
-    await page.getByRole("button", { name: /выйти/i }).click();
-    await expect(page).toHaveURL(/\/$/);
+    await signOutViaUI(page);
     await expect(page.getByRole("button", { name: /войти/i })).toBeVisible();
   });
 });

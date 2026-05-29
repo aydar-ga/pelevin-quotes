@@ -51,7 +51,7 @@ npm run test:coverage     # v8 coverage → ./coverage/index.html
 
 - **API routes** — thin Drizzle wrappers; covered by Playwright in `e2e/api.spec.ts`
   (public quote endpoints, bookmarks auth, session API).
-- **Full browser flow** — magic-link sign-in in `e2e/auth.spec.ts`; both run in CI.
+- **Full browser flow** — dev-login auth in `e2e/auth.spec.ts`; both run in CI.
 
 ## E2E (Playwright)
 
@@ -60,12 +60,14 @@ npm run test:e2e
 ```
 
 Requires `DATABASE_URL` in `.env.local` (or env). Playwright spawns `next dev` on
-port `3100` with `E2E_TEST_MODE=true` — see `playwright.config.ts`.
+port `3100` with `DEV_TEST_AUTH=true`, `E2E_TEST_MODE=true`, and `RESEND_API_KEY`
+cleared — tests sign in via `/dev/login` (`dev@test.local`). **No magic-link UI,
+no Resend emails.**
 
 | Spec | Covers |
 | ---- | -------- |
-| `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/auth/get-session`, test helper |
-| `e2e/auth.spec.ts` | Magic-link sign-in UI + account panel sign-out |
+| `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/auth/get-session` |
+| `e2e/auth.spec.ts` | Dev login → account panel → sign-out |
 
 CI job **Playwright — API & auth E2E** runs on every push/PR (needs `DATABASE_URL` secret).
 

@@ -12,6 +12,7 @@ describe("magicLinkEmail", () => {
 
 describe("sendEmail", () => {
   const originalKey = process.env.RESEND_API_KEY;
+  const originalE2E = process.env.E2E_TEST_MODE;
 
   afterEach(() => {
     if (originalKey === undefined) {
@@ -19,10 +20,16 @@ describe("sendEmail", () => {
     } else {
       process.env.RESEND_API_KEY = originalKey;
     }
+    if (originalE2E === undefined) {
+      delete process.env.E2E_TEST_MODE;
+    } else {
+      process.env.E2E_TEST_MODE = originalE2E;
+    }
   });
 
   it("no-ops with mocked:true when RESEND_API_KEY is missing", async () => {
     delete process.env.RESEND_API_KEY;
+    delete process.env.E2E_TEST_MODE;
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const result = await sendEmail({
       to: "a@b.c",
@@ -32,5 +39,19 @@ describe("sendEmail", () => {
     });
     expect(result.mocked).toBe(true);
     warn.mockRestore();
+  });
+
+  it("never sends via Resend when E2E_TEST_MODE is true", async () => {
+    process.env.E2E_TEST_MODE = "true";
+    process.env.RESEND_API_KEY = "re_test_key";
+
+    const result = await sendEmail({
+      to: "a@b.c",
+      subject: "x",
+      html: "<p>x</p>",
+      text: "x",
+    });
+
+    expect(result.mocked).toBe(true);
   });
 });

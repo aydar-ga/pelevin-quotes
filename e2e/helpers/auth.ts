@@ -1,37 +1,37 @@
 import type { Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
-export const E2E_TEST_USER_EMAIL =
-  process.env.E2E_TEST_USER_EMAIL ?? "aydarcyber@gmail.com";
+export const DEV_TEST_USER_EMAIL =
+  process.env.DEV_TEST_USER_EMAIL ?? "dev@test.local";
 
-export async function waitForMagicLink(
-  page: Page,
-  baseURL: string,
-  email: string,
-): Promise<string> {
-  for (let i = 0; i < 30; i++) {
-    const res = await page.request.get(
-      `${baseURL}/api/test/last-magic-link?email=${encodeURIComponent(email)}`,
-    );
-    if (res.ok()) {
-      const body = (await res.json()) as { url?: string; found?: boolean };
-      if (body.found && body.url) return body.url;
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500));
-  }
-  throw new Error(`magic link not captured for ${email}`);
+async function waitForSessionEmail(page: Page, email: string) {
+  await expect
+    .poll(async () => {
+      const res = await page.request.get("/api/auth/get-session");
+      const session = (await res.json()) as { user?: { email?: string } } | null;
+      return session?.user?.email ?? null;
+    })
+    .toBe(email);
 }
 
-export async function signInViaMagicLink(
-  page: Page,
-  baseURL: string,
-  email = E2E_TEST_USER_EMAIL,
-) {
-  await page.goto("/sign-in");
-  await page.getByLabel(/почта/i).fill(email);
-  await page.getByRole("button", { name: /прислать/i }).click();
-  await page.getByText(/проверь почту/i).waitFor();
+/** Signs in via /dev/login — no magic link UI, no Resend emails (see playwright.config.ts). */
+export async function signInForE2E(page: Page) {
+  if (process.env.DEV_TEST_AUTH !== "true") {
+    throw new Error(
+      "Playwright E2E requires DEV_TEST_AUTH=true on the webServer (see playwright.config.ts)",
+    );
+  }
 
-  const magicUrl = await waitForMagicLink(page, baseURL, email);
-  await page.goto(magicUrl);
+  await page.goto("/dev/login");
   await page.waitForURL(/\/(\?welcome=1)?$/);
+  await waitForSessionEmail(page, DEV_TEST_USER_EMAIL);
+}
+
+export async function signOutViaUI(page: Page) {
+  const logout = page.getByRole("button", { name: /выйти/i });
+  if (!(await logout.isVisible())) {
+    await page.getByTestId("auth-menu-trigger").click();
+  }
+  await logout.click();
+  await page.waitForURL(/\/$/);
 }

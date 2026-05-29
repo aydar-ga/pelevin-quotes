@@ -16,7 +16,7 @@ Live: **<https://pelevin-like.app>**
 - **Resend** for transactional email (optional; falls back to logging)
 - **@vercel/analytics** + **@vercel/speed-insights** (free tier — page views & Web Vitals)
 - **Vitest** + **Testing Library** for unit tests (TDD by default — see below)
-- **Playwright** + **mail.tm** for E2E (auth flow against a real temp inbox)
+- **Playwright** for E2E — API routes + dev-login auth (no Resend emails in CI)
 - **Husky** + **lint-staged** for the precommit gate
 - **Vercel** for hosting & CI/CD
 - **GitHub Actions** for lint / type-check / test / build
@@ -105,8 +105,7 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 - **Real email delivery** via Resend with a verified sender domain
   (`noreply@pelevin-like.app`). Magic links arrive in any inbox — Gmail,
   temp-mail, ProtonMail, etc.
-- **Playwright E2E** covering the full auth flow against a real temp inbox
-  (mail.tm) — see [`e2e/auth.spec.ts`](./e2e/auth.spec.ts).
+- **Playwright E2E** — dev-login auth + account panel (`e2e/auth.spec.ts`); runs in GitHub Actions CI.
 - **Playwright API E2E** — quote, bookmark, and session routes in
   [`e2e/api.spec.ts`](./e2e/api.spec.ts); runs in GitHub Actions CI.
 - Dark / light theme with FOUC-free bootstrap and a toggle
