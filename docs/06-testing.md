@@ -70,7 +70,8 @@ no Resend emails.**
 | `e2e/auth.spec.ts` | Dev login → account panel → sign-out |
 
 CI runs a single **test** job (lint → types → Vitest → Playwright API E2E), then
-**production build** — needs `DATABASE_URL` secret for the E2E steps.
+**production build**. E2E uses an ephemeral Postgres 16 service container in
+GitHub Actions — no Neon secret required.
 
 ## Writing a new test
 
