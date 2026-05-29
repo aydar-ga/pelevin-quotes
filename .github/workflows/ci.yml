@@ -1,9 +1,8 @@
 # CI for pelevin-quotes (Next.js + Neon + Better Auth).
 #
-# Sequential pipeline — all tests before production build:
-#   1. quality  — lint, types, Vitest unit tests
-#   2. e2e      — Playwright API + auth (dev login, no Resend)
-#   3. build    — production `next build` (runs only if tests pass)
+# Two jobs, sequential:
+#   1. test  — lint, types, Vitest unit tests, Playwright API E2E (single pipeline)
+#   2. build — production `next build` (only after all tests pass)
 #
 # E2E requires GitHub secret DATABASE_URL (Neon connection string).
 
@@ -23,9 +22,16 @@ on:
       - develop
 
 jobs:
-  quality:
-    name: Lint, types & unit tests
+  test:
+    name: Lint, types, unit & API E2E tests
     runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
+      DEV_TEST_AUTH: "true"
+      DEV_TEST_USER_EMAIL: dev@test.local
+      RESEND_API_KEY: ""
 
     steps:
       - name: Checkout — clone the repository at the triggering ref
@@ -49,9 +55,23 @@ jobs:
       - name: Vitest — unit & component tests in tests/
         run: npm test
 
+      - name: Secrets — fail fast if DATABASE_URL is missing (required for API E2E)
+        run: test -n "$DATABASE_URL"
+
+      - name: Drizzle migrate — apply pending SQL migrations to Neon before E2E
+        run: npm run db:migrate
+
+      - name: Playwright — download Chromium and OS dependencies for headless runs
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright — API smoke, bookmarks, session, and dev-login auth flow
+        run: npm run test:e2e
+        env:
+          CI: "true"
+
   build:
     name: Production build
-    needs: e2e
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -72,44 +92,3 @@ jobs:
         env:
           # Placeholder is enough; build does not query the database.
           DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgres://user:pass@localhost:5432/db?sslmode=require' }}
-
-  e2e:
-    name: Playwright — API & auth E2E
-    needs: quality
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout — clone the repository at the triggering ref
-        uses: actions/checkout@v5
-
-      - name: Node.js 24 — install runtime and cache npm dependencies
-        uses: actions/setup-node@v5
-        with:
-          node-version: "24"
-          cache: npm
-
-      - name: Dependencies — clean install from package-lock.json (npm ci)
-        run: npm ci
-
-      - name: Secrets — fail fast if DATABASE_URL is missing (required for API E2E)
-        run: test -n "$DATABASE_URL"
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-      - name: Drizzle migrate — apply pending SQL migrations to Neon before E2E
-        run: npm run db:migrate
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-      - name: Playwright — download Chromium and OS dependencies for headless runs
-        run: npx playwright install --with-deps chromium
-
-      - name: Playwright — API smoke, bookmarks, session, and dev-login auth flow
-        run: npm run test:e2e
-        env:
-          CI: "true"
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
-          DEV_TEST_AUTH: "true"
-          DEV_TEST_USER_EMAIL: dev@test.local
-          RESEND_API_KEY: ""
