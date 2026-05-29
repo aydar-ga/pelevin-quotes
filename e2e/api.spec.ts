@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { E2E_TEST_USER_EMAIL, signInViaMagicLink } from "./helpers/auth";
+import { DEV_TEST_USER_EMAIL, signInForE2E } from "./helpers/auth";
 
 test.describe("quote API (public)", () => {
   test("GET /api/randomQuote returns one quote", async ({ request }) => {
@@ -80,11 +80,8 @@ test.describe("bookmarks API (auth)", () => {
     expect(response.status()).toBe(401);
   });
 
-  test("authenticated user can list and toggle bookmarks", async ({
-    page,
-    baseURL,
-  }) => {
-    await signInViaMagicLink(page, baseURL!);
+  test("authenticated user can list and toggle bookmarks", async ({ page }) => {
+    await signInForE2E(page);
     const request = page.request;
 
     const random = await request.get("/api/randomQuote");
@@ -121,43 +118,14 @@ test.describe("bookmarks API (auth)", () => {
 
   test("POST /api/bookmarks returns 400 for invalid quoteId", async ({
     page,
-    baseURL,
   }) => {
-    await signInViaMagicLink(page, baseURL!);
-    const request = page.request;
+    await signInForE2E(page);
 
-    const response = await request.post("/api/bookmarks", {
+    const response = await page.request.post("/api/bookmarks", {
       data: { quoteId: "bad" },
     });
     expect(response.status()).toBe(400);
     expect(await response.json()).toMatchObject({ error: "Invalid quoteId" });
-  });
-});
-
-test.describe("E2E test helpers API", () => {
-  test("GET /api/test/last-magic-link requires email param", async ({
-    request,
-  }) => {
-    const response = await request.get("/api/test/last-magic-link");
-    expect(response.status()).toBe(400);
-  });
-
-  test("GET /api/test/last-magic-link returns found after sign-in request", async ({
-    page,
-    request,
-  }) => {
-    await page.goto("/sign-in");
-    await page.getByLabel(/почта/i).fill(E2E_TEST_USER_EMAIL);
-    await page.getByRole("button", { name: /прислать/i }).click();
-
-    const response = await request.get(
-      `/api/test/last-magic-link?email=${encodeURIComponent(E2E_TEST_USER_EMAIL)}`,
-    );
-    expect(response.status()).toBe(200);
-    expect(await response.json()).toMatchObject({
-      found: true,
-      url: expect.stringContaining("/api/auth/magic-link/verify"),
-    });
   });
 });
 
@@ -168,16 +136,13 @@ test.describe("Better Auth session API", () => {
     expect(await response.json()).toBeNull();
   });
 
-  test("GET /api/auth/get-session returns user after magic link", async ({
+  test("GET /api/auth/get-session returns user after dev login", async ({
     page,
-    baseURL,
   }) => {
-    await signInViaMagicLink(page, baseURL!);
+    await signInForE2E(page);
 
     const response = await page.request.get("/api/auth/get-session");
     expect(response.status()).toBe(200);
-
-    const session = await response.json();
-    expect(session?.user?.email).toBe(E2E_TEST_USER_EMAIL);
+    expect((await response.json())?.user?.email).toBe(DEV_TEST_USER_EMAIL);
   });
 });

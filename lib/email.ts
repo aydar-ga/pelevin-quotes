@@ -3,6 +3,10 @@ import { Resend } from "resend";
 type SendArgs = { to: string; subject: string; html: string; text: string };
 
 export async function sendEmail({ to, subject, html, text }: SendArgs) {
+  if (process.env.E2E_TEST_MODE === "true") {
+    return { id: null, mocked: true as const };
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.AUTH_EMAIL_FROM ?? "onboarding@resend.dev";
 

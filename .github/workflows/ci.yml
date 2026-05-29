@@ -91,13 +91,20 @@ jobs:
       - name: Dependencies — clean install from package-lock.json (npm ci)
         run: npm ci
 
+      - name: Drizzle migrate — apply pending SQL migrations to Neon before E2E
+        run: npm run db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Playwright — download Chromium and OS dependencies for headless runs
         run: npx playwright install --with-deps chromium
 
-      - name: Playwright — API smoke, bookmarks, session, and magic-link auth flow
+      - name: Playwright — API smoke, bookmarks, session, and dev-login auth flow
         run: npm run test:e2e
         env:
           CI: "true"
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
-          E2E_TEST_USER_EMAIL: ${{ secrets.E2E_TEST_USER_EMAIL || 'aydarcyber@gmail.com' }}
+          DEV_TEST_AUTH: "true"
+          DEV_TEST_USER_EMAIL: dev@test.local
+          RESEND_API_KEY: ""

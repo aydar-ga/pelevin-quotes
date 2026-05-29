@@ -52,8 +52,9 @@ and pushed with `npm run db:push`.
 | `BETTER_AUTH_URL`    | always             | Public base URL (used in magic links)  |
 | `RESEND_API_KEY`     | for real email     | If unset, emails are logged + cached   |
 | `AUTH_EMAIL_FROM`    | optional           | Sender address. Defaults to `onboarding@resend.dev` |
-| `E2E_TEST_MODE`      | tests only         | Enables `/api/test/last-magic-link`    |
-| `E2E_TEST_USER_EMAIL`| E2E only           | Fixed inbox for magic-link pickup. Defaults to `aydarcyber@gmail.com` |
+| `E2E_TEST_MODE`      | Playwright only    | Blocks Resend sends; enables `/api/test/last-magic-link` (manual/debug) |
+| `DEV_TEST_AUTH`      | local dev + E2E    | Enables `/dev/login` instant sign-in (`dev@test.local`) — **never in production** |
+| `DEV_TEST_USER_EMAIL`| optional           | Dev/E2E user email. Defaults to `dev@test.local` |
 
 Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
 
@@ -70,21 +71,22 @@ Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toStr
 | `/api/bookmarks`                  | List / toggle bookmarks (auth required)               |
 | `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** |
 
-## E2E flow (`e2e/auth.spec.ts`)
+## E2E flow (Playwright)
 
-1. Playwright uses a fixed test user (`E2E_TEST_USER_EMAIL`, default
-   `aydarcyber@gmail.com`) — the same address allowed by the Resend sandbox.
-2. Test navigates to `/sign-in` (redirects to `/?signIn=1`) and fills the panel form.
-3. Server's `sendMagicLink` callback fires:
-   - If `RESEND_API_KEY` is set, an email is sent to mail.tm.
-   - Always, the URL + token are stored in the in-process cache.
-4. Test polls `/api/test/last-magic-link?email=…` until the URL appears.
-5. Test navigates to the URL → Better Auth verifies → redirected to `/?welcome=1`.
-6. Test opens the account panel, asserts the email, clicks **Выйти**,
-   and confirms the sign-in button returns on `/`.
+Playwright **does not** exercise the magic-link UI or send Resend emails. The
+`playwright.config.ts` webServer sets `DEV_TEST_AUTH=true`, `E2E_TEST_MODE=true`,
+and clears `RESEND_API_KEY`. Tests call `/dev/login` via `e2e/helpers/auth.ts`:
 
-The same flow can be extended to poll a real temp inbox via
-`e2e/helpers/mailtm.ts` when testing full email delivery end-to-end.
+1. `GET /dev/login` creates a session for `dev@test.local` (magic link stored
+   in memory only; email skipped via `shouldSkipMagicLinkEmail`).
+2. Redirect to `/?welcome=1` — home page with account panel.
+3. `e2e/auth.spec.ts` opens the panel, asserts email, signs out.
+
+For manual magic-link debugging, `/api/test/last-magic-link?email=…` remains
+available when `E2E_TEST_MODE=true` (not used by automated E2E).
+
+Optional: `e2e/helpers/mailtm.ts` can poll a real temp inbox when testing full
+email delivery outside CI.
 
 ## Run E2E locally
 
@@ -92,9 +94,9 @@ The same flow can be extended to poll a real temp inbox via
 npm run test:e2e
 ```
 
-Playwright spawns a dedicated dev server on port `3100` with `E2E_TEST_MODE=true`
-(see `playwright.config.ts`). Existing `next dev` on port 3000 is reused if
-running.
+Playwright spawns a dedicated dev server on port `3100` with `DEV_TEST_AUTH=true`
+(see `playwright.config.ts`). Stop any other `next dev` in the same repo first
+(Next.js allows only one dev instance per directory).
 
 ## Production checklist
 
