@@ -4,7 +4,7 @@ config({ path: ".env" });
 
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { sql } from "drizzle-orm";
+import { count } from "drizzle-orm";
 import { createDb } from "../lib/db-client";
 import { quotes } from "../lib/schema";
 
@@ -41,11 +41,8 @@ async function main() {
 
   await db.insert(quotes).values(values);
 
-  const result = await db.execute<{ count: number }>(
-    sql`SELECT count(*)::int AS count FROM quotes`,
-  );
-  const count = Number(result.rows[0]?.count ?? 0);
-  console.log(`Seed complete. Rows in table: ${count}`);
+  const [{ value: rowCount }] = await db.select({ value: count() }).from(quotes);
+  console.log(`Seed complete. Rows in table: ${rowCount}`);
 }
 
 main().catch((err) => {

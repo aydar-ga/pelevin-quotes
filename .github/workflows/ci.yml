@@ -42,7 +42,7 @@ jobs:
           --health-retries 5
 
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/pelevin_ci
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/pelevin_ci?sslmode=disable
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
       RESEND_API_KEY: ""
 
@@ -68,13 +68,11 @@ jobs:
       - name: Vitest — unit & component tests in tests/
         run: npm test
 
-      - name: Database — push schema and seed quotes for API E2E
-        run: |
-          for i in $(seq 1 30); do
-            pg_isready -h localhost -p 5432 -U postgres && break
-            sleep 2
-          done
-          npm run db:push -- --force && npm run db:seed
+      - name: Database — push schema for API E2E
+        run: npm run db:push -- --force
+
+      - name: Database — seed quotes for API E2E
+        run: npm run db:seed
 
       - name: Playwright — download Chromium and OS dependencies for headless runs
         run: npx playwright install --with-deps chromium
