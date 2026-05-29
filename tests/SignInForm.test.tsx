@@ -23,7 +23,7 @@ describe("SignInForm", () => {
 
   it("submits the email and shows the 'check your mail' state on success", async () => {
     signInMagicLink.mockResolvedValueOnce({ data: { ok: true }, error: null });
-    render(<SignInForm callbackURL="/me" />);
+    render(<SignInForm callbackURL="/" />);
 
     await userEvent.type(
       screen.getByLabelText(/почта/i),
@@ -33,7 +33,7 @@ describe("SignInForm", () => {
 
     expect(signInMagicLink).toHaveBeenCalledWith({
       email: "test@example.com",
-      callbackURL: "/me",
+      callbackURL: "/",
     });
     expect(await screen.findByText(/проверь почту/i)).toBeInTheDocument();
     expect(screen.getByText("test@example.com")).toBeInTheDocument();

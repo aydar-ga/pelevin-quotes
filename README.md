@@ -4,7 +4,7 @@ A minimalist web app that serves witty quotes from Viktor Pelevin's works. Hit
 the button, get a fresh dose. Inspired by the spirit of his books — sharp
 satire on the slightly absurd nature of our reality.
 
-Live: **<https://pelevin-quotes.vercel.app>**
+Live: **<https://pelevin-like.app>**
 
 ## Tech stack 🤖
 
@@ -86,8 +86,12 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 ## Shipped ✅
 
+- **Custom domain** `https://pelevin-like.app` — owned, on Vercel DNS.
 - **Magic-link auth** via Better Auth (MIT, OSS). Passwordless, one-field UX,
-  with `/sign-in` and a server-protected `/me` page.
+  with `/sign-in` and session status on the home page (account menu in the header).
+- **Real email delivery** via Resend with a verified sender domain
+  (`noreply@pelevin-like.app`). Magic links arrive in any inbox — Gmail,
+  temp-mail, ProtonMail, etc.
 - **Playwright E2E** covering the full auth flow against a real temp inbox
   (mail.tm) — see [`e2e/auth.spec.ts`](./e2e/auth.spec.ts).
 - Dark / light theme with FOUC-free bootstrap and a toggle
@@ -103,9 +107,18 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 ### Features
 
-- [ ] **OAuth providers.** Add Yandex + Google (and optionally Apple /
-      Telegram) sign-in to complement magic link. Better Auth handles them as
-      plugins.
+- [ ] **Google OAuth via Better Auth.** Add `signIn.social({ provider: 'google' })`
+      so users can sign in without an email round-trip. Removes the
+      domain-verified-sender requirement for the primary signup path; magic
+      link stays as a fallback. ~5 lines of config + a Google Cloud OAuth
+      client + a `/privacy` page. See `docs/07-auth.md` for the full plan.
+- [ ] **Yandex / Apple OAuth.** Locally relevant for the Russian audience;
+      same plugin pattern as Google.
+- [ ] **Passkeys / WebAuthn.** Better Auth's `passkey` plugin — one-tap
+      repeat logins via Touch ID / Windows Hello / YubiKey. Additive on top
+      of magic link / OAuth (still need one of those for first-time signup
+      and device-loss recovery). `/settings/passkeys` page to register +
+      remove devices.
 - [ ] **Bookmarks.** Logged-in users can ❤️ a quote; persist
       `(user_id, quote_id)` in a `bookmarks` table and expose a `/bookmarks`
       page.
@@ -123,9 +136,6 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 ### Infra / quality
 
 - [ ] Run Playwright E2E in CI (smoke + auth path).
-- [ ] Verified sender domain on Resend so magic links actually deliver in
-      production (currently real email is only sent if `RESEND_API_KEY` is set
-      and a sender is verified).
 - [ ] OpenGraph / Twitter card images **per quote** (generated via
       `@vercel/og`).
 - [ ] Rate-limiting on `/api/randomQuote` via Upstash Redis to keep AI

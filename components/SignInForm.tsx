@@ -10,7 +10,7 @@ interface SignInFormProps {
   callbackURL?: string;
 }
 
-export default function SignInForm({ callbackURL = "/me" }: SignInFormProps) {
+export default function SignInForm({ callbackURL = "/" }: SignInFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");

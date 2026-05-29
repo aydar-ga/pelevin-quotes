@@ -53,6 +53,7 @@ and pushed with `npm run db:push`.
 | `RESEND_API_KEY`     | for real email     | If unset, emails are logged + cached   |
 | `AUTH_EMAIL_FROM`    | optional           | Sender address. Defaults to `onboarding@resend.dev` |
 | `E2E_TEST_MODE`      | tests only         | Enables `/api/test/last-magic-link`    |
+| `E2E_TEST_USER_EMAIL`| E2E only           | Fixed inbox for magic-link pickup. Defaults to `aydarcyber@gmail.com` |
 
 Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
 
@@ -60,27 +61,27 @@ Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toStr
 
 | Path                              | What it does                                          |
 | --------------------------------- | ----------------------------------------------------- |
-| `/sign-in`                        | Email form → calls `signIn.magicLink`                 |
-| `/me`                             | Server-protected; redirects to `/sign-in` if no session |
+| `/sign-in`                        | Email form → calls `signIn.magicLink` (redirects to `/` after verify) |
+| `/`                               | Quote home; header shows sign-in icon or signed-in account menu       |
+| `/me`                             | Redirects to `/` (legacy bookmark)                                    |
 | `/api/auth/[...all]`              | Better Auth catch-all (sign-in, verify, sign-out, etc.) |
 | `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** |
 
 ## E2E flow (`e2e/auth.spec.ts`)
 
-1. `e2e/helpers/mailtm.ts` creates a fresh **mail.tm** temp account
-   (real, receivable inbox).
+1. Playwright uses a fixed test user (`E2E_TEST_USER_EMAIL`, default
+   `aydarcyber@gmail.com`) — the same address allowed by the Resend sandbox.
 2. Test fills `/sign-in` with that address and submits.
 3. Server's `sendMagicLink` callback fires:
    - If `RESEND_API_KEY` is set, an email is sent to mail.tm.
    - Always, the URL + token are stored in the in-process cache.
 4. Test polls `/api/test/last-magic-link?email=…` until the URL appears.
-5. Test navigates to the URL → Better Auth verifies → redirected to `/me`.
-6. Test asserts the email is rendered on `/me`, then clicks **Выйти** and
-   confirms the redirect to `/`.
+5. Test navigates to the URL → Better Auth verifies → redirected to `/`.
+6. Test opens the account menu in the header, asserts the email, clicks **Выйти**,
+   and confirms the sign-in icon returns on `/`.
 
-The same flow runs against real email delivery if you set `RESEND_API_KEY`
-and switch the helper to fetch from the mail.tm inbox API (left as a small
-extension; the helper already creates a real, receivable mailbox).
+The same flow can be extended to poll a real temp inbox via
+`e2e/helpers/mailtm.ts` when testing full email delivery end-to-end.
 
 ## Run E2E locally
 
@@ -95,7 +96,10 @@ running.
 ## Production checklist
 
 - [x] `BETTER_AUTH_SECRET` set in Vercel (production + preview + dev).
-- [x] `BETTER_AUTH_URL` set to the public URL.
-- [ ] `RESEND_API_KEY` set (and a verified sender domain) to actually
-      deliver mail. Until then, the magic link is only logged to server output.
+- [x] `BETTER_AUTH_URL` set to `https://pelevin-like.app`.
+- [x] `RESEND_API_KEY` set in Vercel (production + dev).
+- [x] `AUTH_EMAIL_FROM=noreply@pelevin-like.app` set in Vercel.
+- [x] `pelevin-like.app` verified as a sending domain on Resend
+      (Frankfurt region, apex verification — SPF / DKIM / MX records live in
+      Vercel DNS). Magic links now deliver to any inbox.
 - [ ] `E2E_TEST_MODE` **must remain unset** in production.

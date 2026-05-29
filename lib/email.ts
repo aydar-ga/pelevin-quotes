@@ -22,7 +22,15 @@ export async function sendEmail({ to, subject, html, text }: SendArgs) {
     html,
     text,
   });
-  if (error) throw new Error(`Resend failed: ${error.message}`);
+  if (error) {
+    if (process.env.E2E_TEST_MODE === "true") {
+      console.warn(
+        `[email] Resend failed in E2E mode (${error.message}) — magic link remains in memory.`,
+      );
+      return { id: null, mocked: true as const };
+    }
+    throw new Error(`Resend failed: ${error.message}`);
+  }
   return { id: data?.id ?? null, mocked: false as const };
 }
 

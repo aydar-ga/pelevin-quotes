@@ -17,6 +17,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   to Neon
 - `npm run test:e2e` script
 - `docs/07-auth.md`
+- Custom domain `pelevin-like.app` (Vercel-registered, Vercel DNS); legacy
+  `pelevin-quotes.vercel.app` aliases to it.
+- Resend sending domain verified on the apex (`pelevin-like.app`,
+  Frankfurt region) — SPF / DKIM / MX records live in Vercel DNS.
+- `AUTH_EMAIL_FROM=noreply@pelevin-like.app` env var so Better Auth sends
+  from the verified sender; magic links now deliver to any inbox.
+
+### Changed
+
+- `BETTER_AUTH_URL` now points to `https://pelevin-like.app` (was the
+  `*.vercel.app` URL).
 
 ## [2.0.0] - 2026-05-27
 
