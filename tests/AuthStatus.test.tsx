@@ -15,19 +15,24 @@ vi.mock("@/components/SignInPanel", () => ({
     open ? <div data-testid="sign-in-panel">panel</div> : null,
 }));
 
-vi.mock("next/link", () => ({
+vi.mock("@/components/AccountPanel", () => ({
   default: ({
-    href,
-    children,
-    ...props
+    open,
+    email,
+    onSignOut,
   }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
+    open: boolean;
+    email: string;
+    onSignOut: () => void;
+  }) =>
+    open ? (
+      <div data-testid="account-panel">
+        <span data-testid="account-panel-email">{email}</span>
+        <button type="button" onClick={onSignOut}>
+          Выйти
+        </button>
+      </div>
+    ) : null,
 }));
 
 const push = vi.fn();
@@ -65,25 +70,34 @@ describe("AuthStatus", () => {
     expect(screen.getByRole("button", { name: "Войти" })).toBeInTheDocument();
   });
 
-  it("opens an account menu with bookmarks link", async () => {
+  it("opens the account panel with bookmarks when authenticated", async () => {
     useSession.mockReturnValue({
       data: { user: { email: "pelevin-e2e-test@mail.tm" } },
       isPending: false,
     });
-    render(<AuthStatus />);
+    render(
+      <AuthStatus accountOpen onAccountOpen={vi.fn()} onAccountClose={vi.fn()} />,
+    );
 
-    await userEvent.click(screen.getByTestId("auth-menu-trigger"));
-
-    expect(screen.getByTestId("signed-in-email")).toHaveTextContent(
+    expect(screen.getByTestId("account-panel")).toBeInTheDocument();
+    expect(screen.getByTestId("account-panel-email")).toHaveTextContent(
       "pelevin-e2e-test@mail.tm",
     );
-    expect(screen.getByRole("menuitem", { name: /закладки/i })).toHaveAttribute(
-      "href",
-      "/bookmarks",
-    );
     expect(
-      screen.queryByText(/ты вошёл как/i),
+      screen.queryByRole("menuitem", { name: /закладки/i }),
     ).not.toBeInTheDocument();
+  });
+
+  it("opens account panel when the profile button is clicked", async () => {
+    useSession.mockReturnValue({
+      data: { user: { email: "pelevin-e2e-test@mail.tm" } },
+      isPending: false,
+    });
+    const onAccountOpen = vi.fn();
+    render(<AuthStatus onAccountOpen={onAccountOpen} onAccountClose={vi.fn()} />);
+
+    await userEvent.click(screen.getByTestId("auth-menu-trigger"));
+    expect(onAccountOpen).toHaveBeenCalled();
   });
 
   it("signs out and refreshes the home page", async () => {
@@ -91,10 +105,11 @@ describe("AuthStatus", () => {
       data: { user: { email: "pelevin-e2e-test@mail.tm" } },
       isPending: false,
     });
-    render(<AuthStatus />);
+    render(
+      <AuthStatus accountOpen onAccountOpen={vi.fn()} onAccountClose={vi.fn()} />,
+    );
 
-    await userEvent.click(screen.getByTestId("auth-menu-trigger"));
-    await userEvent.click(screen.getByRole("menuitem", { name: /выйти/i }));
+    await userEvent.click(screen.getByRole("button", { name: "Выйти" }));
 
     expect(signOut).toHaveBeenCalled();
     expect(push).toHaveBeenCalledWith("/");

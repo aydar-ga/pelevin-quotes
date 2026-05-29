@@ -27,6 +27,11 @@ export default function HomeClient() {
   const [signInOpen, setSignInOpen] = useState(
     () => searchParams.get("signIn") === "1",
   );
+  const [accountOpen, setAccountOpen] = useState(
+    () =>
+      searchParams.get("panel") === "account" ||
+      searchParams.get("bookmarks") === "1",
+  );
   const [signInHint, setSignInHint] = useState<string | undefined>(() =>
     searchParams.get("signIn") === "1"
       ? "Войди, чтобы сохранять цитаты в закладки."
@@ -39,8 +44,11 @@ export default function HomeClient() {
   useEffect(() => {
     const welcome = searchParams.get("welcome") === "1";
     const signIn = searchParams.get("signIn") === "1";
+    const account =
+      searchParams.get("panel") === "account" ||
+      searchParams.get("bookmarks") === "1";
     if (welcome) router.refresh();
-    if (welcome || signIn) {
+    if (welcome || signIn || account) {
       router.replace("/", { scroll: false });
     }
   }, [searchParams, router]);
@@ -97,13 +105,13 @@ export default function HomeClient() {
       ) {
         return;
       }
-      if (signInOpen || isLoading) return;
+      if (signInOpen || accountOpen || isLoading) return;
       event.preventDefault();
       void generateQuote();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [generateQuote, isLoading, signInOpen]);
+  }, [generateQuote, isLoading, signInOpen, accountOpen]);
 
   const toggleBookmark = async () => {
     if (quote.id == null) return;
@@ -149,6 +157,9 @@ export default function HomeClient() {
           setSignInHint(undefined);
         }}
         signInHint={signInHint}
+        accountOpen={accountOpen}
+        onAccountOpen={() => setAccountOpen(true)}
+        onAccountClose={() => setAccountOpen(false)}
       />
       <div className="mb-6 flex items-center gap-4 text-[var(--foreground)]">
         <PelevinIcon size={56} />

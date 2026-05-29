@@ -1,4 +1,7 @@
+import { config as loadEnv } from "dotenv";
 import { defineConfig, devices } from "@playwright/test";
+
+loadEnv({ path: ".env.local" });
 
 const PORT = Number(process.env.E2E_PORT ?? 3100);
 const BASE_URL = `http://localhost:${PORT}`;
@@ -28,6 +31,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
     env: {
+      DATABASE_URL: process.env.DATABASE_URL ?? "",
       E2E_TEST_MODE: "true",
       E2E_TEST_USER_EMAIL:
         process.env.E2E_TEST_USER_EMAIL ?? "aydarcyber@gmail.com",

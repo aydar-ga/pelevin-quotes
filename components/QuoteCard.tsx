@@ -52,7 +52,7 @@ const QuoteCard: React.FC<QuoteCardProps> = ({
             onSignInRequired={() => onSignInRequired?.()}
             disabled={bookmarkBusy}
           />
-          <QuoteActions quote={quote} book={book} quoteId={quoteId} empty={empty} />
+          <QuoteActions quoteId={quoteId} empty={empty} />
         </div>
       )}
     </div>
