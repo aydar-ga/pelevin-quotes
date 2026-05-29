@@ -1,9 +1,9 @@
 # CI for pelevin-quotes (Next.js + Neon + Better Auth).
 #
-# Three jobs:
+# Sequential pipeline — all tests before production build:
 #   1. quality  — lint, types, Vitest unit tests
-#   2. build    — production `next build` smoke check
-#   3. e2e      — Playwright hits real API routes + auth flow against Neon
+#   2. e2e      — Playwright API + auth (dev login, no Resend)
+#   3. build    — production `next build` (runs only if tests pass)
 #
 # E2E requires GitHub secret DATABASE_URL (Neon connection string).
 
@@ -51,7 +51,7 @@ jobs:
 
   build:
     name: Production build
-    needs: quality
+    needs: e2e
     runs-on: ubuntu-latest
 
     steps:
@@ -90,6 +90,11 @@ jobs:
 
       - name: Dependencies — clean install from package-lock.json (npm ci)
         run: npm ci
+
+      - name: Secrets — fail fast if DATABASE_URL is missing (required for API E2E)
+        run: test -n "$DATABASE_URL"
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Drizzle migrate — apply pending SQL migrations to Neon before E2E
         run: npm run db:migrate
