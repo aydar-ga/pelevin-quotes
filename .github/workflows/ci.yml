@@ -29,8 +29,6 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
-      DEV_TEST_AUTH: "true"
-      DEV_TEST_USER_EMAIL: dev@test.local
       RESEND_API_KEY: ""
 
     steps:
@@ -68,6 +66,8 @@ jobs:
         run: npm run test:e2e
         env:
           CI: "true"
+          DEV_TEST_AUTH: "true"
+          DEV_TEST_USER_EMAIL: dev@test.local
 
   build:
     name: Production build
