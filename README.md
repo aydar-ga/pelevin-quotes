@@ -14,6 +14,7 @@ Live: **<https://pelevin-like.app>**
 - **Drizzle ORM** for typed queries & migrations
 - **Better Auth** (MIT) with magic-link sign-in
 - **Resend** for transactional email (optional; falls back to logging)
+- **@vercel/analytics** + **@vercel/speed-insights** (free tier — page views & Web Vitals)
 - **Vitest** + **Testing Library** for unit tests (TDD by default — see below)
 - **Playwright** + **mail.tm** for E2E (auth flow against a real temp inbox)
 - **Husky** + **lint-staged** for the precommit gate
@@ -38,13 +39,16 @@ Open <http://localhost:3000>.
 | ----------------------- | ------------------------------------------------ |
 | `npm run dev`           | Start Next.js dev server                         |
 | `npm run build`         | Production build                                 |
+| `npm run vercel-build`  | Vercel build: migrate (if on Vercel) + `build`   |
 | `npm run lint`          | ESLint (flat config)                             |
 | `npm run type-check`    | `tsc --noEmit`                                   |
 | `npm test`              | Vitest, single run                               |
 | `npm run test:watch`    | Vitest in watch mode (TDD loop)                  |
 | `npm run test:coverage` | Vitest with v8 coverage → `coverage/index.html`  |
 | `npm run test:e2e`      | Playwright E2E (spawns a dedicated dev server)   |
-| `npm run db:push`       | Push Drizzle schema to Neon                      |
+| `npm run db:push`       | Push Drizzle schema to Neon (local prototyping)  |
+| `npm run db:generate`   | Generate SQL migration from schema changes       |
+| `npm run db:migrate`    | Apply pending migrations to Neon (production-safe) |
 | `npm run db:seed`       | Reseed quotes table from `scripts/quotes.json`   |
 
 ## Testing & TDD ✅
@@ -87,14 +91,24 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 ## Shipped ✅
 
 - **Custom domain** `https://pelevin-like.app` — owned, on Vercel DNS.
-- **Magic-link auth** via Better Auth (MIT, OSS). Passwordless, one-field UX,
-  with `/sign-in` and session status on the home page (account menu in the header).
+- **Magic-link auth** via Better Auth (MIT, OSS). Passwordless slide-in panel on
+  the home page; `/sign-in` redirects there. After email verification users land
+  on `/` with a welcome banner and an account menu in the header.
+- **Bookmarks** — logged-in users save quotes with a heart button; `/bookmarks`
+  lists saved items; header badge shows the count.
+- **Shareable permalinks** at `/q/[id]` with copy / native share actions.
+- **Per-quote Open Graph images** — dynamic PNG cards via `next/og` for Telegram,
+  VK, X previews.
+- **Vercel Analytics + Speed Insights** — free page-view and Web Vitals telemetry.
+- **Drizzle migrations** — versioned SQL in `drizzle/`; Vercel runs
+  `db:migrate` automatically before each deploy (`vercel.json` → `vercel-build`).
 - **Real email delivery** via Resend with a verified sender domain
   (`noreply@pelevin-like.app`). Magic links arrive in any inbox — Gmail,
   temp-mail, ProtonMail, etc.
 - **Playwright E2E** covering the full auth flow against a real temp inbox
   (mail.tm) — see [`e2e/auth.spec.ts`](./e2e/auth.spec.ts).
 - Dark / light theme with FOUC-free bootstrap and a toggle
+- Copy / share actions on quote cards; Space bar fetches a new quote on home
 - Inline error feedback with retry on API failures
 - 8-bit pixel-art Pelevin portrait used as header avatar, dynamic favicon,
   social card, and empty-state illustration
@@ -119,9 +133,6 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
       of magic link / OAuth (still need one of those for first-time signup
       and device-loss recovery). `/settings/passkeys` page to register +
       remove devices.
-- [ ] **Bookmarks.** Logged-in users can ❤️ a quote; persist
-      `(user_id, quote_id)` in a `bookmarks` table and expose a `/bookmarks`
-      page.
 - [ ] **AI quote generation.** Stream synthetic "Pelevin-style" quotes via the
       Vercel AI SDK (AI Gateway). Mark generated quotes clearly as AI-authored
       and store them in a separate `ai_quotes` table so they never pollute the
@@ -136,7 +147,5 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 ### Infra / quality
 
 - [ ] Run Playwright E2E in CI (smoke + auth path).
-- [ ] OpenGraph / Twitter card images **per quote** (generated via
-      `@vercel/og`).
 - [ ] Rate-limiting on `/api/randomQuote` via Upstash Redis to keep AI
       generation costs predictable once enabled.

@@ -15,6 +15,7 @@ test.describe("auth (magic link)", () => {
     });
 
     await page.goto("/sign-in");
+    await expect(page).toHaveURL(/\?signIn=1/);
     await page.getByLabel(/почта/i).fill(testUserEmail);
     await page.getByRole("button", { name: /прислать/i }).click();
     await expect(page.getByText(/проверь почту/i)).toBeVisible();
@@ -48,6 +49,6 @@ test.describe("auth (magic link)", () => {
 
     await page.getByRole("menuitem", { name: /выйти/i }).click();
     await expect(page).toHaveURL(/\/$/);
-    await expect(page.getByRole("link", { name: /войти/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /войти/i })).toBeVisible();
   });
 });

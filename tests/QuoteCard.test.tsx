@@ -1,5 +1,26 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("@/lib/auth-client", () => ({
+  useSession: () => ({ data: null, isPending: false }),
+}));
+
+vi.mock("@/components/BookmarkButton", () => ({
+  default: ({
+    onSignInRequired,
+  }: {
+    onSignInRequired: () => void;
+  }) => (
+    <button type="button" onClick={onSignInRequired}>
+      Bookmark
+    </button>
+  ),
+}));
+
+vi.mock("@/components/QuoteActions", () => ({
+  default: () => <div data-testid="quote-actions">actions</div>,
+}));
+
 import QuoteCard from "@/components/QuoteCard";
 
 describe("QuoteCard", () => {
@@ -14,9 +35,13 @@ describe("QuoteCard", () => {
   });
 
   it("hides the attribution when book is empty", () => {
-    const { container } = render(<QuoteCard quote="Test." book="" />);
-    expect(container.querySelector("p:last-child")?.textContent).toMatch(
-      /^"Test\."$/,
-    );
+    render(<QuoteCard quote="Test." book="" empty />);
+    expect(screen.getByText(/"Test\."/)).toBeInTheDocument();
+    expect(screen.queryByText(/^- /)).not.toBeInTheDocument();
+  });
+
+  it("announces quote updates via aria-live", () => {
+    render(<QuoteCard quote="Test." book="Book" />);
+    expect(screen.getByText(/"Test\."/)).toHaveAttribute("aria-live", "polite");
   });
 });

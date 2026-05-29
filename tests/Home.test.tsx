@@ -1,20 +1,42 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import Home from "@/app/page";
+import HomeClient from "@/app/HomeClient";
+
+const mockReplace = vi.fn();
+const mockRefresh = vi.fn();
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ replace: mockReplace, refresh: mockRefresh }),
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 vi.mock("@/components/AuthStatus", () => ({
   default: () => (
-    <a href="/sign-in" aria-label="Войти" className="fixed top-4 right-16">
+    <button type="button" aria-label="Войти">
       Sign in
-    </a>
+    </button>
   ),
 }));
 
-describe("Home", () => {
-  it("shows a minimal sign-in icon link on the right", () => {
-    render(<Home />);
-    const link = screen.getByRole("link", { name: "Войти" });
-    expect(link).toHaveAttribute("href", "/sign-in");
-    expect(link.className).toContain("right-16");
+describe("HomeClient", () => {
+  it("shows a sign-in control in the header area", () => {
+    render(<HomeClient />);
+    expect(screen.getByRole("button", { name: "Войти" })).toBeInTheDocument();
+  });
+
+  it("fetches a quote when Space is pressed", async () => {
+    const user = userEvent.setup();
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ id: 1, text: "Test quote", book: "Book" }),
+    });
+
+    render(<HomeClient />);
+    await user.keyboard(" ");
+
+    expect(global.fetch).toHaveBeenCalledWith("/api/randomQuote", {
+      cache: "no-store",
+    });
   });
 });

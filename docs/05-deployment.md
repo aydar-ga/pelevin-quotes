@@ -15,9 +15,11 @@ The historical `pelevin-quotes.vercel.app` alias still resolves and 301s to
 
 Vercel watches the `main` branch on GitHub. Every push:
 
-1. Vercel installs deps (cached) and runs `next build`.
-2. Bundles route handlers as Fluid Compute Functions.
-3. Promotes the resulting deployment to the `pelevin-like.app` apex (with
+1. Vercel installs deps (cached) and runs `npm run vercel-build`.
+2. `vercel-build` applies pending Drizzle migrations (`db:migrate`) when
+   `VERCEL=1` and `DATABASE_URL` are set, then runs `next build`.
+3. Bundles route handlers as Fluid Compute Functions.
+4. Promotes the resulting deployment to the `pelevin-like.app` apex (with
    the legacy `pelevin-quotes.vercel.app` alias redirecting).
 
 Preview deployments work identically but stay on their own URL.
@@ -60,3 +62,26 @@ npm ci → npm run lint → npm run type-check → npm run build
 
 CI does **not** run the seed script and does **not** require a real
 `DATABASE_URL` (the build only uses it at runtime).
+
+## Database migrations
+
+Migrations run **automatically** on every Vercel build (production and preview)
+via `vercel.json` → `npm run vercel-build` → `db:migrate` → `next build`.
+`DATABASE_URL` (and preferably `DATABASE_URL_UNPOOLED` for Drizzle Kit) must
+be set in the Vercel project — Neon Marketplace injects both.
+
+To apply migrations manually (e.g. before a `vercel deploy --prebuilt` workflow):
+
+```bash
+vercel env pull .env.local   # production or preview vars
+npm run db:migrate
+```
+
+See [`docs/03-database.md`](./03-database.md). Never use `db:push` against
+production.
+
+## Analytics
+
+Vercel Analytics and Speed Insights are enabled via `@vercel/analytics` and
+`@vercel/speed-insights` in `app/layout.tsx`. No env vars required — data
+appears in the Vercel dashboard (free on Hobby).

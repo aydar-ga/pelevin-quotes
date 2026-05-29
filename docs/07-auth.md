@@ -61,24 +61,27 @@ Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toStr
 
 | Path                              | What it does                                          |
 | --------------------------------- | ----------------------------------------------------- |
-| `/sign-in`                        | Email form → calls `signIn.magicLink` (redirects to `/` after verify) |
-| `/`                               | Quote home; header shows sign-in icon or signed-in account menu       |
-| `/me`                             | Redirects to `/` (legacy bookmark)                                    |
+| `/`                               | Quote home; slide-in sign-in panel; welcome banner after verify |
+| `/sign-in`                        | Redirects to `/?signIn=1` (opens sign-in panel on home) |
+| `/bookmarks`                      | Saved quotes (redirects to `/?signIn=1` when logged out) |
+| `/q/[id]`                         | Shareable quote permalink with OG image               |
+| `/me`                             | Redirects to `/` (legacy URL)                         |
 | `/api/auth/[...all]`              | Better Auth catch-all (sign-in, verify, sign-out, etc.) |
+| `/api/bookmarks`                  | List / toggle bookmarks (auth required)               |
 | `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** |
 
 ## E2E flow (`e2e/auth.spec.ts`)
 
 1. Playwright uses a fixed test user (`E2E_TEST_USER_EMAIL`, default
    `aydarcyber@gmail.com`) — the same address allowed by the Resend sandbox.
-2. Test fills `/sign-in` with that address and submits.
+2. Test navigates to `/sign-in` (redirects to `/?signIn=1`) and fills the panel form.
 3. Server's `sendMagicLink` callback fires:
    - If `RESEND_API_KEY` is set, an email is sent to mail.tm.
    - Always, the URL + token are stored in the in-process cache.
 4. Test polls `/api/test/last-magic-link?email=…` until the URL appears.
-5. Test navigates to the URL → Better Auth verifies → redirected to `/`.
+5. Test navigates to the URL → Better Auth verifies → redirected to `/?welcome=1`.
 6. Test opens the account menu in the header, asserts the email, clicks **Выйти**,
-   and confirms the sign-in icon returns on `/`.
+   and confirms the sign-in button returns on `/`.
 
 The same flow can be extended to poll a real temp inbox via
 `e2e/helpers/mailtm.ts` when testing full email delivery end-to-end.
