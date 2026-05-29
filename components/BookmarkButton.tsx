@@ -41,7 +41,7 @@ export default function BookmarkButton({
       onClick={handleClick}
       className={`${iconActionClass} ${
         bookmarked
-          ? "border-red-400/50 bg-red-500/10 text-red-400"
+          ? "border-red-500/30 text-red-400 hover:bg-red-500/10"
           : ""
       }`}
     >

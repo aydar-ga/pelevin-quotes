@@ -1,8 +1,18 @@
+# CI for pelevin-quotes (Next.js + Neon + Better Auth).
+#
+# Three jobs:
+#   1. quality  — lint, types, Vitest unit tests
+#   2. build    — production `next build` smoke check
+#   3. e2e      — Playwright hits real API routes + auth flow against Neon
+#
+# E2E requires GitHub secret DATABASE_URL (Neon connection string).
+
 name: Pelevin-Quotes CI
 
 on:
   push:
     branches:
+      - main
       - develop
       - "feature/*"
       - "fix/*"
@@ -13,29 +23,81 @@ on:
       - develop
 
 jobs:
-  build:
+  quality:
+    name: Lint, types & unit tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout — clone the repository at the triggering ref
         uses: actions/checkout@v5
 
-      - name: Setup Node.js
+      - name: Node.js 24 — install runtime and cache npm dependencies
         uses: actions/setup-node@v5
         with:
           node-version: "24"
-          cache: "npm"
+          cache: npm
 
-      - name: Install
+      - name: Dependencies — clean install from package-lock.json (npm ci)
         run: npm ci
 
-      - name: Lint
+      - name: ESLint — static analysis for bugs and style violations
         run: npm run lint
 
-      - name: Type check
+      - name: TypeScript — compile check without emitting files (tsc --noEmit)
         run: npm run type-check
 
-      - name: Build
+      - name: Vitest — unit & component tests in tests/
+        run: npm test
+
+  build:
+    name: Production build
+    needs: quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout — clone the repository at the triggering ref
+        uses: actions/checkout@v5
+
+      - name: Node.js 24 — install runtime and cache npm dependencies
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Dependencies — clean install from package-lock.json (npm ci)
+        run: npm ci
+
+      - name: Next.js build — verify the app compiles for production
         run: npm run build
         env:
+          # Placeholder is enough; build does not query the database.
           DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgres://user:pass@localhost:5432/db?sslmode=require' }}
+
+  e2e:
+    name: Playwright — API & auth E2E
+    needs: quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout — clone the repository at the triggering ref
+        uses: actions/checkout@v5
+
+      - name: Node.js 24 — install runtime and cache npm dependencies
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Dependencies — clean install from package-lock.json (npm ci)
+        run: npm ci
+
+      - name: Playwright — download Chromium and OS dependencies for headless runs
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright — API smoke, bookmarks, session, and magic-link auth flow
+        run: npm run test:e2e
+        env:
+          CI: "true"
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
+          E2E_TEST_USER_EMAIL: ${{ secrets.E2E_TEST_USER_EMAIL || 'aydarcyber@gmail.com' }}

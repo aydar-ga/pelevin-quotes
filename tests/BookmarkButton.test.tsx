@@ -49,4 +49,24 @@ describe("BookmarkButton", () => {
     await userEvent.click(screen.getByTestId("bookmark-button"));
     expect(onToggle).toHaveBeenCalled();
   });
+
+  it("reflects bookmarked state", () => {
+    useSession.mockReturnValue({
+      data: { user: { id: "u1" } },
+      isPending: false,
+    });
+    render(
+      <BookmarkButton
+        quoteId={42}
+        bookmarked
+        onToggle={vi.fn()}
+        onSignInRequired={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByTestId("bookmark-button")).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
 });

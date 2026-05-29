@@ -63,7 +63,7 @@ Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toStr
 | --------------------------------- | ----------------------------------------------------- |
 | `/`                               | Quote home; slide-in sign-in panel; welcome banner after verify |
 | `/sign-in`                        | Redirects to `/?signIn=1` (opens sign-in panel on home) |
-| `/bookmarks`                      | Saved quotes (redirects to `/?signIn=1` when logged out) |
+| `/bookmarks`                      | Redirects to home with account/bookmarks panel open (or `/?signIn=1` when logged out) |
 | `/q/[id]`                         | Shareable quote permalink with OG image               |
 | `/me`                             | Redirects to `/` (legacy URL)                         |
 | `/api/auth/[...all]`              | Better Auth catch-all (sign-in, verify, sign-out, etc.) |
@@ -80,7 +80,7 @@ Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toStr
    - Always, the URL + token are stored in the in-process cache.
 4. Test polls `/api/test/last-magic-link?email=…` until the URL appears.
 5. Test navigates to the URL → Better Auth verifies → redirected to `/?welcome=1`.
-6. Test opens the account menu in the header, asserts the email, clicks **Выйти**,
+6. Test opens the account panel, asserts the email, clicks **Выйти**,
    and confirms the sign-in button returns on `/`.
 
 The same flow can be extended to poll a real temp inbox via

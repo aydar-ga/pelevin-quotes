@@ -1,61 +1,41 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import QuoteActions from "@/components/QuoteActions";
 
+vi.mock("next/link", () => ({
+  default: ({
+    href,
+    children,
+    ...props
+  }: {
+    href: string;
+    children: React.ReactNode;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 describe("QuoteActions", () => {
-  it("copies quote text to clipboard", async () => {
-    const writeText = vi.fn().mockResolvedValue(undefined);
-    Object.assign(navigator, {
-      clipboard: { writeText },
-    });
+  it("links to the quote permalink", () => {
+    render(<QuoteActions quoteId={42} />);
 
-    render(
-      <QuoteActions quote="Жить надо чисто." book="Generation П" quoteId={1} />,
+    expect(screen.getByRole("link", { name: /открыть цитату/i })).toHaveAttribute(
+      "href",
+      "/q/42",
     );
-
-    await userEvent.click(screen.getByRole("button", { name: /копировать/i }));
-    expect(writeText).toHaveBeenCalledWith(
-      '"Жить надо чисто." — Generation П',
-    );
-    expect(await screen.findByRole("button", { name: /скопировано/i }))
-      .toBeInTheDocument();
   });
 
-  it("ignores duplicate share calls while a share sheet is open", async () => {
-    let resolveShare: (() => void) | undefined;
-    const share = vi.fn(
-      () =>
-        new Promise<void>((resolve) => {
-          resolveShare = resolve;
-        }),
-    );
-    Object.assign(navigator, { share, clipboard: { writeText: vi.fn() } });
-
-    render(
-      <QuoteActions quote="Жить надо чисто." book="Generation П" quoteId={1} />,
-    );
-
-    const shareButton = screen.getByRole("button", { name: /поделиться/i });
-    await userEvent.click(shareButton);
-    await userEvent.click(shareButton);
-
-    expect(share).toHaveBeenCalledTimes(1);
-    resolveShare?.();
+  it("renders nothing when quote id is missing", () => {
+    const { container } = render(<QuoteActions quoteId={null} />);
+    expect(container).toBeEmptyDOMElement();
   });
 
-  it("swallows InvalidStateError when share is already in progress", async () => {
-    const share = vi.fn().mockRejectedValue(
-      new DOMException("share() is already in progress", "InvalidStateError"),
-    );
-    Object.assign(navigator, { share, clipboard: { writeText: vi.fn() } });
-
-    render(
-      <QuoteActions quote="Жить надо чисто." book="Generation П" quoteId={1} />,
-    );
-
-    await expect(
-      userEvent.click(screen.getByRole("button", { name: /поделиться/i })),
-    ).resolves.not.toThrow();
+  it("does not show a copy control", () => {
+    render(<QuoteActions quoteId={1} />);
+    expect(
+      screen.queryByRole("button", { name: /копировать/i }),
+    ).not.toBeInTheDocument();
   });
 });

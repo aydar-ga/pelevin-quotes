@@ -82,6 +82,10 @@ production.
 
 ## Analytics
 
-Vercel Analytics and Speed Insights are enabled via `@vercel/analytics` and
-`@vercel/speed-insights` in `app/layout.tsx`. No env vars required — data
-appears in the Vercel dashboard (free on Hobby).
+1. In the [Vercel project dashboard](https://vercel.com), open **Analytics**
+   (and **Speed Insights** if you want Web Vitals) and click **Enable** for
+   the production environment.
+2. Code: `@vercel/analytics/next` and `@vercel/speed-insights/next` in
+   `app/layout.tsx`. No env vars required on Vercel (free on Hobby).
+3. Deploy, then browse the live site — the dashboard may take ~30 seconds to
+   leave the “Get Started” state after the first page views.

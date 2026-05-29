@@ -47,12 +47,27 @@ npm run test:coverage     # v8 coverage → ./coverage/index.html
 - **Pure helpers** in `lib/` — e.g. `lib/bookmarks.ts` toggle logic (mocked DB).
 - **Keyboard shortcut** — Space on the home page triggers a quote fetch.
 
-## What we don't (yet) test in unit tests
+## What we don't unit-test
 
-- **API routes** — thin wrappers around Drizzle; mock `@/lib/db` when they grow
-  validation or auth edge cases.
-- **Full browser flow** — covered by Playwright (`e2e/auth.spec.ts`); CI job
-  still on the roadmap.
+- **API routes** — thin Drizzle wrappers; covered by Playwright in `e2e/api.spec.ts`
+  (public quote endpoints, bookmarks auth, session API).
+- **Full browser flow** — magic-link sign-in in `e2e/auth.spec.ts`; both run in CI.
+
+## E2E (Playwright)
+
+```bash
+npm run test:e2e
+```
+
+Requires `DATABASE_URL` in `.env.local` (or env). Playwright spawns `next dev` on
+port `3100` with `E2E_TEST_MODE=true` — see `playwright.config.ts`.
+
+| Spec | Covers |
+| ---- | -------- |
+| `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/auth/get-session`, test helper |
+| `e2e/auth.spec.ts` | Magic-link sign-in UI + account panel sign-out |
+
+CI job **Playwright — API & auth E2E** runs on every push/PR (needs `DATABASE_URL` secret).
 
 ## Writing a new test
 

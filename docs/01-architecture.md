@@ -10,11 +10,10 @@ permalinks.
 │  (React 19)        │                    │  /api/bookmarks              │
 └─────────┬──────────┘                    │  /api/auth/[...all]          │
           │                               └──────────────┬───────────────┘
-          │ SignInPanel / bookmarks                      │ drizzle-orm
+          │ SignInPanel / AccountPanel                       │ drizzle-orm
           ▼                                              ▼
 ┌────────────────────┐                    ┌──────────────────────────────┐
-│  /bookmarks        │                    │   Neon Postgres              │
-│  /q/[id]           │                    │   quotes, user, session,     │
+│  /q/[id]           │                    │   Neon Postgres              │
 └────────────────────┘                    │   account, verification,     │
                                           │   bookmarks                  │
                                           └──────────────────────────────┘
@@ -29,7 +28,7 @@ permalinks.
 | `app/HomeClient.tsx`               | Quote button, keyboard shortcut, sign-in panel orchestration |
 | `app/q/[id]/page.tsx`              | Shareable quote permalink                                  |
 | `app/q/[id]/opengraph-image.tsx`   | Dynamic OG image per quote (`next/og`)                     |
-| `app/bookmarks/page.tsx`           | Logged-in user's saved quotes                              |
+| `app/bookmarks/page.tsx`           | Redirect → home with account panel open                    |
 | `app/sign-in/page.tsx`             | Redirects to `/?signIn=1` (panel on home)                  |
 | `app/api/randomQuote/route.ts`     | `GET` — `ORDER BY random() LIMIT 1`                        |
 | `app/api/allQuotes/route.ts`       | `GET` — full list (ISR, revalidate 1h)                     |
@@ -37,9 +36,11 @@ permalinks.
 | `app/api/quotes/[id]/route.ts`     | `GET` — quote detail + bookmark state                      |
 | `app/api/auth/[...all]/route.ts`   | Better Auth catch-all                                      |
 | `components/QuoteCard.tsx`         | Quote display, `aria-live`, bookmark + share actions       |
-| `components/SignInPanel.tsx`       | Slide-in magic-link form (home + permalink pages)          |
+| `components/AccountPanel.tsx`      | Slide-in account + grouped bookmarks list                  |
+| `components/SidePanel.tsx`         | Shared right-hand drawer shell                             |
 | `components/WelcomeBanner.tsx`     | Post-login welcome toast                                   |
-| `components/AuthStatus.tsx`        | Header account menu + bookmark count badge                 |
+| `components/SignInPanel.tsx`       | Slide-in magic-link form (home + permalink pages)          |
+| `components/AuthStatus.tsx`        | Header profile control + bookmark count badge              |
 | `lib/bookmarks.ts`                 | Bookmark CRUD helpers                                      |
 | `lib/auth.ts` / `lib/auth-server.ts` | Better Auth server config + session helper               |
 | `lib/schema.ts`                    | Drizzle table definitions                                  |
@@ -65,7 +66,7 @@ bookmarks(id, user_id → user, quote_id → quotes, created_at)
 2. User submits email → "Проверь почту" confirmation (animated).
 3. User clicks magic link in email → Better Auth verifies → redirect to `/?welcome=1`.
 4. Home shows `WelcomeBanner`; session appears in the header account menu.
-5. `/sign-in` and `/bookmarks` (when logged out) redirect to home with `?signIn=1`.
+5. `/sign-in` redirects to home with `?signIn=1`; `/bookmarks` opens the account panel on home.
 
 See [`docs/07-auth.md`](./07-auth.md) for env vars and E2E details.
 

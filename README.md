@@ -94,9 +94,9 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 - **Magic-link auth** via Better Auth (MIT, OSS). Passwordless slide-in panel on
   the home page; `/sign-in` redirects there. After email verification users land
   on `/` with a welcome banner and an account menu in the header.
-- **Bookmarks** — logged-in users save quotes with a heart button; `/bookmarks`
+- **Bookmarks** — logged-in users save quotes with a heart button; open the account side panel (profile icon) or visit `/bookmarks` (redirects home with the panel open)
   lists saved items; header badge shows the count.
-- **Shareable permalinks** at `/q/[id]` with copy / native share actions.
+- **Shareable permalinks** at `/q/[id]` — open via the link icon on quote cards.
 - **Per-quote Open Graph images** — dynamic PNG cards via `next/og` for Telegram,
   VK, X previews.
 - **Vercel Analytics + Speed Insights** — free page-view and Web Vitals telemetry.
@@ -107,8 +107,10 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
   temp-mail, ProtonMail, etc.
 - **Playwright E2E** covering the full auth flow against a real temp inbox
   (mail.tm) — see [`e2e/auth.spec.ts`](./e2e/auth.spec.ts).
+- **Playwright API E2E** — quote, bookmark, and session routes in
+  [`e2e/api.spec.ts`](./e2e/api.spec.ts); runs in GitHub Actions CI.
 - Dark / light theme with FOUC-free bootstrap and a toggle
-- Copy / share actions on quote cards; Space bar fetches a new quote on home
+- Heart + permalink link actions on quote cards; Space bar fetches a new quote on home
 - Inline error feedback with retry on API failures
 - 8-bit pixel-art Pelevin portrait used as header avatar, dynamic favicon,
   social card, and empty-state illustration
@@ -144,8 +146,5 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
       with trending (last 7d) and all-time tabs. Use a materialised view or
       Neon's read replicas to keep the hot read path cheap.
 
-### Infra / quality
-
-- [ ] Run Playwright E2E in CI (smoke + auth path).
 - [ ] Rate-limiting on `/api/randomQuote` via Upstash Redis to keep AI
       generation costs predictable once enabled.
