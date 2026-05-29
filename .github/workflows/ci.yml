@@ -4,7 +4,7 @@
 #   1. test  — lint, types, Vitest unit tests, Playwright API E2E (single pipeline)
 #   2. build — production `next build` (only after all tests pass)
 #
-# E2E requires GitHub secret DATABASE_URL (Neon connection string).
+# E2E uses an ephemeral Postgres 16 service container (no Neon secret required).
 
 name: Pelevin-Quotes CI
 
@@ -26,8 +26,23 @@ jobs:
     name: Lint, types, unit & API E2E tests
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: pelevin_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/pelevin_ci
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET || 'ci-e2e-32-byte-secret-pad-pad-pad-pad' }}
       RESEND_API_KEY: ""
 
@@ -53,11 +68,8 @@ jobs:
       - name: Vitest — unit & component tests in tests/
         run: npm test
 
-      - name: Secrets — fail fast if DATABASE_URL is missing (required for API E2E)
-        run: test -n "$DATABASE_URL"
-
-      - name: Drizzle migrate — apply pending SQL migrations to Neon before E2E
-        run: npm run db:migrate
+      - name: Database — push schema and seed quotes for API E2E
+        run: npm run db:push -- --force && npm run db:seed
 
       - name: Playwright — download Chromium and OS dependencies for headless runs
         run: npx playwright install --with-deps chromium
