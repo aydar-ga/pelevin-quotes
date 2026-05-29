@@ -69,8 +69,8 @@ no Resend emails.**
 | `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/auth/get-session` |
 | `e2e/auth.spec.ts` | Dev login → account panel → sign-out |
 
-CI job **Playwright — API & auth E2E** runs after unit tests and before the
-production build (needs `DATABASE_URL` secret).
+CI runs a single **test** job (lint → types → Vitest → Playwright API E2E), then
+**production build** — needs `DATABASE_URL` secret for the E2E steps.
 
 ## Writing a new test
 
