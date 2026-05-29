@@ -1,6 +1,7 @@
-import { neon, Pool } from "@neondatabase/serverless";
+import { neon } from "@neondatabase/serverless";
 import { drizzle as drizzleHttp } from "drizzle-orm/neon-http";
-import { drizzle as drizzleServerless } from "drizzle-orm/neon-serverless";
+import { drizzle as drizzleNodePostgres } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import * as schema from "./schema";
 
 export function isLocalPostgresUrl(connectionString: string) {
@@ -17,7 +18,7 @@ export function isLocalPostgresUrl(connectionString: string) {
 export function createDb(connectionString: string) {
   if (isLocalPostgresUrl(connectionString)) {
     const pool = new Pool({ connectionString });
-    return drizzleServerless(pool, { schema });
+    return drizzleNodePostgres(pool, { schema });
   }
 
   const sql = neon(connectionString);
