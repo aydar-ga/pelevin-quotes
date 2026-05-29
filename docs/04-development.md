@@ -20,20 +20,39 @@ npm run dev
 
 Open <http://localhost:3000>.
 
+### Dev test user (no email, no Resend)
+
+For manual bookmark/auth testing without magic-link email:
+
+```bash
+# .env.local
+DEV_TEST_AUTH=true
+DEV_TEST_USER_EMAIL=dev@test.local
+NEXT_PUBLIC_DEV_TEST_AUTH=true
+```
+
+Then visit <http://localhost:3000/dev/login> or use the link in the sign-in
+panel. This reuses the magic-link flow in-process and skips Resend for the dev
+address only. **Never set `DEV_TEST_AUTH` in production.**
+
+
 ## Scripts
 
 | Script               | What it does                                          |
 | -------------------- | ----------------------------------------------------- |
 | `npm run dev`        | Next.js dev server (Turbopack)                        |
-| `npm run build`      | Production build                                      |
+| `npm run build`      | Production build (`next build`)                       |
+| `npm run vercel-build` | Vercel pipeline: migrate (on Vercel) + build        |
 | `npm run start`      | Serve the production build locally                    |
 | `npm run lint`       | ESLint over the whole tree                            |
 | `npm run type-check` | `tsc --noEmit`                                        |
 | `npm test`           | Vitest, single run                                    |
 | `npm run test:watch` | Vitest in watch mode                                  |
 | `npm run test:coverage` | Vitest with v8 coverage → `coverage/index.html`    |
-| `npm run db:push`    | Apply `lib/schema.ts` changes to Neon                 |
-| `npm run db:seed`    | Drop + reseed `quotes` (destructive)                  |
+| `npm run db:generate`   | Generate SQL migration from schema changes         |
+| `npm run db:migrate`    | Apply pending migrations to Neon                     |
+| `npm run db:push`       | Push schema directly (local prototyping only)        |
+| `npm run db:seed`       | Drop + reseed `quotes` (destructive)                 |
 
 ## Precommit hook
 

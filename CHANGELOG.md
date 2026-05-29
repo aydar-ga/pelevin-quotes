@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Bookmarks: `bookmarks` table, `/api/bookmarks`, `/bookmarks` page, heart toggle
+  on quote cards, header badge with saved count
+- Shareable quote permalinks at `/q/[id]` with copy / native share actions
+- Per-quote Open Graph images via `next/og` (`app/q/[id]/opengraph-image.tsx`)
+- Slide-in `SignInPanel` on the home page; `/sign-in` redirects to `/?signIn=1`
+- Post-login `WelcomeBanner` on `/?welcome=1`
+- Space keyboard shortcut on home to fetch a new quote
+- Vercel Analytics + Speed Insights (free tier)
+- Drizzle migrations: `drizzle/0000_add_bookmarks.sql`, `npm run db:generate`,
+  `npm run db:migrate`; automated on Vercel via `vercel-build`
 - Magic-link authentication via Better Auth (MIT) with the Drizzle adapter
 - `/sign-in` page + server-protected `/me` page + sign-out
 - Resend integration in `lib/email.ts` (no-ops gracefully without API key)

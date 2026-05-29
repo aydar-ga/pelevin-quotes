@@ -11,7 +11,7 @@ The app only uses `DATABASE_URL` (pooled connection over HTTP via
 
 ## Schema (`lib/schema.ts`)
 
-Single table, declared with Drizzle:
+### `quotes`
 
 ```ts
 export const quotes = pgTable("quotes", {
@@ -25,16 +25,53 @@ export const quotes = pgTable("quotes", {
 });
 ```
 
+### Better Auth tables
+
+`user`, `session`, `account`, `verification` — declared in `lib/schema.ts`,
+managed by Better Auth via the Drizzle adapter.
+
+### `bookmarks`
+
+```ts
+export const bookmarks = pgTable("bookmarks", {
+  id:        serial("id").primaryKey(),
+  userId:    text("user_id").references(() => user.id, { onDelete: "cascade" }),
+  quoteId:   integer("quote_id").references(() => quotes.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (t) => [uniqueIndex("bookmarks_user_quote_idx").on(t.userId, t.quoteId)]);
+```
+
+## Migrations (preferred for production)
+
+Schema changes are versioned under `drizzle/` and applied with Drizzle Kit:
+
+```bash
+# 1. Edit lib/schema.ts
+npm run db:generate    # creates a new SQL file in drizzle/
+npm run db:migrate     # applies pending migrations to Neon
+```
+
+`db:push` remains available for rapid local prototyping. **Vercel deploys**
+run `npm run db:migrate` automatically via `vercel-build` (see
+[`docs/05-deployment.md`](./05-deployment.md)).
+
+Current migrations:
+
+| File                      | Change              |
+| ------------------------- | ------------------- |
+| `0000_add_bookmarks.sql`  | `bookmarks` table   |
+
 ## Local workflow
 
 ```bash
 vercel env pull .env.local   # get DATABASE_URL
-npm run db:push              # apply schema changes via drizzle-kit
+npm run db:migrate           # apply migrations
 npm run db:seed              # wipe + reseed quotes from scripts/quotes.json
 ```
 
 `scripts/seed.ts` is **destructive** — it drops the `quotes` table and rebuilds
 it. Run it only locally against a dev branch, or against a Neon preview branch.
+It does not touch auth or bookmark tables.
 
 ## Seed source
 

@@ -1,50 +1,11 @@
 import { ImageResponse } from "next/og";
+import { OG_PALETTE, OG_PIXELS, OG_PORTRAIT_SIZE } from "@/lib/og-pixels";
 
 export const alt = "Цитатки из Пелевина";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const PIXELS: readonly string[] = [
-  "BBBBBBBBBBBBBBBBBBBBBBBB",
-  "B......................B",
-  "B......................B",
-  "B........HHHHHHHH......B",
-  "B.......HHHHHHHHHH.....B",
-  "B......HHHHHHHHHHHH....B",
-  "B.....HHHHHHHHHHHHH....B",
-  "B....HHHSSSSSSSSHHHH...B",
-  "B....HHSSSSSSSSSSHHH...B",
-  "B....HSGGGGSGGGGGSHH...B",
-  "B....HSGGGGGGGGGGSHH...B",
-  "B....HSSSSSSSSSSSSSH...B",
-  "B.....SSSDDSSSSDDSS....B",
-  "B.....SSSSSDDSSSSSS....B",
-  "B......SSSSSSSSSSS.....B",
-  "B.......SSDDDDSSS......B",
-  "B........SSSSSSS.......B",
-  "B........SSSSSSS.......B",
-  "B....TTTTTTTTTTTTTT....B",
-  "B...TTTTTTTTTTTTTTTT...B",
-  "B..TTTTTTTbttbTTTTTTT..B",
-  "B..TTTTTTTbtttTTTTTTT..B",
-  "B..TTTTTTTTTTTTTTTTTT..B",
-  "BBBBBBBBBBBBBBBBBBBBBBBB",
-];
-
-const PALETTE: Record<string, string> = {
-  B: "#fbbf24",
-  ".": "#1f1410",
-  H: "#16100a",
-  S: "#d4a07a",
-  D: "#a67050",
-  G: "#000000",
-  T: "#c8b88a",
-  t: "#8a7a4c",
-  b: "#5a4a2c",
-};
-
-const PORTRAIT_SIZE = 360;
-const PX = PORTRAIT_SIZE / PIXELS.length;
+const PX = OG_PORTRAIT_SIZE / OG_PIXELS.length;
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -66,12 +27,12 @@ export default function OpengraphImage() {
         <div
           style={{
             position: "relative",
-            width: PORTRAIT_SIZE,
-            height: PORTRAIT_SIZE,
+            width: OG_PORTRAIT_SIZE,
+            height: OG_PORTRAIT_SIZE,
             display: "flex",
           }}
         >
-          {PIXELS.flatMap((row, y) =>
+          {OG_PIXELS.flatMap((row, y) =>
             [...row].map((ch, x) => (
               <div
                 key={`${x}-${y}`}
@@ -81,7 +42,7 @@ export default function OpengraphImage() {
                   top: y * PX,
                   width: PX,
                   height: PX,
-                  background: PALETTE[ch] ?? "transparent",
+                  background: OG_PALETTE[ch] ?? "transparent",
                 }}
               />
             )),

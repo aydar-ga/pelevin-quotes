@@ -78,7 +78,7 @@ Precommit hook runs the first three on every commit. CI re-runs them on push.
 | You want to…                              | Run / edit                                          |
 | ----------------------------------------- | --------------------------------------------------- |
 | Add a quote                               | Edit `scripts/quotes.json` → `npm run db:seed` (local) |
-| Add a column                              | Edit `lib/schema.ts` → `npm run db:push`            |
+| Add a column                              | Edit `lib/schema.ts` → `npm run db:generate` → `npm run db:migrate` |
 | Add a UI component                        | New file under `components/` + test in `tests/`     |
 | Add an API route                          | `app/api/<name>/route.ts` (App Router conventions)  |
 | Change theme colours                      | CSS variables in `app/globals.css`                  |

@@ -1,0 +1,40 @@
+export const OG_PIXELS: readonly string[] = [
+  "BBBBBBBBBBBBBBBBBBBBBBBB",
+  "B......................B",
+  "B......................B",
+  "B........HHHHHHHH......B",
+  "B.......HHHHHHHHHH.....B",
+  "B......HHHHHHHHHHHH....B",
+  "B.....HHHHHHHHHHHHH....B",
+  "B....HHHSSSSSSSSHHHH...B",
+  "B....HHSSSSSSSSSSHHH...B",
+  "B....HSGGGGSGGGGGSHH...B",
+  "B....HSGGGGGGGGGGSHH...B",
+  "B....HSSSSSSSSSSSSSH...B",
+  "B.....SSSDDSSSSDDSS....B",
+  "B.....SSSSSDDSSSSSS....B",
+  "B......SSSSSSSSSSS.....B",
+  "B.......SSDDDDSSS......B",
+  "B........SSSSSSS.......B",
+  "B........SSSSSSS.......B",
+  "B....TTTTTTTTTTTTTT....B",
+  "B...TTTTTTTTTTTTTTTT...B",
+  "B..TTTTTTTbttbTTTTTTT..B",
+  "B..TTTTTTTbtttTTTTTTT..B",
+  "B..TTTTTTTTTTTTTTTTTT..B",
+  "BBBBBBBBBBBBBBBBBBBBBBBB",
+];
+
+export const OG_PALETTE: Record<string, string> = {
+  B: "#fbbf24",
+  ".": "#1f1410",
+  H: "#16100a",
+  S: "#d4a07a",
+  D: "#a67050",
+  G: "#000000",
+  T: "#c8b88a",
+  t: "#8a7a4c",
+  b: "#5a4a2c",
+};
+
+export const OG_PORTRAIT_SIZE = 360;

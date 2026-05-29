@@ -1,10 +1,12 @@
 "use client";
 
-import { LogOut, User } from "lucide-react";
+import { LogOut, Bookmark, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "@/lib/auth-client";
+import { iconActionClass } from "@/lib/icon-button";
+import SignInPanel from "./SignInPanel";
 
 const shellClass =
   "flex h-10 w-10 items-center justify-center rounded-full border border-[var(--card-border)] bg-[var(--card)] text-[var(--foreground)] shadow-sm transition-colors hover:opacity-80";
@@ -18,11 +20,25 @@ function truncateEmail(email: string, max = 28): string {
   return `${local.slice(0, keep)}…@${domain}`;
 }
 
-export default function AuthStatus() {
+interface AuthStatusProps {
+  onSignInOpen?: () => void;
+  signInOpen?: boolean;
+  onSignInClose?: () => void;
+  signInHint?: string;
+}
+
+export default function AuthStatus({
+  onSignInOpen,
+  signInOpen = false,
+  onSignInClose,
+  signInHint,
+}: AuthStatusProps) {
   const { data: session, isPending } = useSession();
   const [open, setOpen] = useState(false);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const activeBookmarkCount = session?.user ? bookmarkCount : 0;
 
   useEffect(() => {
     if (!open) return;
@@ -33,6 +49,26 @@ export default function AuthStatus() {
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, [open]);
+
+  useEffect(() => {
+    if (!session?.user) return;
+
+    let cancelled = false;
+    fetch("/api/bookmarks", { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { total?: number } | null) => {
+        if (!cancelled && data?.total != null) setBookmarkCount(data.total);
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+    };
+  }, [session?.user]);
+
+  const handleSignInClick = () => {
+    onSignInOpen?.();
+  };
 
   if (isPending) {
     return (
@@ -45,13 +81,21 @@ export default function AuthStatus() {
 
   if (!session?.user) {
     return (
-      <Link
-        href="/sign-in"
-        aria-label="Войти"
-        className={`fixed top-4 right-16 ${shellClass}`}
-      >
-        <User className="h-5 w-5" />
-      </Link>
+      <>
+        <button
+          type="button"
+          aria-label="Войти"
+          onClick={handleSignInClick}
+          className={`fixed top-4 right-16 ${shellClass}`}
+        >
+          <User className="h-5 w-5" />
+        </button>
+        <SignInPanel
+          open={signInOpen}
+          onClose={() => onSignInClose?.()}
+          hint={signInHint}
+        />
+      </>
     );
   }
 
@@ -66,37 +110,64 @@ export default function AuthStatus() {
         aria-expanded={open}
         aria-haspopup="menu"
         onClick={() => setOpen((value) => !value)}
-        className={`${shellClass} border-[var(--accent)]`}
+        className={`relative ${shellClass} border-[var(--accent)]`}
       >
         <User className="h-5 w-5" />
+        {activeBookmarkCount > 0 && (
+          <span
+            data-testid="bookmark-count-badge"
+            className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white"
+          >
+            {activeBookmarkCount > 99 ? "99+" : activeBookmarkCount}
+          </span>
+        )}
       </button>
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-10 mt-2 w-64 rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-4 shadow-lg"
+          className="absolute right-0 z-10 mt-2 w-52 rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-3 shadow-lg"
         >
-          <p className="text-xs text-[var(--muted)]">Ты вошёл как</p>
           <p
             data-testid="signed-in-email"
-            className="mt-1 text-sm font-semibold break-all"
+            className="truncate text-sm font-medium text-[var(--foreground)]"
             title={email}
           >
             {truncateEmail(email)}
           </p>
-          <button
-            type="button"
-            role="menuitem"
-            onClick={async () => {
-              setOpen(false);
-              await signOut();
-              router.push("/");
-              router.refresh();
-            }}
-            className="mt-3 flex w-full items-center justify-center gap-2 rounded-md border border-[var(--card-border)] px-3 py-2 text-sm font-medium hover:opacity-80"
-          >
-            <LogOut className="h-4 w-4" />
-            Выйти
-          </button>
+          <div className="mt-3 flex items-center justify-end gap-1.5">
+            <Link
+              href="/bookmarks"
+              role="menuitem"
+              aria-label={
+                activeBookmarkCount > 0
+                  ? `Закладки (${activeBookmarkCount})`
+                  : "Закладки"
+              }
+              onClick={() => setOpen(false)}
+              className={`${iconActionClass} relative`}
+            >
+              <Bookmark className="h-4 w-4" aria-hidden />
+              {activeBookmarkCount > 0 && (
+                <span className="absolute -top-1 -right-1 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-red-500 px-0.5 text-[9px] font-bold text-white">
+                  {activeBookmarkCount > 99 ? "99+" : activeBookmarkCount}
+                </span>
+              )}
+            </Link>
+            <button
+              type="button"
+              role="menuitem"
+              aria-label="Выйти"
+              onClick={async () => {
+                setOpen(false);
+                await signOut();
+                router.push("/");
+                router.refresh();
+              }}
+              className={iconActionClass}
+            >
+              <LogOut className="h-4 w-4" aria-hidden />
+            </button>
+          </div>
         </div>
       )}
     </div>

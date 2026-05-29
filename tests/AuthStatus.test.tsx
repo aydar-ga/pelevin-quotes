@@ -10,6 +10,11 @@ vi.mock("@/lib/auth-client", () => ({
   signOut: (...args: unknown[]) => signOut(...args),
 }));
 
+vi.mock("@/components/SignInPanel", () => ({
+  default: ({ open }: { open: boolean }) =>
+    open ? <div data-testid="sign-in-panel">panel</div> : null,
+}));
+
 vi.mock("next/link", () => ({
   default: ({
     href,
@@ -41,17 +46,26 @@ describe("AuthStatus", () => {
     push.mockReset();
     refresh.mockReset();
     signOut.mockResolvedValue(undefined);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({ total: 3 }),
+      }),
+    );
   });
 
-  it("shows a sign-in link when there is no session", () => {
+  it("opens the sign-in panel when not authenticated", async () => {
     useSession.mockReturnValue({ data: null, isPending: false });
-    render(<AuthStatus />);
+    render(
+      <AuthStatus signInOpen onSignInOpen={vi.fn()} onSignInClose={vi.fn()} />,
+    );
 
-    const link = screen.getByRole("link", { name: "Войти" });
-    expect(link).toHaveAttribute("href", "/sign-in");
+    expect(screen.getByTestId("sign-in-panel")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Войти" })).toBeInTheDocument();
   });
 
-  it("opens an account menu with the signed-in email", async () => {
+  it("opens an account menu with bookmarks link", async () => {
     useSession.mockReturnValue({
       data: { user: { email: "pelevin-e2e-test@mail.tm" } },
       isPending: false,
@@ -63,7 +77,13 @@ describe("AuthStatus", () => {
     expect(screen.getByTestId("signed-in-email")).toHaveTextContent(
       "pelevin-e2e-test@mail.tm",
     );
-    expect(screen.getByRole("menuitem", { name: /выйти/i })).toBeInTheDocument();
+    expect(screen.getByRole("menuitem", { name: /закладки/i })).toHaveAttribute(
+      "href",
+      "/bookmarks",
+    );
+    expect(
+      screen.queryByText(/ты вошёл как/i),
+    ).not.toBeInTheDocument();
   });
 
   it("signs out and refreshes the home page", async () => {

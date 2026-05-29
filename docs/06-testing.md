@@ -44,13 +44,15 @@ npm run test:coverage     # v8 coverage → ./coverage/index.html
 
 - **Components** — render output, ARIA roles, event callbacks. Example:
   clicking the `ErrorBanner` retry button calls `onRetry`.
-- **Pure helpers** in `lib/` (none yet — add them as the surface grows).
+- **Pure helpers** in `lib/` — e.g. `lib/bookmarks.ts` toggle logic (mocked DB).
+- **Keyboard shortcut** — Space on the home page triggers a quote fetch.
 
-## What we don't (yet) test
+## What we don't (yet) test in unit tests
 
-- **API routes** — they're thin wrappers around Drizzle. When they grow logic
-  (auth checks, validation), mock the `db` import via `vi.mock("@/lib/db")`.
-- **Full browser flow** — planned as Playwright E2E in CI (see roadmap).
+- **API routes** — thin wrappers around Drizzle; mock `@/lib/db` when they grow
+  validation or auth edge cases.
+- **Full browser flow** — covered by Playwright (`e2e/auth.spec.ts`); CI job
+  still on the roadmap.
 
 ## Writing a new test
 

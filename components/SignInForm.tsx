@@ -10,7 +10,7 @@ interface SignInFormProps {
   callbackURL?: string;
 }
 
-export default function SignInForm({ callbackURL = "/" }: SignInFormProps) {
+export default function SignInForm({ callbackURL = "/?welcome=1" }: SignInFormProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,13 +32,13 @@ export default function SignInForm({ callbackURL = "/" }: SignInFormProps) {
     return (
       <div
         role="status"
-        className="w-full max-w-md rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-8 text-center text-[var(--foreground)]"
+        className="animate-fade-in w-full max-w-md rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-8 text-center text-[var(--foreground)]"
       >
-        <Mail className="mx-auto mb-3 h-8 w-8" />
+        <Mail className="mx-auto mb-3 h-8 w-8 animate-pulse-soft text-[var(--accent)]" />
         <p className="text-lg font-semibold">Проверь почту</p>
         <p className="mt-2 text-sm text-[var(--muted)]">
           Мы отправили ссылку на <strong>{email}</strong>. Ссылка действует
-          15&nbsp;минут.
+          15&nbsp;минут — после клика вернёшься на главную.
         </p>
       </div>
     );
