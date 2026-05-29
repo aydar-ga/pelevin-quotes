@@ -29,10 +29,13 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       E2E_TEST_MODE: "true",
+      E2E_TEST_USER_EMAIL:
+        process.env.E2E_TEST_USER_EMAIL ?? "aydarcyber@gmail.com",
       BETTER_AUTH_URL: BASE_URL,
       BETTER_AUTH_SECRET:
         process.env.BETTER_AUTH_SECRET ??
         "e2e-only-32-byte-secret-pad-pad-pad-pad",
+      RESEND_API_KEY: "",
     },
   },
 });

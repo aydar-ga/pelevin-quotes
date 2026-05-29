@@ -4,9 +4,12 @@
 
 | Environment | URL                                  | Trigger                          |
 | ----------- | ------------------------------------ | -------------------------------- |
-| Production  | https://pelevin-quotes.vercel.app    | `git push origin main`           |
+| Production  | https://pelevin-like.app             | `git push origin main`           |
 | Preview     | `https://pelevin-quotes-<sha>.vercel.app` | Any other branch / PR      |
 | Local       | http://localhost:3000                | `npm run dev`                    |
+
+The historical `pelevin-quotes.vercel.app` alias still resolves and 301s to
+`pelevin-like.app`; old links keep working.
 
 ## How it deploys
 
@@ -14,7 +17,8 @@ Vercel watches the `main` branch on GitHub. Every push:
 
 1. Vercel installs deps (cached) and runs `next build`.
 2. Bundles route handlers as Fluid Compute Functions.
-3. Promotes the resulting deployment to the `pelevin-quotes.vercel.app` alias.
+3. Promotes the resulting deployment to the `pelevin-like.app` apex (with
+   the legacy `pelevin-quotes.vercel.app` alias redirecting).
 
 Preview deployments work identically but stay on their own URL.
 
