@@ -69,7 +69,7 @@ npm run db:migrate           # apply migrations
 npm run db:seed              # wipe + reseed quotes from scripts/quotes.json
 ```
 
-`scripts/seed.ts` is **destructive** — it drops the `quotes` table and rebuilds
+`scripts/seed.ts` is **destructive** — it clears the `quotes` table and reloads
 it. Run it only locally against a dev branch, or against a Neon preview branch.
 It does not touch auth or bookmark tables.
 

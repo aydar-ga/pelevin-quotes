@@ -69,7 +69,12 @@ jobs:
         run: npm test
 
       - name: Database — push schema and seed quotes for API E2E
-        run: npm run db:push -- --force && npm run db:seed
+        run: |
+          for i in $(seq 1 30); do
+            pg_isready -h localhost -p 5432 -U postgres && break
+            sleep 2
+          done
+          npm run db:push -- --force && npm run db:seed
 
       - name: Playwright — download Chromium and OS dependencies for headless runs
         run: npx playwright install --with-deps chromium

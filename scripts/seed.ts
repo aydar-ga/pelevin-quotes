@@ -28,18 +28,7 @@ async function main() {
 
   console.log(`Seeding ${rows.length} quotes...`);
 
-  await db.execute(sql`DROP TABLE IF EXISTS quotes`);
-  await db.execute(sql`
-    CREATE TABLE quotes (
-      id serial PRIMARY KEY,
-      text text NOT NULL,
-      book varchar(255) NOT NULL,
-      author varchar(128) NOT NULL DEFAULT 'Виктор Пелевин',
-      language varchar(32) NOT NULL DEFAULT 'Russian',
-      category varchar(64),
-      length integer
-    )
-  `);
+  await db.delete(quotes);
 
   const values = rows.map((r) => ({
     text: r.quote,
