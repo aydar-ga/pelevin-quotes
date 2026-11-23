@@ -14,29 +14,6 @@ Agents add items here and never tick them; the owner ticks them.
 - [ ] **Enable auto-renew for `pelevin-like.app`** in Vercel → Domains. The
       domain expires on 2027-05-29. If it lapses, the site and the magic-link
       sender domain stop working.
-- [ ] **Sync your local checkout** after the 2026-11-23 agent run. Two things
-      changed on GitHub: your uncommitted copy of the voting feature is now on
-      `main` with review fixes, and the history was rewritten so that every
-      commit credits only `aydar-ga` (the 2024 work-email commits and the
-      Claude co-author lines were cleaned). File contents are unchanged, but
-      commit IDs are new, so `git pull` will refuse. Run these in order:
-
-      ```bash
-      cd ~/DevTools/Repos-Dev/pelevin-quotes
-      git stash push --include-untracked -m "local copy before 2026-11-23 sync"
-      git fetch origin
-      # Move your unpushed AI-toggle commit onto the new history.
-      # Run this BEFORE the reset; `git rebase --abort` undoes it on conflict.
-      git rebase --onto origin/main main feat/ai-quote-generation
-      git checkout main
-      git reset --hard origin/main
-      git branch -D orch/2026-11-23                          # agent's branch, already on main
-      nvm use && npm ci                                      # Node 24, from .nvmrc
-      git stash show --include-untracked --stat stash@{0}   # what the old copy had
-      git stash drop stash@{0}                               # once you are happy
-      ```
-
-      `.env.local` is git-ignored, so none of this touches it.
 - [ ] **Optional: set Vercel → Settings → Node.js Version to 24.x.** Builds
       already use Node 24 because `package.json` `engines.node` overrides the
       dashboard value (still 20.x). Changing it only removes the build warning.
@@ -44,6 +21,14 @@ Agents add items here and never tick them; the owner ticks them.
       `UPSTASH_REDIS_REST_TOKEN`) to Production. Without it, the random-quote
       and vote rate limits are per serverless instance, not global. See
       [`05-deployment.md`](./05-deployment.md).
+
+## Done
+
+- [x] **Sync your local checkout** after the 2026-11-23 history rewrite. Done
+      by the orchestrating agent on 2026-11-23: local `main` = `origin/main`
+      (`48ac745`); `feat/ai-quote-generation` transplanted onto the rewritten
+      base as `0f727e3`, Claude trailer stripped; backups kept as a stash and
+      tags `backup/2026-11-23/*`.
 
 ## Accepted, no action
 

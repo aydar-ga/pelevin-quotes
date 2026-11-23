@@ -2,7 +2,7 @@
 
 # 🕶️ Цитатки из Пелевина
 
-**Reality is a rumour. Here's a quote to prove it.** One button, one sharp line from Victor Pelevin, zero illusions left.
+**Reality is a rumour. Here's a quote to prove it.** One button, one sharp line in Pelevin's style, zero illusions left. Sounds like Pelevin. Isn't. That's the joke.
 
 ### [🕶️ Open → pelevin-like.app](https://pelevin-like.app)
 
@@ -15,31 +15,31 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/desktop-dark.webp">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/desktop-light.webp">
-  <img alt="Pelevin quotes home: a pixel-art Pelevin in sunglasses, a quote card with like, vote and share buttons, and the «Давай цитатку» button" src=".github/assets/desktop-dark.webp" width="860">
+  <img alt="Pelevin-style quotes home: a pixel-art Pelevin in sunglasses, a quote card with like, vote and share buttons, and the «Давай цитатку» button" src=".github/assets/desktop-dark.webp" width="860">
 </picture>
 
 </div>
 
-> *«Вера, которую не разделяют, — шизофрения.»* — Generation «П»
+> *«Вера, которую не разделяют, — шизофрения.»* — pelevin-like.app, line #8
 >
-> A faith nobody shares is just schizophrenia. Share yours: there are 300 more where that came from.
+> A faith nobody shares is just schizophrenia. Pelevin never said it. It just sounds like he could have, and there are ~300 more where that came from.
 
 ## ✨ What it does
 
 | | |
 |---|---|
-| 🎲 **One button, one epiphany** | Hit *Давай цитатку* (or the Space bar) for a random line from a library of 300 Pelevin quotes. |
+| 🎲 **One button, one epiphany** | Hit *Давай цитатку* (or the Space bar) for a random line from ~300 Pelevin-style quotes: original lines that only *sound* like him. |
 | 🔗 **Share the enlightenment** | Every quote has its own link and a pixel-art preview card for Telegram, VK and X. |
 | ❤️ **Keep the good ones** | Sign in with a magic link (no passwords, just your email) and bookmark quotes you want to quote back at people. |
 | 👍 **Vote it up the void** | Plus the sharp ones, minus the empty ones. The best rise to the *Top* — this week and all-time. |
 | 🌗 **Light or dark** | Follows your system, or flip it yourself. Generation «П» looks great in both. |
 | 📱 **Pocket-sized** | Works on phone, tablet and desktop. |
-| 🇷🇺 **Russian, of course** | The quotes are in the original Russian, and so is the interface: cool, sharp, compact. |
+| 🇷🇺 **Russian, of course** | The lines are in Russian, and so is the interface: cool, sharp, compact. |
 
 <table>
   <tr>
-    <td align="center"><img alt="A shareable quote page, quote number 8, from Generation P" src=".github/assets/permalink-light.webp" width="520"><br><sub>Every quote gets its own shareable page</sub></td>
-    <td align="center"><img alt="Pelevin quotes on a phone in dark mode" src=".github/assets/mobile-dark.webp" width="200"><br><sub>On your phone</sub></td>
+    <td align="center"><img alt="A shareable page for Pelevin-style quote number 8" src=".github/assets/permalink-light.webp" width="520"><br><sub>Every quote gets its own shareable page</sub></td>
+    <td align="center"><img alt="Pelevin-style quotes on a phone in dark mode" src=".github/assets/mobile-dark.webp" width="200"><br><sub>On your phone</sub></td>
   </tr>
 </table>
 
@@ -60,7 +60,7 @@
 | ✅ | Quote voting and a public *Top* ranking, weekly and all-time |
 | ✅ | Light and dark themes, phone to desktop |
 | ✅ | A home of its own: [pelevin-like.app](https://pelevin-like.app) |
-| 🚧 | AI-written Pelevin-style quotes, always clearly labelled as AI and kept apart from the real ones |
+| 🚧 | 🤖 AI under the hood: fresh Pelevin-style lines generated on demand, with a *Цитаты ↔ ИИ* toggle |
 | 🔮 | One-tap sign-in with Google, Yandex or Apple |
 | 🔮 | Passkeys: sign in with Touch ID, Windows Hello or a security key |
 | 🔮 | Community quotes: submit your own Pelevin-like lines and climb the author ranking |
@@ -68,7 +68,7 @@
 
 ## 🙌 Credits
 
-- 📚 **The quotes** are by **Victor Pelevin**, taken from his novels, stories and interviews and used here as short citations with their source. All rights to the texts belong to the author and his publishers.
+- 📚 **The quotes are not real Pelevin quotes.** They are original lines, parodies and homages written (and sometimes generated) to mimic his style. They are not attributed to him, and any wisdom or nonsense in them is ours, not his. If one sounds exactly like him, that's the compliment.
 - 🕶️ **The pixel-art Pelevin** in sunglasses is a fan-made 8-bit tribute, not an official likeness.
 - This is an independent fan project. It is **not affiliated with, endorsed by or connected to Victor Pelevin or his publishers.**
 
