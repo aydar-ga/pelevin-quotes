@@ -28,6 +28,7 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 
 | Doc                                                       | When you need it                              |
 | --------------------------------------------------------- | --------------------------------------------- |
+| [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)              | Stack, scripts, shipped log, technical roadmap |
 | [docs/01-architecture.md](./docs/01-architecture.md)      | Understand the module layout                  |
 | [docs/02-framework-selection.md](./docs/02-framework-selection.md) | Why each library — before swapping anything |
 | [docs/03-database.md](./docs/03-database.md)              | Schema, seeding, migrations                   |
@@ -44,10 +45,11 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 - **TDD is the default.** Every code change in `app/`, `components/`, or
   `lib/` ships with a test in `tests/`. Write the failing test first, then
   make it pass. Never commit with a red suite.
-- **Keep the README in sync.** Any change that affects the pitch, tech stack,
-  scripts, "Shipped" section, or roadmap must update `README.md` *in the same
-  commit* — not in a follow-up. The README is a live document, not a launch
-  artifact.
+- **Keep the docs in sync, README stays non-technical.** `README.md` is a
+  visitor showcase: no stack, commands, env vars or infra. Stack, scripts,
+  "Shipped" and the technical roadmap live in `docs/DEVELOPMENT.md`; update it
+  *in the same commit* as the change. Visitor-visible changes (features,
+  roadmap status) also update the README's showcase sections.
 - **Don't reintroduce Supabase.** Migrated away intentionally (CHANGELOG v2.0.0).
 - **Don't add comments explaining *what* code does.** Only *why*, when non-obvious.
 - **Don't co-locate tests next to source files.** Put them in `tests/`.
@@ -62,8 +64,9 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 1. Add or update a failing test under `tests/`.
 2. Implement the change.
 3. Run `npm run lint && npm run type-check && npm test && npm run build`.
-4. Update `README.md` (and any relevant `docs/` page) if user-visible
-   behaviour, the stack, scripts, "Shipped", or the roadmap changed.
+4. Update `docs/DEVELOPMENT.md` (and any relevant `docs/` page) if the stack,
+   scripts, "Shipped", or the roadmap changed; update the README showcase if
+   visitors would notice.
 5. Commit (precommit hook re-runs lint-staged + type-check + tests).
 6. Push.
 

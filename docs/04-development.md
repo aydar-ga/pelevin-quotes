@@ -89,5 +89,5 @@ To bypass in an emergency: `git commit --no-verify` (please don't).
 2. `npm run db:seed` (locally; CI does not seed).
 3. Commit.
 
-The roadmap (README) calls for a real submission flow — until then, JSON is
+The roadmap ([DEVELOPMENT.md](./DEVELOPMENT.md)) calls for a real submission flow — until then, JSON is
 the source of truth.

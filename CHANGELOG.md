@@ -51,6 +51,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- README rewritten as a visitor showcase with prod screenshots; stack,
+  scripts, shipped log and technical roadmap moved to `docs/DEVELOPMENT.md`.
 - Auth panel copy and styling tightened to match the minimal product voice.
 - Share actions now use native Web Share when available, otherwise copy quote
   text + source + permalink, with a permalink fallback when clipboard is

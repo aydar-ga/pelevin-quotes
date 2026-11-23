@@ -2,6 +2,7 @@
 
 | Doc                                              | What's in it                                      |
 | ------------------------------------------------ | ------------------------------------------------- |
+| [DEVELOPMENT.md](./DEVELOPMENT.md)               | Start here: stack, scripts, shipped log, roadmap   |
 | [01-architecture.md](./01-architecture.md)       | Modules, data flow, rendering model               |
 | [02-framework-selection.md](./02-framework-selection.md) | Why each library was picked + alternatives |
 | [03-database.md](./03-database.md)               | Neon schema, seeding, local workflow              |

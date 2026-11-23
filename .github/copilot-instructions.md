@@ -8,9 +8,10 @@ This repo's full agent guidance lives in [`/AGENTS.md`](../AGENTS.md) and
 - Next.js 16 (App Router, React 19), Drizzle ORM, Neon Postgres, Vercel.
 - **TDD is the default.** Suggest a failing test in `tests/` *before* the
   implementation. Never propose code that ships without a test.
-- **README stays in sync.** When suggesting a change that affects the pitch,
-  stack, scripts, "Shipped", or roadmap, also suggest the matching README edit
-  in the same change set.
+- **Docs stay in sync; README stays non-technical.** When suggesting a change
+  that affects the stack, scripts, "Shipped", or roadmap, also suggest the
+  matching `docs/DEVELOPMENT.md` edit in the same change set. The README is a
+  visitor showcase with no technical detail.
 - TypeScript strict — never use `any`; use Drizzle's inferred types.
 - Tests live under `tests/`, written with Vitest + Testing Library.
 - Don't co-locate tests with sources.
