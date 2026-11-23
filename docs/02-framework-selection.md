@@ -56,7 +56,7 @@ integrations (Neon, Clerk, AI Gateway) wired in by one CLI command.
 | **Supabase (previous)** | Solid, but bundles auth/storage/realtime that we weren't using; the JS client added latency vs. a raw SQL driver. |
 | **PlanetScale (MySQL)** | Branching is nice; MySQL is awkward for our future `tsvector` / `jsonb` plans. |
 | **Turso (libSQL/SQLite)** | Great for read-heavy embedded use; weaker for concurrent writes & community features. |
-| **Upstash Redis**     | Not a primary store; will likely come in for rate-limiting/caching.   |
+| **Upstash Redis**     | Not a primary store; used only as optional REST-backed rate limiting. |
 | **Vercel KV / Postgres** | Discontinued as standalone Vercel products — use Marketplace.     |
 
 ## ORM / query layer — Drizzle

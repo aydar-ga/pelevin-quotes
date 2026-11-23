@@ -8,7 +8,11 @@
 | [04-development.md](./04-development.md)         | Local setup, scripts, conventions                 |
 | [05-deployment.md](./05-deployment.md)           | Vercel pipeline, env vars, rollback               |
 | [06-testing.md](./06-testing.md)                 | Vitest, Testing Library, what to test             |
-| [07-auth.md](./07-auth.md)                       | Better Auth setup, magic link, E2E via mail.tm    |
+| [07-auth.md](./07-auth.md)                       | Better Auth setup, magic link, dev-login E2E      |
+| [08-product-voice.md](./08-product-voice.md)     | Russian UX copy style and communication rules     |
+| [09-ai-feature-branch.md](./09-ai-feature-branch.md) | Local AI feature branch continuity note      |
+| [10-data-model.md](./10-data-model.md)           | Visual DB, class, relation, and flow diagrams     |
+| [11-community-game.md](./11-community-game.md)    | Next feature idea: submissions, guessing, user ranking |
 
 For a quick orientation, see [`/CLAUDE.md`](../CLAUDE.md) (also linked from
 `/AGENTS.md`).

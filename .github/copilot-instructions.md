@@ -15,7 +15,10 @@ This repo's full agent guidance lives in [`/AGENTS.md`](../AGENTS.md) and
 - Tests live under `tests/`, written with Vitest + Testing Library.
 - Don't co-locate tests with sources.
 - Don't add "what" comments; only "why", when non-obvious.
-- Russian for user-facing copy; English everywhere else.
+- Russian for user-facing copy; English everywhere else. Follow
+  `docs/08-product-voice.md`: cool, sharp, compact, informal.
+- Visual DB, class, relation, and runtime flow docs live in
+  `docs/10-data-model.md`; keep them in sync with schema or route changes.
 - Don't suggest Supabase — we migrated off it (CHANGELOG v2.0.0).
 
 ## Suggested verification

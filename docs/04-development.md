@@ -15,6 +15,7 @@ cd pelevin-quotes
 npm install
 vercel link --project pelevin-quotes
 vercel env pull .env.local      # downloads DATABASE_URL
+npm run db:migrate              # creates bookmarks / votes tables if missing
 npm run dev
 ```
 
@@ -35,6 +36,15 @@ Then visit <http://localhost:3000/dev/login> or use the link in the sign-in
 panel. This reuses the magic-link flow in-process and skips Resend for the dev
 address only. **Never set `DEV_TEST_AUTH` in production.**
 
+### Optional rate-limit backing store
+
+`/api/randomQuote` works without Redis in development. To test the production
+path locally, add:
+
+```bash
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
+```
 
 ## Scripts
 

@@ -26,6 +26,10 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 | [docs/04-development.md](./docs/04-development.md)        | Scripts, conventions, local setup             |
 | [docs/05-deployment.md](./docs/05-deployment.md)          | Vercel deploys, env vars, rollback            |
 | [docs/06-testing.md](./docs/06-testing.md)                | Vitest + Testing Library                      |
+| [docs/07-auth.md](./docs/07-auth.md)                      | Better Auth, magic links, auth UX             |
+| [docs/08-product-voice.md](./docs/08-product-voice.md)    | Russian UX copy voice                         |
+| [docs/09-ai-feature-branch.md](./docs/09-ai-feature-branch.md) | Local AI branch continuity               |
+| [docs/10-data-model.md](./docs/10-data-model.md)          | Visual DB, class, relation, and flow maps     |
 
 ## Hard rules
 
@@ -43,7 +47,8 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 - **Don't use `any`.** Lean on Drizzle's inferred types.
 - **Don't bypass the precommit hook** (`--no-verify`) unless a human asks.
 - **Don't run `npm run db:seed` against production.** It drops the table.
-- **User-facing copy is Russian.** Code/comments/commits/docs are English.
+- **User-facing copy is Russian.** Keep it cool, sharp, compact, and informal;
+  see `docs/08-product-voice.md`. Code/comments/commits/docs are English.
 
 ## Automatic workflow (every code change)
 
@@ -72,7 +77,8 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 npm run lint && npm run type-check && npm test && npm run build
 ```
 
-All four must pass. CI runs the first three; precommit runs lint+type-check+test.
+All four must pass. Precommit runs lint+type-check+test. CI runs lint,
+type-check, Vitest, Playwright E2E, and build on pushes / PRs.
 
 ## Deploy
 

@@ -44,13 +44,16 @@ npm run test:coverage     # v8 coverage → ./coverage/index.html
 
 - **Components** — render output, ARIA roles, event callbacks. Example:
   clicking the `ErrorBanner` retry button calls `onRetry`.
-- **Pure helpers** in `lib/` — e.g. `lib/bookmarks.ts` toggle logic (mocked DB).
+- **Pure helpers** in `lib/` — e.g. bookmark logic, auth intent, and rate-limit
+  bucket behavior.
 - **Keyboard shortcut** — Space on the home page triggers a quote fetch.
+- **Interactive quote actions** — bookmark, share, and up/down vote controls.
 
 ## What we don't unit-test
 
-- **API routes** — thin Drizzle wrappers; covered by Playwright in `e2e/api.spec.ts`
-  (public quote endpoints, bookmarks auth, session API).
+- **DB-backed API route internals** — thin Drizzle wrappers are covered with
+  route-level unit mocks plus Playwright in `e2e/api.spec.ts` (public quote
+  endpoints, bookmarks, votes, session API).
 - **Full browser flow** — dev-login auth in `e2e/auth.spec.ts`; both run in CI.
 
 ## E2E (Playwright)
@@ -60,14 +63,22 @@ npm run test:e2e
 ```
 
 Requires `DATABASE_URL` in `.env.local` (or env). Playwright spawns `next dev` on
-port `3100` with `DEV_TEST_AUTH=true`, `E2E_TEST_MODE=true`, and `RESEND_API_KEY`
-cleared — tests sign in via `/dev/login` (`dev@test.local`). **No magic-link UI,
-no Resend emails.**
+port `3100` (override with `E2E_PORT`) with `DEV_TEST_AUTH=true`,
+`E2E_TEST_MODE=true`, and `RESEND_API_KEY` cleared — tests sign in via
+`/dev/login` (`dev@test.local`). **No magic-link UI, no Resend emails.**
+
+The test runner itself also needs `DEV_TEST_AUTH=true` (CI sets it on the
+Playwright step), otherwise the signed-in specs stop with an explicit error:
+
+```bash
+DEV_TEST_AUTH=true npm run test:e2e
+```
 
 | Spec | Covers |
 | ---- | -------- |
-| `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/auth/get-session` |
+| `e2e/api.spec.ts` | `/api/randomQuote`, `/api/allQuotes`, `/api/quotes/[id]`, `/api/bookmarks`, `/api/votes`, `/api/auth/get-session` |
 | `e2e/auth.spec.ts` | Dev login → account panel → sign-out |
+| `e2e/votes.spec.ts` | Vote validation (401/400/404), up→down switching, concurrent votes, weekly `/top` board (writes test rows directly via `pg`) |
 
 CI runs a single **test** job (lint → types → Vitest → Playwright API E2E), then
 **production build**. E2E uses an ephemeral Postgres 16 service container in

@@ -10,4 +10,7 @@ TL;DR:
 - No "what" comments — only "why", when non-obvious.
 - Tests live in tests/, never co-located. Run with `npm test`.
 - Verify with: npm run lint && npm run type-check && npm test && npm run build
-- User-facing copy is Russian; code/docs are English.
+- User-facing copy is Russian and follows docs/08-product-voice.md: cool,
+  sharp, compact, informal. Code/docs are English.
+- DB/class/relation diagrams live in docs/10-data-model.md; keep them in sync
+  with lib/schema.ts and route contracts.
