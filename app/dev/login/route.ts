@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import {
-  DEV_TEST_USER_EMAIL,
   DEV_TEST_USER_NAME,
+  devTestUserEmail,
   isDevTestAuthEnabled,
 } from "@/lib/dev-test-auth";
+import { env } from "@/lib/env";
 import { readMagicLink } from "@/lib/magic-link-store";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +12,7 @@ export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   // Checked here as well as in the flag helper, so one wrong env var in
   // Production cannot open this route.
-  if (process.env.VERCEL_ENV === "production" || !isDevTestAuthEnabled()) {
+  if (env().VERCEL_ENV === "production" || !isDevTestAuthEnabled()) {
     return NextResponse.json({ error: "not found" }, { status: 404 });
   }
 
@@ -25,7 +26,7 @@ export async function GET(request: Request) {
       // fetch sends Sec-Fetch-Mode) but no Origin.
       headers: { "Content-Type": "application/json", Origin: origin },
       body: JSON.stringify({
-        email: DEV_TEST_USER_EMAIL,
+        email: devTestUserEmail(),
         name: DEV_TEST_USER_NAME,
         callbackURL: "/?welcome=1",
         metadata: { intent: "sign-up" },
@@ -40,7 +41,7 @@ export async function GET(request: Request) {
     );
   }
 
-  const entry = readMagicLink(DEV_TEST_USER_EMAIL);
+  const entry = readMagicLink(devTestUserEmail());
   if (!entry) {
     return NextResponse.json(
       { error: "Magic link not captured" },

@@ -71,6 +71,25 @@ Dev/test only:
 Everything else (`POSTGRES_*`, `PG*`) is duplicate metadata kept for
 compatibility.
 
+### How the app reads them (`lib/env.ts`)
+
+App code reads `process.env` only in `lib/env.ts` (client code may still read
+`NEXT_PUBLIC_*`). It parses with Zod on every call and never at import, so
+**builds never need env vars** (`npm run build` passes with an empty
+environment) and a missing or malformed variable fails the request that needs
+it, closed:
+
+| Variable | Rule | Fails when |
+| --- | --- | --- |
+| `DATABASE_URL` | required on first DB use | any DB-backed request |
+| `BETTER_AUTH_SECRET` | required, ≥ 32 chars, no fallback | any auth/session request |
+| `BETTER_AUTH_URL` | valid URL; required in Production | auth requests in Production |
+| `RESEND_API_KEY`, `AUTH_EMAIL_FROM` | required in Production | sending a magic link in Production (outside Production a missing key logs and skips) |
+| `UPSTASH_REDIS_REST_URL` | valid URL if set | rate-limited requests |
+| `DEV_TEST_AUTH`, `E2E_TEST_MODE` | ignored in Production (`VERCEL_ENV=production`) | never |
+
+Error messages name the variable and the rule, never the value.
+
 To sync locally:
 
 ```bash

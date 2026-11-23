@@ -1,14 +1,23 @@
 import { Resend } from "resend";
+import { isE2eTestModeEnabled } from "./dev-test-auth";
+import { env, isProductionDeployment, requireEnv } from "./env";
 
 type SendArgs = { to: string; subject: string; html: string; text: string };
 
 export async function sendEmail({ to, subject, html, text }: SendArgs) {
-  if (process.env.E2E_TEST_MODE === "true") {
+  if (isE2eTestModeEnabled()) {
     return { id: null, mocked: true as const };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.AUTH_EMAIL_FROM ?? "onboarding@resend.dev";
+  // Production fails closed: a sign-in email that silently never sends is
+  // worse than a visible error.
+  const production = isProductionDeployment();
+  const apiKey = production
+    ? requireEnv("RESEND_API_KEY")
+    : env().RESEND_API_KEY;
+  const from = production
+    ? requireEnv("AUTH_EMAIL_FROM")
+    : (env().AUTH_EMAIL_FROM ?? "onboarding@resend.dev");
 
   if (!apiKey) {
     console.warn(
@@ -27,7 +36,7 @@ export async function sendEmail({ to, subject, html, text }: SendArgs) {
     text,
   });
   if (error) {
-    if (process.env.E2E_TEST_MODE === "true") {
+    if (isE2eTestModeEnabled()) {
       console.warn(
         `[email] Resend failed in E2E mode (${error.message}) — magic link remains in memory.`,
       );

@@ -56,4 +56,25 @@ describe("sendEmail", () => {
 
     expect(result.mocked).toBe(true);
   });
+
+  it("fails closed in Vercel Production when RESEND_API_KEY is missing", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("RESEND_API_KEY", "");
+    vi.stubEnv("AUTH_EMAIL_FROM", "noreply@example.com");
+    await expect(
+      sendEmail({ to: "a@b.c", subject: "x", html: "<p>x</p>", text: "x" }),
+    ).rejects.toThrow("Missing required environment variable: RESEND_API_KEY");
+    vi.unstubAllEnvs();
+  });
+
+  it("ignores E2E_TEST_MODE in Vercel Production and still requires a real sender", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("E2E_TEST_MODE", "true");
+    vi.stubEnv("RESEND_API_KEY", "re_test_key");
+    vi.stubEnv("AUTH_EMAIL_FROM", "");
+    await expect(
+      sendEmail({ to: "a@b.c", subject: "x", html: "<p>x</p>", text: "x" }),
+    ).rejects.toThrow("Missing required environment variable: AUTH_EMAIL_FROM");
+    vi.unstubAllEnvs();
+  });
 });

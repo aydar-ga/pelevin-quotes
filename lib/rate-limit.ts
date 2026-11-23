@@ -1,3 +1,5 @@
+import { env } from "./env";
+
 export interface RateLimitOptions {
   limit: number;
   windowMs: number;
@@ -84,8 +86,8 @@ async function checkUpstashRateLimit(
   key: string,
   options: RateLimitOptions,
 ): Promise<RateLimitResult> {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = env().UPSTASH_REDIS_REST_URL;
+  const token = env().UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) {
     return checkInMemoryRateLimit(key, options);
   }
@@ -131,12 +133,12 @@ async function checkUpstashRateLimit(
 export async function checkRandomQuoteRateLimit(headers: Headers) {
   const options = {
     limit: positiveIntFromEnv(
-      process.env.RANDOM_QUOTE_RATE_LIMIT,
+      env().RANDOM_QUOTE_RATE_LIMIT,
       DEFAULT_RANDOM_QUOTE_LIMIT,
     ),
     windowMs:
       positiveIntFromEnv(
-        process.env.RANDOM_QUOTE_RATE_LIMIT_WINDOW_SECONDS,
+        env().RANDOM_QUOTE_RATE_LIMIT_WINDOW_SECONDS,
         DEFAULT_RANDOM_QUOTE_WINDOW_MS / 1000,
       ) * 1000,
   };
@@ -148,10 +150,10 @@ export async function checkRandomQuoteRateLimit(headers: Headers) {
 
 export async function checkVoteRateLimit(userId: string) {
   return checkUpstashRateLimit(`votes:${userId}`, {
-    limit: positiveIntFromEnv(process.env.VOTE_RATE_LIMIT, DEFAULT_VOTE_LIMIT),
+    limit: positiveIntFromEnv(env().VOTE_RATE_LIMIT, DEFAULT_VOTE_LIMIT),
     windowMs:
       positiveIntFromEnv(
-        process.env.VOTE_RATE_LIMIT_WINDOW_SECONDS,
+        env().VOTE_RATE_LIMIT_WINDOW_SECONDS,
         DEFAULT_VOTE_WINDOW_MS / 1000,
       ) * 1000,
   });

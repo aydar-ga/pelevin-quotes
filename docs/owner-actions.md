@@ -22,6 +22,12 @@ Agents add items here and never tick them; the owner ticks them.
       and vote rate limits are per serverless instance, not global. See
       [`05-deployment.md`](./05-deployment.md).
 
+- [ ] **Add `BETTER_AUTH_SECRET` (≥ 32 chars) and `BETTER_AUTH_URL` to Vercel
+      Preview** if you want sign-in to work on preview deployments. Today only
+      Production and Development have them, so since the env module landed
+      Preview auth requests fail closed with a clear error (browsing quotes
+      still works). Use a different secret from Production.
+
 ## Done
 
 - [x] **Sync your local checkout** after the 2026-11-23 history rewrite. Done

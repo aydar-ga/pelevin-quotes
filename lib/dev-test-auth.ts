@@ -1,19 +1,18 @@
-export const DEV_TEST_USER_EMAIL =
-  process.env.DEV_TEST_USER_EMAIL ?? "dev@test.local";
+import { env, isProductionDeployment } from "./env";
 
 export const DEV_TEST_USER_NAME = "Dev Tester";
 
-// A test flag set by mistake in Production must never open dev-only paths.
-export function isProductionDeployment() {
-  return process.env.VERCEL_ENV === "production";
+export function devTestUserEmail() {
+  return env().DEV_TEST_USER_EMAIL ?? "dev@test.local";
 }
 
+// A test flag set by mistake in Production must never open dev-only paths.
 export function isDevTestAuthEnabled() {
-  return !isProductionDeployment() && process.env.DEV_TEST_AUTH === "true";
+  return !isProductionDeployment() && env().DEV_TEST_AUTH;
 }
 
 export function isE2eTestModeEnabled() {
-  return !isProductionDeployment() && process.env.E2E_TEST_MODE === "true";
+  return !isProductionDeployment() && env().E2E_TEST_MODE;
 }
 
 export function shouldCaptureMagicLink() {
@@ -23,6 +22,6 @@ export function shouldCaptureMagicLink() {
 export function shouldSkipMagicLinkEmail(email: string) {
   return (
     isDevTestAuthEnabled() &&
-    email.toLowerCase() === DEV_TEST_USER_EMAIL.toLowerCase()
+    email.toLowerCase() === devTestUserEmail().toLowerCase()
   );
 }

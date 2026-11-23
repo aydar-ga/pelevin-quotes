@@ -1,8 +1,9 @@
 import { headers } from "next/headers";
-import { auth } from "./auth";
+import { getAuth } from "./auth";
 
 export async function getServerSession() {
-  return auth.api.getSession({
-    headers: await headers(),
-  });
+  // headers() first: it marks the route dynamic before auth config is read,
+  // so prerendering never needs auth secrets.
+  const requestHeaders = await headers();
+  return getAuth().api.getSession({ headers: requestHeaders });
 }

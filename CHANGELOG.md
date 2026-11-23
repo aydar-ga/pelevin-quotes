@@ -64,6 +64,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- One Zod-validated env module (`lib/env.ts`) is the only reader of
+  `process.env` in app code. No secret fallbacks: a missing or short
+  `BETTER_AUTH_SECRET`, or missing Resend config in Production, now fails the
+  request closed instead of signing with a default or silently dropping
+  sign-in emails. The database and Better Auth are created on first use, so
+  builds need no env vars.
 - `/dev/login` and `/api/test/last-magic-link` return 404 in Vercel Production
   even if a test flag is set; magic links are no longer kept in memory outside
   dev/e2e test mode.
