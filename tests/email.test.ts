@@ -7,6 +7,8 @@ describe("magicLinkEmail", () => {
     expect(out.text).toContain("https://example.com/verify?token=xyz");
     expect(out.html).toContain("https://example.com/verify?token=xyz");
     expect(out.subject).toMatch(/пелевин/i);
+    expect(out.html).toContain("background:#0a0a0a");
+    expect(out.html).toContain("Нырнуть внутрь");
   });
 });
 

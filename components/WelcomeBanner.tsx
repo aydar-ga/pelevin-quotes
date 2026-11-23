@@ -26,10 +26,10 @@ export default function WelcomeBanner({ visible, onDismiss }: WelcomeBannerProps
         <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
         <div className="flex-1">
           <p className="font-semibold text-[var(--foreground)]">
-            Добро пожаловать!
+            Ты на месте.
           </p>
           <p className="mt-1 text-sm text-[var(--muted)]">
-            Теперь можно сохранять понравившиеся цитаты в закладки.
+            Сердечки включены. Лучшее — в закладки.
           </p>
         </div>
         <button

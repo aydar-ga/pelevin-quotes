@@ -4,6 +4,7 @@ import { User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signOut, useSession } from "@/lib/auth-client";
+import { publishAuthChange, subscribeBookmarkChange } from "@/lib/app-events";
 import AccountPanel from "./AccountPanel";
 import SignInPanel from "./SignInPanel";
 
@@ -50,9 +51,16 @@ export default function AuthStatus({
     };
   }, [session?.user]);
 
+  useEffect(() => {
+    return subscribeBookmarkChange((change) => {
+      setBookmarkCount(change.total);
+    });
+  }, []);
+
   const handleSignOut = async () => {
     onAccountClose?.();
     await signOut();
+    publishAuthChange("signed-out");
     router.push("/");
     router.refresh();
   };

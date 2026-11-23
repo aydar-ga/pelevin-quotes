@@ -1,6 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import { BOOKMARKS_CHANGED_EVENT } from "@/lib/app-events";
 
 const useSession = vi.fn();
 const signOut = vi.fn();
@@ -98,6 +99,30 @@ describe("AuthStatus", () => {
 
     await userEvent.click(screen.getByTestId("auth-menu-trigger"));
     expect(onAccountOpen).toHaveBeenCalled();
+  });
+
+  it("updates the bookmark badge when a bookmark change event arrives", async () => {
+    useSession.mockReturnValue({
+      data: { user: { email: "pelevin-e2e-test@mail.tm" } },
+      isPending: false,
+    });
+    render(<AuthStatus onAccountOpen={vi.fn()} onAccountClose={vi.fn()} />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId("bookmark-count-badge")).toHaveTextContent("3");
+    });
+
+    act(() => {
+      window.dispatchEvent(
+        new CustomEvent(BOOKMARKS_CHANGED_EVENT, {
+          detail: { total: 4, at: Date.now() },
+        }),
+      );
+    });
+
+    expect(await screen.findByTestId("bookmark-count-badge")).toHaveTextContent(
+      "4",
+    );
   });
 
   it("signs out and refreshes the home page", async () => {

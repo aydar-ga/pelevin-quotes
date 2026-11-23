@@ -6,8 +6,8 @@ import WelcomeBanner from "@/components/WelcomeBanner";
 describe("WelcomeBanner", () => {
   it("shows welcome copy when visible", () => {
     render(<WelcomeBanner visible onDismiss={vi.fn()} />);
-    expect(screen.getByText(/добро пожаловать/i)).toBeInTheDocument();
-    expect(screen.getByText(/закладки/i)).toBeInTheDocument();
+    expect(screen.getByText(/ты на месте/i)).toBeInTheDocument();
+    expect(screen.getByText(/лучшее — в закладки/i)).toBeInTheDocument();
   });
 
   it("calls onDismiss when closed", async () => {

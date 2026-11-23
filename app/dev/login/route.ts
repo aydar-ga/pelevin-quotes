@@ -24,6 +24,7 @@ export async function GET(request: Request) {
         email: DEV_TEST_USER_EMAIL,
         name: DEV_TEST_USER_NAME,
         callbackURL: "/?welcome=1",
+        metadata: { intent: "sign-up" },
       }),
     },
   );

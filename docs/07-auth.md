@@ -1,6 +1,7 @@
 # Authentication
 
-Magic-link sign-in only — no passwords, no OAuth (yet).
+Magic-link auth only — no passwords, no OAuth (yet). The UI has two modes:
+login and registration.
 
 ## Library
 
@@ -10,7 +11,8 @@ its built-in **Drizzle adapter** and **Magic Link plugin**.
 Why magic link only (for v1):
 
 - Implicit email verification — clicking the link proves inbox ownership.
-- One field UX. No passwords to store, hash, leak, reset, or strength-rule.
+- Login is one field. Registration asks for name + email so first-time users
+  get a real Better Auth display name.
 - Less code: sign-in and sign-up are the same form; no recovery flow.
 - Easy to E2E-test against a temp-mail provider.
 
@@ -58,17 +60,45 @@ and pushed with `npm run db:push`.
 
 Generate a secret: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
 
+## Login vs Registration
+
+Better Auth's magic-link plugin accepts `name`, but uses it only when the link
+creates a new user. The app mirrors that behavior:
+
+- **Login** sends only `email`, `callbackURL`, and `metadata.intent=sign-in`.
+- **Registration** requires `name`, sends `newUserCallbackURL`, and sets
+  `metadata.intent=sign-up`.
+- `lib/auth-intent.ts` blocks login-mode magic links for unknown emails, so a
+  first-time user must use registration and cannot accidentally create an
+  unnamed account. The lookup lowercases the email, because Better Auth stores
+  emails lowercased but passes the raw input to `sendMagicLink`.
+- The server also rejects `intent=sign-up` without a non-blank `name`. The
+  intent comes from the client, so a hand-made request must not be able to
+  create a nameless account either.
+- `/dev/login` (dev/E2E only) registers with `intent=sign-up`, so it works on
+  a fresh database where the dev user does not exist yet.
+
+Known trade-off: login mode answers differently for registered and unknown
+emails, so it reveals whether an email has an account. That is the price of
+the "login never creates users" rule.
+
+When a verified link redirects to `/?welcome=1`, the home page broadcasts an
+auth-change event through `localStorage`. Other tabs refresh their session UI,
+close stale sign-in panels, and show the signed-in state.
+
 ## Pages & routes
 
 | Path                              | What it does                                          |
 | --------------------------------- | ----------------------------------------------------- |
-| `/`                               | Quote home; slide-in sign-in panel; welcome banner after verify |
+| `/`                               | Quote home; slide-in auth panel; welcome banner after verify |
 | `/sign-in`                        | Redirects to `/?signIn=1` (opens sign-in panel on home) |
 | `/bookmarks`                      | Redirects to home with account/bookmarks panel open (or `/?signIn=1` when logged out) |
 | `/q/[id]`                         | Shareable quote permalink with OG image               |
+| `/top`                            | Public leaderboard; voting opens auth when needed      |
 | `/me`                             | Redirects to `/` (legacy URL)                         |
 | `/api/auth/[...all]`              | Better Auth catch-all (sign-in, verify, sign-out, etc.) |
 | `/api/bookmarks`                  | List / toggle bookmarks (auth required)               |
+| `/api/votes`                      | Up/down-vote quotes (auth required)                   |
 | `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** |
 
 ## E2E flow (Playwright)
