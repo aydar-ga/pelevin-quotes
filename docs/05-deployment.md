@@ -15,7 +15,9 @@ The historical `pelevin-quotes.vercel.app` alias still resolves and 301s to
 
 Vercel watches the `main` branch on GitHub. Every push:
 
-1. Vercel installs deps (cached) and runs `npm run vercel-build`.
+1. Vercel picks Node from `package.json` `engines.node` (`24.x`), which
+   overrides the project's Node.js setting, installs deps (cached) and runs
+   `npm run vercel-build`.
 2. `vercel-build` applies pending Drizzle migrations (`db:migrate`) when
    `VERCEL=1` and `DATABASE_URL` are set, then runs `next build`.
 3. Bundles route handlers as Fluid Compute Functions.

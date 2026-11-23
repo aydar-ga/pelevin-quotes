@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js **24+**
+- Node.js **24** (`nvm use` reads `.nvmrc`; `engines.node` is `24.x`)
 - npm 10+
 - `vercel` CLI: `npm i -g vercel`
 - A Vercel account with access to the `pelevin-quotes` project

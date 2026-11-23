@@ -56,6 +56,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   text + source + permalink, with a permalink fallback when clipboard is
   unavailable.
 - `/api/allQuotes` is now force-dynamic to avoid build-time database access.
+- Node.js 24 is pinned in `package.json` `engines` (Vercel honours it over the
+  project setting) and `.nvmrc` (CI reads it). Vercel had been building on
+  Node 20, which it now refuses as discontinued.
 
 ### Fixed
 

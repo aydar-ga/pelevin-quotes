@@ -50,10 +50,10 @@ jobs:
       - name: Checkout — clone the repository at the triggering ref
         uses: actions/checkout@v5
 
-      - name: Node.js 24 — install runtime and cache npm dependencies
+      - name: Node.js (.nvmrc) — install runtime and cache npm dependencies
         uses: actions/setup-node@v5
         with:
-          node-version: "24"
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Dependencies — clean install from package-lock.json (npm ci)
@@ -93,10 +93,10 @@ jobs:
       - name: Checkout — clone the repository at the triggering ref
         uses: actions/checkout@v5
 
-      - name: Node.js 24 — install runtime and cache npm dependencies
+      - name: Node.js (.nvmrc) — install runtime and cache npm dependencies
         uses: actions/setup-node@v5
         with:
-          node-version: "24"
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Dependencies — clean install from package-lock.json (npm ci)
