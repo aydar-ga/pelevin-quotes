@@ -33,6 +33,13 @@ describe("/dev/login", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it("is hidden in Vercel Production even when the flag is set by mistake", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    const response = await GET(new Request("http://localhost/dev/login"));
+    expect(response.status).toBe(404);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it("requests the magic link as a named sign-up so a fresh database works", async () => {
     await GET(new Request("http://localhost/dev/login"));
 

@@ -64,6 +64,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- `/dev/login` and `/api/test/last-magic-link` return 404 in Vercel Production
+  even if a test flag is set; magic links are no longer kept in memory outside
+  dev/e2e test mode.
 - Dependencies updated within their semver ranges, and version floors raised
   for security-relevant packages: better-auth 1.6.11 → 1.7.27 (critical
   advisories, including pre-account hijacking on magic-link sign-in),

@@ -99,7 +99,7 @@ close stale sign-in panels, and show the signed-in state.
 | `/api/auth/[...all]`              | Better Auth catch-all (sign-in, verify, sign-out, etc.) |
 | `/api/bookmarks`                  | List / toggle bookmarks (auth required)               |
 | `/api/votes`                      | Up/down-vote quotes (auth required)                   |
-| `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** |
+| `/api/test/last-magic-link?email=…` | Returns the most recent in-memory magic link. **Only enabled when `E2E_TEST_MODE=true`** and not in Vercel Production |
 
 ## E2E flow (Playwright)
 
@@ -138,3 +138,9 @@ Playwright spawns a dedicated dev server on port `3100` with `DEV_TEST_AUTH=true
       (Frankfurt region, apex verification — SPF / DKIM / MX records live in
       Vercel DNS). Magic links now deliver to any inbox.
 - [ ] `E2E_TEST_MODE` **must remain unset** in production.
+
+Defence in depth: `/dev/login` and `/api/test/last-magic-link` also check
+`VERCEL_ENV === "production"` in the route file itself and return 404 there,
+even if a test flag is set by mistake. Magic links are kept in the in-memory
+store only in dev/e2e test mode, never in Production
+(`shouldCaptureMagicLink` in `lib/dev-test-auth.ts`).

@@ -9,7 +9,9 @@ import { readMagicLink } from "@/lib/magic-link-store";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  if (!isDevTestAuthEnabled()) {
+  // Checked here as well as in the flag helper, so one wrong env var in
+  // Production cannot open this route.
+  if (process.env.VERCEL_ENV === "production" || !isDevTestAuthEnabled()) {
     return NextResponse.json({ error: "not found" }, { status: 404 });
   }
 
