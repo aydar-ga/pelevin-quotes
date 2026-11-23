@@ -13,6 +13,9 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./tests/setup.ts"],
+    // Node 25+ ships a global localStorage that shadows jsdom's and is
+    // undefined without --localstorage-file.
+    execArgv: ["--no-experimental-webstorage"],
     include: ["tests/**/*.{test,spec}.{ts,tsx}"],
     exclude: ["e2e/**", "node_modules/**", ".next/**"],
     coverage: {
