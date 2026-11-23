@@ -60,6 +60,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   project setting) and `.nvmrc` (CI reads it). Vercel had been building on
   Node 20, which it now refuses as discontinued.
 
+### Security
+
+- Dependencies updated within their semver ranges, and version floors raised
+  for security-relevant packages: better-auth 1.6.11 → 1.7.27 (critical
+  advisories, including pre-account hijacking on magic-link sign-in),
+  next 16.2.6 → 16.4.6 (critical), react/react-dom 19.3.1, drizzle-orm 0.45.4,
+  postcss 8.5.33, vitest 4.1.12. `npm audit`: 27 findings (2 critical, 10 high,
+  15 moderate) → 4 moderate, all in drizzle-kit's dev-only `@esbuild-kit`.
+- Playwright 1.60 → 1.65.1: GitHub's `ubuntu-latest` is now Ubuntu 26.04,
+  which Playwright 1.60 cannot install browsers on.
+- `/dev/login` sends an `Origin` header; better-auth 1.7 rejects origin-less
+  POSTs that carry fetch-metadata headers (Node's `fetch` sends them).
+
 ### Fixed
 
 - `/api/votes` and `/api/bookmarks` return `400` for malformed or non-JSON

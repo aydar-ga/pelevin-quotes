@@ -19,7 +19,9 @@ export async function GET(request: Request) {
     `${origin}/api/auth/sign-in/magic-link`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      // Better Auth 1.7+ rejects POSTs that carry fetch metadata (Node's
+      // fetch sends Sec-Fetch-Mode) but no Origin.
+      headers: { "Content-Type": "application/json", Origin: origin },
       body: JSON.stringify({
         email: DEV_TEST_USER_EMAIL,
         name: DEV_TEST_USER_NAME,

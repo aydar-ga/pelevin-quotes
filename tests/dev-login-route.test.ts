@@ -44,4 +44,13 @@ describe("/dev/login", () => {
     expect(body.metadata).toEqual({ intent: "sign-up" });
     expect(body.name).toBeTruthy();
   });
+
+  it("sends its own Origin, which Better Auth 1.7+ requires on fetch-metadata requests", async () => {
+    await GET(new Request("http://localhost:3102/dev/login"));
+
+    const [, init] = vi.mocked(fetch).mock.calls[0];
+    expect(new Headers(init?.headers).get("Origin")).toBe(
+      "http://localhost:3102",
+    );
+  });
 });
