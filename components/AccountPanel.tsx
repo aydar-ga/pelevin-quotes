@@ -4,11 +4,8 @@ import { LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import BookmarkRow from "./BookmarkRow";
 import SidePanel from "./SidePanel";
-import {
-  emailInitial,
-  groupBookmarksByBook,
-  type BookmarkItem,
-} from "@/lib/bookmark-ui";
+import { emailInitial, type BookmarkItem } from "@/lib/bookmark-ui";
+import { publishBookmarkChange } from "@/lib/app-events";
 
 interface AccountPanelProps {
   open: boolean;
@@ -70,17 +67,18 @@ export default function AccountPanel({
         body: JSON.stringify({ quoteId }),
       });
       if (!response.ok) return;
+      const data = (await response.json()) as { total?: number };
       setItems((current) => {
         const next = current.filter((item) => item.id !== quoteId);
-        onBookmarkCountChange?.(next.length);
+        const total = data.total ?? next.length;
+        onBookmarkCountChange?.(total);
+        publishBookmarkChange({ total, quoteId, bookmarked: false });
         return next;
       });
     } finally {
       setBusyId(null);
     }
   };
-
-  const groups = groupBookmarksByBook(items);
 
   return (
     <SidePanel
@@ -145,25 +143,17 @@ export default function AccountPanel({
               Пока пусто. Сохраняй цитаты сердечком на главной.
             </p>
           )}
-          <div className="flex flex-col gap-6">
-            {groups.map((group) => (
-              <div key={group.book}>
-                <h4 className="mb-2 text-xs font-medium text-[var(--foreground)]">
-                  {group.book}
-                </h4>
-                <div className="flex flex-col gap-2">
-                  {group.items.map((item) => (
-                    <BookmarkRow
-                      key={item.id}
-                      item={item}
-                      onRemove={removeBookmark}
-                      busy={busyId === item.id}
-                    />
-                  ))}
-                </div>
-              </div>
+          <ul className="flex flex-col gap-2">
+            {items.map((item) => (
+              <li key={item.id}>
+                <BookmarkRow
+                  item={item}
+                  onRemove={removeBookmark}
+                  busy={busyId === item.id}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </SidePanel>

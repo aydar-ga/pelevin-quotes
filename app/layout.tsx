@@ -16,6 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pelevin-like.app"),
   title: "Цитатки из Пелевина",
   description:
     "Минималистичный генератор цитат Виктора Пелевина. Нажми кнопку — получи новую дозу.",

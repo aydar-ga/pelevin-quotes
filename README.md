@@ -14,6 +14,7 @@ Live: **<https://pelevin-like.app>**
 - **Drizzle ORM** for typed queries & migrations
 - **Better Auth** (MIT) with magic-link sign-in
 - **Resend** for transactional email (optional; falls back to logging)
+- **Upstash Redis REST** for optional API rate limiting
 - **@vercel/analytics** + **@vercel/speed-insights** (free tier — page views & Web Vitals)
 - **Vitest** + **Testing Library** for unit tests (TDD by default — see below)
 - **Playwright** for E2E — API routes + dev-login auth (no Resend emails in CI)
@@ -79,6 +80,10 @@ The README is the elevator pitch. Everything else lives in [`docs/`](./docs):
 - [Deployment](./docs/05-deployment.md)
 - [Testing](./docs/06-testing.md)
 - [Authentication](./docs/07-auth.md)
+- [Product voice](./docs/08-product-voice.md)
+- [AI feature branch note](./docs/09-ai-feature-branch.md)
+- [Data model & visual maps](./docs/10-data-model.md)
+- [Community submissions & guessing game](./docs/11-community-game.md)
 
 AI assistants pick up rules from [`AGENTS.md`](./AGENTS.md) (Codex / Cursor /
 Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
@@ -92,11 +97,18 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 
 - **Custom domain** `https://pelevin-like.app` — owned, on Vercel DNS.
 - **Magic-link auth** via Better Auth (MIT, OSS). Passwordless slide-in panel on
-  the home page; `/sign-in` redirects there. After email verification users land
-  on `/` with a welcome banner and an account menu in the header.
+  the home page; login asks only for email, registration asks for name + email.
+  After verification, tabs sync into the signed-in state and stale sign-in
+  panels close.
 - **Bookmarks** — logged-in users save quotes with a heart button; open the account side panel (profile icon) or visit `/bookmarks` (redirects home with the panel open)
-  lists saved items; header badge shows the count.
-- **Shareable permalinks** at `/q/[id]` — open via the link icon on quote cards.
+  lists saved items in one flat feed; header badge updates immediately.
+- **Shareable permalinks** at `/q/[id]` — quote action uses Web Share where
+  available and copies the permalink as a fallback.
+- **Public ranking** at `/top` — signed-in users vote quotes up/down; the page
+  shows weekly and all-time leaders.
+- **Rate-limited random quote API** — `/api/randomQuote` emits rate-limit
+  headers and uses Upstash Redis REST when env vars are present, with a local
+  in-memory fallback for dev.
 - **Per-quote Open Graph images** — dynamic PNG cards via `next/og` for Telegram,
   VK, X previews.
 - **Vercel Analytics + Speed Insights** — free page-view and Web Vitals telemetry.
@@ -105,6 +117,8 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
 - **Real email delivery** via Resend with a verified sender domain
   (`noreply@pelevin-like.app`). Magic links arrive in any inbox — Gmail,
   temp-mail, ProtonMail, etc.
+- **Documented UX voice** — Russian copy stays cool, sharp, compact, and
+  informal; see [`docs/08-product-voice.md`](./docs/08-product-voice.md).
 - **Playwright E2E** — dev-login auth + account panel (`e2e/auth.spec.ts`); runs in GitHub Actions CI.
 - **Playwright API E2E** — quote, bookmark, and session routes in
   [`e2e/api.spec.ts`](./e2e/api.spec.ts); runs in GitHub Actions CI.
@@ -133,17 +147,15 @@ Aider / Continue), [`CLAUDE.md`](./CLAUDE.md), `.cursorrules`, and
       repeat logins via Touch ID / Windows Hello / YubiKey. Additive on top
       of magic link / OAuth (still need one of those for first-time signup
       and device-loss recovery). `/settings/passkeys` page to register +
-      remove devices.
+      remove devices. Skipped for now; current Better Auth package does not
+      expose a passkey plugin export in this install.
 - [ ] **AI quote generation.** Stream synthetic "Pelevin-style" quotes via the
       Vercel AI SDK (AI Gateway). Mark generated quotes clearly as AI-authored
       and store them in a separate `ai_quotes` table so they never pollute the
-      canonical dataset.
-- [ ] **Community submissions.** Authenticated users can propose new quotes
-      with source / book metadata. Submissions land in a `pending` queue and
-      become public after lightweight moderation.
-- [ ] **Public ranking.** Up / down-vote quotes; surface a `/top` leaderboard
-      with trending (last 7d) and all-time tabs. Use a materialised view or
-      Neon's read replicas to keep the hot read path cheap.
-
-- [ ] Rate-limiting on `/api/randomQuote` via Upstash Redis to keep AI
-      generation costs predictable once enabled.
+      canonical dataset. A local unpushed showcase branch exists at
+      `feat/ai-quote-generation` (`9be73ef`); keep it off `main` for now.
+- [ ] **Community submissions + guessing game.** Authenticated users can submit
+      quotes into a moderated queue, vote on community quotes, and rank as
+      authors. Add a second game loop where users guess whether a quote was
+      human-written, from a book, or AI-generated; accurate evaluators climb a
+      user leaderboard. See `docs/11-community-game.md`.

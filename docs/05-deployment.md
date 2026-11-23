@@ -33,9 +33,41 @@ vercel deploy --prod     # production
 
 ## Environment variables
 
-Managed in the Vercel dashboard (or `vercel env`). The only required one is
-`DATABASE_URL` (auto-injected by the Neon Marketplace integration). Everything
-else (`POSTGRES_*`, `PG*`) is duplicate metadata kept for compatibility.
+Managed in the Vercel dashboard (or `vercel env`).
+
+Required:
+
+- `DATABASE_URL` — Neon connection for quotes, bookmarks, votes, and Better Auth.
+- `BETTER_AUTH_SECRET` — session-cookie signing secret, 32+ bytes.
+- `BETTER_AUTH_URL` — public app URL, currently `https://pelevin-like.app`.
+
+Production email:
+
+- `RESEND_API_KEY` — sends real magic-link emails.
+- `AUTH_EMAIL_FROM=noreply@pelevin-like.app` — verified sender domain.
+
+Optional rate limiting:
+
+- `UPSTASH_REDIS_REST_URL` — Upstash Redis REST endpoint for durable rate limits.
+- `UPSTASH_REDIS_REST_TOKEN` — standard REST token, server-side only.
+- `RANDOM_QUOTE_RATE_LIMIT` — requests per window, default `60`.
+- `RANDOM_QUOTE_RATE_LIMIT_WINDOW_SECONDS` — window length, default `60`.
+- `VOTE_RATE_LIMIT` — `/api/votes` requests per signed-in user per window,
+  default `30`.
+- `VOTE_RATE_LIMIT_WINDOW_SECONDS` — window length, default `60`.
+
+If Upstash env vars are absent, or Upstash is unreachable, both limits fall
+back to an in-memory bucket per serverless instance (capped at 5,000 keys,
+expired keys evicted first). That is fine for local development but not a
+durable production limit across multiple instances.
+
+Dev/test only:
+
+- `DEV_TEST_AUTH`, `DEV_TEST_USER_EMAIL`, `NEXT_PUBLIC_DEV_TEST_AUTH`
+- `E2E_TEST_MODE`
+
+Everything else (`POSTGRES_*`, `PG*`) is duplicate metadata kept for
+compatibility.
 
 To sync locally:
 
@@ -53,20 +85,37 @@ Or in the dashboard: Deployments → ⋯ → **Promote to Production**.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on `push` (non-main) and on PRs into
-`main`/`develop`:
+`.github/workflows/ci.yml` runs on pushes to `main`, `develop`, `feature/*`,
+`fix/*`, `release/*`, and on PRs into `main` / `develop`.
+
+The workflow has two jobs:
 
 ```
-npm ci → npm run lint → npm run type-check → npm run build
+test:  npm ci → lint → type-check → Vitest → db:push → db:seed → Playwright E2E
+build: npm ci → next build
 ```
 
-CI does **not** run the seed script and does **not** require a real
-`DATABASE_URL` (the build only uses it at runtime).
+The test job uses an ephemeral Postgres 16 service container, so it does not
+need a Neon secret. The build job uses a placeholder `DATABASE_URL`; route
+handlers that need the database must stay dynamic rather than querying during
+`next build`.
 
 ## Database migrations
 
 Migrations run **automatically** on every Vercel build (production and preview)
 via `vercel.json` → `npm run vercel-build` → `db:migrate` → `next build`.
+The `buildCommand` in `vercel.json` overrides the dashboard's default
+"`npm run build`", so the dashboard setting is not the one that runs. Verify
+in a build log: look for `[vercel-build] Running Drizzle migrations`.
+
+Migrations run before `next build`. If the build then fails, the schema change
+is already applied while the previous deployment keeps serving traffic, so
+every migration must be additive and safe for the old code. Write DDL
+idempotently (`IF NOT EXISTS`, `DO $$ … duplicate_object`) as in `0000` and
+`0001`. Then a database that already has the object, for example after a
+`db:push`, does not fail the build.
+
+Preview builds migrate whatever database the Preview `DATABASE_URL` points at.
 `DATABASE_URL` (and preferably `DATABASE_URL_UNPOOLED` for Drizzle Kit) must
 be set in the Vercel project — Neon Marketplace injects both.
 

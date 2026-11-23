@@ -59,6 +59,13 @@ test.describe("quote API (public)", () => {
       book: expect.any(String),
       author: expect.any(String),
       bookmarked: false,
+      vote: {
+        quoteId: id,
+        score: expect.any(Number),
+        upvotes: expect.any(Number),
+        downvotes: expect.any(Number),
+        userVote: 0,
+      },
     });
   });
 });
@@ -126,6 +133,34 @@ test.describe("bookmarks API (auth)", () => {
     });
     expect(response.status()).toBe(400);
     expect(await response.json()).toMatchObject({ error: "Invalid quoteId" });
+  });
+
+  test("authenticated user can vote on a quote", async ({ page }) => {
+    await signInForE2E(page);
+
+    const random = await page.request.get("/api/randomQuote");
+    const { id: quoteId } = (await random.json()) as { id: number };
+
+    const upvote = await page.request.post("/api/votes", {
+      data: { quoteId, value: 1 },
+    });
+    expect(upvote.status()).toBe(200);
+    expect(await upvote.json()).toMatchObject({
+      quoteId,
+      userVote: 1,
+      score: expect.any(Number),
+      upvotes: expect.any(Number),
+      downvotes: expect.any(Number),
+    });
+
+    const detail = await page.request.get(`/api/quotes/${quoteId}`);
+    expect((await detail.json()).vote.userVote).toBe(1);
+
+    const removeVote = await page.request.post("/api/votes", {
+      data: { quoteId, value: 1 },
+    });
+    expect(removeVote.status()).toBe(200);
+    expect((await removeVote.json()).userVote).toBe(0);
   });
 });
 

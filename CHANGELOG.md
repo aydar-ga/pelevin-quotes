@@ -8,6 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
+- Signup-only name field for magic-link registration; login mode remains
+  email-only and unknown-login emails no longer create unnamed users.
+- Cross-tab auth and bookmark state broadcasts so stale sign-in panels close
+  and bookmark counts update immediately.
+- Product voice guide (`docs/08-product-voice.md`) and local AI feature branch
+  continuity note (`docs/09-ai-feature-branch.md`).
+- Visual data model guide (`docs/10-data-model.md`) covering DB relations,
+  runtime class/module links, request-to-schema decisions, and future AI table
+  boundaries.
+- Community submissions / AI-or-not guessing game product note
+  (`docs/11-community-game.md`) added as the next feature candidate.
+- Public quote ranking with `quote_votes`, `/api/votes`, vote controls on quote
+  surfaces, and `/top` weekly / all-time leaderboards.
+- `/api/randomQuote` rate limiting with Upstash Redis REST support and a
+  per-instance memory fallback for local development.
 - Bookmarks: `bookmarks` table, `/api/bookmarks`, `/bookmarks` page, heart toggle
   on quote cards, header badge with saved count
 - Shareable quote permalinks at `/q/[id]` with copy / native share actions
@@ -21,8 +36,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Magic-link authentication via Better Auth (MIT) with the Drizzle adapter
 - `/sign-in` page + server-protected `/me` page + sign-out
 - Resend integration in `lib/email.ts` (no-ops gracefully without API key)
-- Playwright E2E test (`e2e/auth.spec.ts`) covering the full auth flow against
-  a real mail.tm temp inbox
+- Playwright E2E tests for dev-login auth, account panel, API routes,
+  bookmarks, and session state
 - `auth`-related tables (`user`, `session`, `account`, `verification`) pushed
   to Neon
 - `npm run test:e2e` script
@@ -36,6 +51,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
+- Auth panel copy and styling tightened to match the minimal product voice.
+- Share actions now use native Web Share when available, otherwise copy quote
+  text + source + permalink, with a permalink fallback when clipboard is
+  unavailable.
+- `/api/allQuotes` is now force-dynamic to avoid build-time database access.
+
+### Fixed
+
+- `/api/votes` and `/api/bookmarks` return `400` for malformed or non-JSON
+  bodies and out-of-range ids instead of `500`. They require
+  `Content-Type: application/json`, which plain cross-site forms cannot send.
+- `/api/votes` returns `404` for unknown quotes and `429` after 30 votes per
+  user per minute (`VOTE_RATE_LIMIT`). Toggling is atomic (`DELETE … RETURNING`
+  then `INSERT … ON CONFLICT`), so double clicks no longer hit the unique index.
+- The weekly `/top` board shows the viewer's own vote even when it is older than
+  7 days.
+- Vote buttons on the home page follow the current quote instead of keeping
+  the previous quote's score and pressed state.
+- `/dev/login` works on a fresh database again (it registers with
+  `intent=sign-up`). Login lookups lowercase the email. Sign-up without a name
+  is rejected on the server.
+- Rate limiting falls back to memory when Upstash is unreachable. The memory
+  fallback evicts expired keys and caps the map at 5,000 entries.
+- Cancelling the native share sheet no longer throws. A refused share falls
+  back to copying the link.
+- `0001_add_quote_votes.sql` is idempotent, so a database that already has
+  `quote_votes` (e.g. after `db:push`) does not fail the Vercel build.
+- Vitest passes on Node 25+, whose built-in `localStorage` shadowed jsdom's.
 - `BETTER_AUTH_URL` now points to `https://pelevin-like.app` (was the
   `*.vercel.app` URL).
 
@@ -43,7 +86,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Upgraded to Next.js 16, React 19, Tailwind CSS v4, TypeScript 6, ESLint 10 (flat config)
+- Upgraded to Next.js 16, React 19, Tailwind CSS v4, TypeScript 6, ESLint 9 (flat config)
 - Migrated database from Supabase to Neon Postgres (provisioned via Vercel Marketplace)
 - Replaced Supabase JS client with Drizzle ORM + `@neondatabase/serverless`
 - Reseeded `quotes` table from the local `Pelevin_quotes__RU____sample_dataset.numbers` source (300 quotes)
@@ -55,7 +98,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Initial release of the project.
 
-## [1.1.0] - 2024-27-01
+## [1.1.0] - 2024-01-27
 
 ### Added
 

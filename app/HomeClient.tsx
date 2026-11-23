@@ -1,6 +1,7 @@
 "use client";
 
 import { RefreshCw } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AuthStatus from "../components/AuthStatus";
@@ -9,16 +10,35 @@ import PelevinIcon from "../components/PelevinIcon";
 import QuoteCard from "../components/QuoteCard";
 import ThemeToggle from "../components/ThemeToggle";
 import WelcomeBanner from "../components/WelcomeBanner";
+import {
+  publishAuthChange,
+  publishBookmarkChange,
+  subscribeAuthChange,
+} from "@/lib/app-events";
+import type { UserVote } from "@/lib/votes";
 
 const PLACEHOLDER = "Нажми на кнопку, чтобы получить цитатку.";
+type QuoteState = {
+  id: number | null;
+  text: string;
+  book: string;
+  score: number;
+  upvotes: number;
+  downvotes: number;
+  userVote: UserVote;
+};
 
 export default function HomeClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [quote, setQuote] = useState({
-    id: null as number | null,
+  const [quote, setQuote] = useState<QuoteState>({
+    id: null,
     text: PLACEHOLDER,
     book: "",
+    score: 0,
+    upvotes: 0,
+    downvotes: 0,
+    userVote: 0,
   });
   const [bookmarked, setBookmarked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,11 +67,30 @@ export default function HomeClient() {
     const account =
       searchParams.get("panel") === "account" ||
       searchParams.get("bookmarks") === "1";
-    if (welcome) router.refresh();
+    if (welcome) {
+      publishAuthChange("signed-in");
+      router.refresh();
+    }
     if (welcome || signIn || account) {
       router.replace("/", { scroll: false });
     }
   }, [searchParams, router]);
+
+  useEffect(() => {
+    return subscribeAuthChange((change) => {
+      if (change.status === "signed-in") {
+        setSignInOpen(false);
+        setSignInHint(undefined);
+        router.refresh();
+      }
+      if (change.status === "signed-out") {
+        setAccountOpen(false);
+        setBookmarked(false);
+        setShowWelcome(false);
+        router.refresh();
+      }
+    });
+  }, [router]);
 
   const generateQuote = useCallback(async () => {
     setIsLoading(true);
@@ -68,15 +107,45 @@ export default function HomeClient() {
         text: string;
         book: string;
       };
-      setQuote({ id: data.id, text: data.text, book: data.book });
+      setQuote({
+        id: data.id,
+        text: data.text,
+        book: data.book,
+        score: 0,
+        upvotes: 0,
+        downvotes: 0,
+        userVote: 0,
+      });
 
       if (data.id) {
         const detail = await fetch(`/api/quotes/${data.id}`, {
           cache: "no-store",
         });
         if (detail.ok) {
-          const payload = (await detail.json()) as { bookmarked?: boolean };
+          const payload = (await detail.json()) as {
+            bookmarked?: boolean;
+            vote?: {
+              score: number;
+              upvotes: number;
+              downvotes: number;
+              userVote: UserVote;
+            };
+          };
           setBookmarked(Boolean(payload.bookmarked));
+          const vote = payload.vote;
+          if (vote) {
+            setQuote((current) =>
+              current.id === data.id
+                ? {
+                    ...current,
+                    score: vote.score,
+                    upvotes: vote.upvotes,
+                    downvotes: vote.downvotes,
+                    userVote: vote.userVote,
+                  }
+                : current,
+            );
+          }
         } else {
           setBookmarked(false);
         }
@@ -128,8 +197,17 @@ export default function HomeClient() {
         return;
       }
       if (!response.ok) throw new Error("bookmark failed");
-      const data = (await response.json()) as { bookmarked: boolean };
+      const data = (await response.json()) as {
+        bookmarked: boolean;
+        total: number;
+        quoteId: number;
+      };
       setBookmarked(data.bookmarked);
+      publishBookmarkChange({
+        total: data.total,
+        quoteId: data.quoteId,
+        bookmarked: data.bookmarked,
+      });
     } catch {
       setError("Не удалось обновить закладку. Попробуй ещё раз.");
     } finally {
@@ -173,9 +251,16 @@ export default function HomeClient() {
         quoteId={quote.id}
         empty={quote.text === PLACEHOLDER}
         bookmarked={bookmarked}
+        score={quote.score}
+        upvotes={quote.upvotes}
+        downvotes={quote.downvotes}
+        userVote={quote.userVote}
         onBookmarkToggle={toggleBookmark}
         onSignInRequired={() =>
           openSignIn("Войди, чтобы сохранять цитаты в закладки.")
+        }
+        onVoteSignInRequired={() =>
+          openSignIn("Войди, чтобы двигать цитаты вверх и вниз.")
         }
         bookmarkBusy={bookmarkBusy}
       />
@@ -190,6 +275,12 @@ export default function HomeClient() {
         />
         Давай цитатку
       </button>
+      <Link
+        href="/top"
+        className="mt-4 rounded-full border border-[var(--card-border)] px-4 py-2 text-sm text-[var(--muted)] transition-colors hover:text-[var(--foreground)]"
+      >
+        Топ цитат
+      </Link>
     </div>
   );
 }

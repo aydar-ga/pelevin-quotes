@@ -5,20 +5,8 @@ export type BookmarkItem = {
   author: string;
 };
 
-export function groupBookmarksByBook(
-  items: BookmarkItem[],
-): { book: string; items: BookmarkItem[] }[] {
-  const map = new Map<string, BookmarkItem[]>();
-  for (const item of items) {
-    const key = item.book.trim() || "Без названия";
-    const list = map.get(key) ?? [];
-    list.push(item);
-    map.set(key, list);
-  }
-  return Array.from(map.entries()).map(([book, grouped]) => ({
-    book,
-    items: grouped,
-  }));
+export function sourceLabel(book: string): string {
+  return book.trim() || "Без названия";
 }
 
 export function emailInitial(email: string): string {

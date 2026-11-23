@@ -1,41 +1,33 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import QuoteActions from "@/components/QuoteActions";
 
-vi.mock("next/link", () => ({
-  default: ({
-    href,
-    children,
-    ...props
-  }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
+vi.mock("@/lib/auth-client", () => ({
+  useSession: () => ({ data: { user: { id: "u1" } }, isPending: false }),
 }));
 
-describe("QuoteActions", () => {
-  it("links to the quote permalink", () => {
-    render(<QuoteActions quoteId={42} />);
+import QuoteActions from "@/components/QuoteActions";
 
-    expect(screen.getByRole("link", { name: /открыть цитату/i })).toHaveAttribute(
-      "href",
-      "/q/42",
-    );
+describe("QuoteActions", () => {
+  it("renders a share control for a quote permalink", () => {
+    render(<QuoteActions quoteId={42} quote="Test quote" book="Book" />);
+
+    expect(
+      screen.getByRole("button", { name: /поделиться цитатой/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "В плюс" })).toBeInTheDocument();
   });
 
   it("renders nothing when quote id is missing", () => {
-    const { container } = render(<QuoteActions quoteId={null} />);
+    const { container } = render(
+      <QuoteActions quoteId={null} quote="x" book="" />,
+    );
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("does not show a copy control", () => {
-    render(<QuoteActions quoteId={1} />);
-    expect(
-      screen.queryByRole("button", { name: /копировать/i }),
-    ).not.toBeInTheDocument();
+  it("renders nothing for empty placeholder quotes", () => {
+    const { container } = render(
+      <QuoteActions quoteId={1} quote="x" book="" empty />,
+    );
+    expect(container).toBeEmptyDOMElement();
   });
 });

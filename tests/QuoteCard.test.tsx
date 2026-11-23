@@ -5,21 +5,6 @@ vi.mock("@/lib/auth-client", () => ({
   useSession: () => ({ data: { user: { id: "u1" } }, isPending: false }),
 }));
 
-vi.mock("next/link", () => ({
-  default: ({
-    href,
-    children,
-    ...props
-  }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
 import QuoteCard from "@/components/QuoteCard";
 
 describe("QuoteCard", () => {
@@ -44,7 +29,7 @@ describe("QuoteCard", () => {
     expect(screen.getByText(/"Test\."/)).toHaveAttribute("aria-live", "polite");
   });
 
-  it("shows bookmark and permalink actions when a quote is loaded", () => {
+  it("shows bookmark and share actions when a quote is loaded", () => {
     render(
       <QuoteCard
         quote="Loaded."
@@ -56,10 +41,9 @@ describe("QuoteCard", () => {
     );
 
     expect(screen.getByTestId("bookmark-button")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /открыть цитату/i })).toHaveAttribute(
-      "href",
-      "/q/9",
-    );
+    expect(
+      screen.getByRole("button", { name: /поделиться цитатой/i }),
+    ).toBeInTheDocument();
   });
 
   it("hides actions in the empty placeholder state", () => {
@@ -69,7 +53,7 @@ describe("QuoteCard", () => {
 
     expect(screen.queryByTestId("bookmark-button")).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", { name: /открыть цитату/i }),
+      screen.queryByRole("button", { name: /поделиться цитатой/i }),
     ).not.toBeInTheDocument();
   });
 });

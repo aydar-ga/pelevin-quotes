@@ -1,9 +1,9 @@
 "use client";
 
-import { ExternalLink, Heart } from "lucide-react";
-import Link from "next/link";
+import { Heart } from "lucide-react";
 import { iconActionClass } from "@/lib/icon-button";
-import type { BookmarkItem } from "@/lib/bookmark-ui";
+import { sourceLabel, type BookmarkItem } from "@/lib/bookmark-ui";
+import ShareQuoteButton from "./ShareQuoteButton";
 
 interface BookmarkRowProps {
   item: BookmarkItem;
@@ -17,23 +17,26 @@ export default function BookmarkRow({ item, onRemove, busy }: BookmarkRowProps) 
       <p className="line-clamp-3 text-sm leading-relaxed text-[var(--foreground)]">
         &ldquo;{item.text}&rdquo;
       </p>
-      <div className="mt-3 flex items-center justify-end gap-1">
-        <button
-          type="button"
-          aria-label="Убрать из закладок"
-          disabled={busy}
-          onClick={() => onRemove(item.id)}
-          className={`${iconActionClass} border-red-500/30 text-red-400 hover:bg-red-500/10`}
-        >
-          <Heart className="h-4 w-4 fill-current" aria-hidden />
-        </button>
-        <Link
-          href={`/q/${item.id}`}
-          aria-label="Открыть цитату"
-          className={iconActionClass}
-        >
-          <ExternalLink className="h-4 w-4" aria-hidden />
-        </Link>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <p className="min-w-0 truncate text-xs text-[var(--muted)]">
+          {sourceLabel(item.book)}
+        </p>
+        <div className="flex shrink-0 items-center gap-1">
+          <button
+            type="button"
+            aria-label="Убрать из закладок"
+            disabled={busy}
+            onClick={() => onRemove(item.id)}
+            className={`${iconActionClass} border-red-500/30 text-red-400 hover:bg-red-500/10`}
+          >
+            <Heart className="h-4 w-4 fill-current" aria-hidden />
+          </button>
+          <ShareQuoteButton
+            quoteId={item.id}
+            quote={item.text}
+            book={item.book}
+          />
+        </div>
       </div>
     </article>
   );

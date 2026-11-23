@@ -66,7 +66,7 @@ describe("QuoteView", () => {
     expect(await screen.findByTestId("sign-in-panel")).toBeInTheDocument();
   });
 
-  it("shows permalink link for the quote", () => {
+  it("shows share button for the quote", () => {
     render(
       <QuoteView
         id={7}
@@ -76,9 +76,8 @@ describe("QuoteView", () => {
       />,
     );
 
-    expect(screen.getByRole("link", { name: /открыть цитату/i })).toHaveAttribute(
-      "href",
-      "/q/7",
-    );
+    expect(
+      screen.getByRole("button", { name: /поделиться цитатой/i }),
+    ).toBeInTheDocument();
   });
 });

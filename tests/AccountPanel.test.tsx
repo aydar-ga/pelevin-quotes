@@ -20,7 +20,7 @@ describe("AccountPanel", () => {
     );
   });
 
-  it("renders account email and grouped bookmark sections", async () => {
+  it("renders account email and a flat bookmark list", async () => {
     render(
       <AccountPanel
         open
@@ -35,13 +35,13 @@ describe("AccountPanel", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("S.N.U.F.F.")).toBeInTheDocument();
-      expect(screen.getByText("Generation П")).toBeInTheDocument();
+      expect(
+        screen.getByText(/герой — зритель, обученный хлопать/i),
+      ).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByText(/герой — зритель, обученный хлопать/i),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("calls onClose when backdrop is clicked", async () => {

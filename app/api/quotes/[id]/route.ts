@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "@/lib/auth-server";
 import { isBookmarked } from "@/lib/bookmarks";
 import { getQuoteById } from "@/lib/quotes";
+import { getQuoteVoteSummary } from "@/lib/votes";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,7 @@ export async function GET(
   const bookmarked = session?.user
     ? await isBookmarked(session.user.id, quoteId)
     : false;
+  const vote = await getQuoteVoteSummary(quoteId, session?.user.id);
 
   return NextResponse.json({
     id: quote.id,
@@ -32,5 +34,6 @@ export async function GET(
     book: quote.book,
     author: quote.author,
     bookmarked,
+    vote,
   });
 }

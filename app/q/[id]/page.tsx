@@ -7,6 +7,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { getServerSession } from "@/lib/auth-server";
 import { isBookmarked } from "@/lib/bookmarks";
 import { getQuoteById } from "@/lib/quotes";
+import { getQuoteVoteSummary } from "@/lib/votes";
 
 export const dynamic = "force-dynamic";
 
@@ -55,6 +56,7 @@ export default async function QuotePermalinkPage({ params }: PageProps) {
   const bookmarked = session?.user
     ? await isBookmarked(session.user.id, quoteId)
     : false;
+  const vote = await getQuoteVoteSummary(quoteId, session?.user.id);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--background)] p-4">
@@ -68,6 +70,7 @@ export default async function QuotePermalinkPage({ params }: PageProps) {
         text={quote.text}
         book={quote.book}
         initialBookmarked={bookmarked}
+        initialVote={vote}
       />
       <Link
         href="/"

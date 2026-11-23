@@ -4,6 +4,7 @@ import React from "react";
 import PelevinIcon from "./PelevinIcon";
 import QuoteActions from "./QuoteActions";
 import BookmarkButton from "./BookmarkButton";
+import type { UserVote } from "@/lib/votes";
 
 interface QuoteCardProps {
   quote: string;
@@ -11,8 +12,13 @@ interface QuoteCardProps {
   quoteId?: number | null;
   empty?: boolean;
   bookmarked?: boolean;
+  score?: number;
+  upvotes?: number;
+  downvotes?: number;
+  userVote?: UserVote;
   onBookmarkToggle?: () => void;
   onSignInRequired?: () => void;
+  onVoteSignInRequired?: () => void;
   bookmarkBusy?: boolean;
 }
 
@@ -22,8 +28,13 @@ const QuoteCard: React.FC<QuoteCardProps> = ({
   quoteId = null,
   empty,
   bookmarked = false,
+  score = 0,
+  upvotes = 0,
+  downvotes = 0,
+  userVote = 0,
   onBookmarkToggle,
   onSignInRequired,
+  onVoteSignInRequired,
   bookmarkBusy = false,
 }) => {
   return (
@@ -52,7 +63,19 @@ const QuoteCard: React.FC<QuoteCardProps> = ({
             onSignInRequired={() => onSignInRequired?.()}
             disabled={bookmarkBusy}
           />
-          <QuoteActions quoteId={quoteId} empty={empty} />
+          <QuoteActions
+            quoteId={quoteId}
+            quote={quote}
+            book={book}
+            score={score}
+            upvotes={upvotes}
+            downvotes={downvotes}
+            userVote={userVote}
+            empty={empty}
+            onSignInRequired={() =>
+              (onVoteSignInRequired ?? onSignInRequired)?.()
+            }
+          />
         </div>
       )}
     </div>

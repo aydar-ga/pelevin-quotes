@@ -3,21 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import BookmarkRow from "@/components/BookmarkRow";
 
-vi.mock("next/link", () => ({
-  default: ({
-    href,
-    children,
-    ...props
-  }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
 const item = {
   id: 42,
   text: "Герой — зритель, обученный хлопать.",
@@ -26,16 +11,16 @@ const item = {
 };
 
 describe("BookmarkRow", () => {
-  it("renders quote text and permalink link", () => {
+  it("renders quote text, source, and share button", () => {
     render(<BookmarkRow item={item} onRemove={vi.fn()} />);
 
     expect(
       screen.getByText(/герой — зритель, обученный хлопать/i),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /открыть цитату/i })).toHaveAttribute(
-      "href",
-      "/q/42",
-    );
+    expect(screen.getByText("S.N.U.F.F.")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /поделиться цитатой/i }),
+    ).toBeInTheDocument();
   });
 
   it("calls onRemove when heart is clicked", async () => {

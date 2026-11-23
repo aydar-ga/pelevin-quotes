@@ -1,5 +1,7 @@
 import {
   boolean,
+  check,
+  index,
   integer,
   pgTable,
   serial,
@@ -8,6 +10,7 @@ import {
   uniqueIndex,
   varchar,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 export const quotes = pgTable("quotes", {
   id: serial("id").primaryKey(),
@@ -90,3 +93,26 @@ export const bookmarks = pgTable(
 );
 
 export type Bookmark = typeof bookmarks.$inferSelect;
+
+export const quoteVotes = pgTable(
+  "quote_votes",
+  {
+    id: serial("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    quoteId: integer("quote_id")
+      .notNull()
+      .references(() => quotes.id, { onDelete: "cascade" }),
+    value: integer("value").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("quote_votes_user_quote_idx").on(table.userId, table.quoteId),
+    index("quote_votes_quote_updated_idx").on(table.quoteId, table.updatedAt),
+    check("quote_votes_value_check", sql`${table.value} in (-1, 1)`),
+  ],
+);
+
+export type QuoteVote = typeof quoteVotes.$inferSelect;
