@@ -125,6 +125,10 @@ Aider / Continue), [`CLAUDE.md`](../CLAUDE.md), `.cursorrules`, and
 
 ## Roadmap (technical notes)
 
+- [ ] **Enforce the CSP.** It ships as `Content-Security-Policy-Report-Only`
+      (see `docs/05-deployment.md` → Security headers). Once Production shows no
+      violations, rename the header to enforce it and keep the e2e check.
+
 ### Features
 
 - [ ] **Google OAuth via Better Auth.** Add `signIn.social({ provider: 'google' })`

@@ -64,6 +64,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- Security headers on every route: HSTS, `nosniff`, strict referrer policy,
+  `Permissions-Policy`, `X-Frame-Options: DENY`, no `X-Powered-By`, and a
+  report-only CSP with `frame-ancestors 'none'`; asserted in unit and e2e
+  tests.
 - One Zod-validated env module (`lib/env.ts`) is the only reader of
   `process.env` in app code. No secret fallbacks: a missing or short
   `BETTER_AUTH_SECRET`, or missing Resend config in Production, now fails the
