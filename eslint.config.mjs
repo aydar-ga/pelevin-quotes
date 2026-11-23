@@ -12,6 +12,7 @@ const config = [
       "node_modules/**",
       "drizzle/**",
       "scripts/quotes.json",
+      "coverage/**",
       "playwright-report/**",
       "test-results/**",
     ],

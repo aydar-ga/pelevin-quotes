@@ -48,6 +48,7 @@ describe("/api/bookmarks", () => {
     const response = await POST(
       new Request("http://localhost/api/bookmarks", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quoteId: 1 }),
       }),
     );
@@ -59,10 +60,24 @@ describe("/api/bookmarks", () => {
     const response = await POST(
       new Request("http://localhost/api/bookmarks", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quoteId: "nope" }),
       }),
     );
     expect(response.status).toBe(400);
+  });
+
+  it("POST returns 400 for malformed JSON instead of crashing", async () => {
+    getServerSession.mockResolvedValue({ user: { id: "user-1" } });
+    const response = await POST(
+      new Request("http://localhost/api/bookmarks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{oops",
+      }),
+    );
+    expect(response.status).toBe(400);
+    expect(toggleBookmark).not.toHaveBeenCalled();
   });
 
   it("POST toggles bookmark and returns updated state", async () => {
@@ -73,6 +88,7 @@ describe("/api/bookmarks", () => {
     const response = await POST(
       new Request("http://localhost/api/bookmarks", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quoteId: 5 }),
       }),
     );

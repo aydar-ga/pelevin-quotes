@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "@/lib/auth-server";
 import { countBookmarks, listBookmarks, toggleBookmark } from "@/lib/bookmarks";
+import { isQuoteId, readJsonObject } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 
@@ -24,10 +25,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = (await request.json()) as { quoteId?: number };
-  const quoteId = body.quoteId;
+  const body = await readJsonObject(request);
+  const quoteId = body?.quoteId;
 
-  if (typeof quoteId !== "number" || !Number.isInteger(quoteId) || quoteId < 1) {
+  if (!isQuoteId(quoteId)) {
     return NextResponse.json({ error: "Invalid quoteId" }, { status: 400 });
   }
 
