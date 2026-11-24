@@ -37,6 +37,9 @@ export default defineConfig({
       DEV_TEST_USER_EMAIL:
         process.env.DEV_TEST_USER_EMAIL ?? "dev@test.local",
       E2E_TEST_MODE: "true",
+      // Kill switch on, so e2e reaches the durable email caps (sendEmail is
+      // mocked in E2E_TEST_MODE; nothing is delivered).
+      AUTH_EMAIL_ENABLED: "true",
       BETTER_AUTH_URL: BASE_URL,
       BETTER_AUTH_SECRET:
         process.env.BETTER_AUTH_SECRET ??

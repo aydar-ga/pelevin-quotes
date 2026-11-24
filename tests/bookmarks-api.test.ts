@@ -15,11 +15,32 @@ vi.mock("@/lib/bookmarks", () => ({
   toggleBookmark: (...args: unknown[]) => toggleBookmark(...args),
 }));
 
+const checkUserWriteCap = vi.fn();
+
+vi.mock("@/lib/abuse-guard", () => ({
+  checkUserWriteCap: (...args: unknown[]) => checkUserWriteCap(...args),
+}));
+
 import { GET, POST } from "@/app/api/bookmarks/route";
 
 describe("/api/bookmarks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    checkUserWriteCap.mockResolvedValue(true);
+  });
+
+  it("POST returns 429 once the user's daily write cap is spent", async () => {
+    getServerSession.mockResolvedValue({ user: { id: "user-1" } });
+    checkUserWriteCap.mockResolvedValue(false);
+    const response = await POST(
+      new Request("http://localhost/api/bookmarks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quoteId: 1 }),
+      }),
+    );
+    expect(response.status).toBe(429);
+    expect(checkUserWriteCap).toHaveBeenCalledWith("user-1");
   });
 
   it("GET returns 401 when not authenticated", async () => {

@@ -106,4 +106,36 @@ describe("SignInForm", () => {
     render(<SignInForm />);
     expect(submitButton("Войти")).toBeDisabled();
   });
+
+  it("sends a filled honeypot to the server, which fakes success for bots", async () => {
+    signInMagicLink.mockResolvedValueOnce({ data: { ok: true }, error: null });
+    const { container } = render(<SignInForm />);
+    const trap = container.querySelector<HTMLInputElement>('input[name="website"]');
+    expect(trap).not.toBeNull();
+    expect(trap).toHaveAttribute("tabindex", "-1");
+
+    await userEvent.type(trap!, "http://spam.example");
+    await userEvent.type(screen.getByLabelText(/почта/i), "bot@example.com");
+    await userEvent.click(submitButton("Войти"));
+
+    expect(signInMagicLink).toHaveBeenCalledWith(
+      expect.objectContaining({
+        metadata: { intent: "sign-in", website: "http://spam.example" },
+      }),
+    );
+  });
+
+  it("shows the server's rate-limit message instead of 'email not found'", async () => {
+    signInMagicLink.mockResolvedValueOnce({
+      data: null,
+      error: { status: 429, message: "Слишком много писем. Попробуй позже." },
+    });
+    render(<SignInForm />);
+    await userEvent.type(screen.getByLabelText(/почта/i), "test@example.com");
+    await userEvent.click(submitButton("Войти"));
+
+    expect(
+      await screen.findByText("Слишком много писем. Попробуй позже."),
+    ).toBeInTheDocument();
+  });
 });

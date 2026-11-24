@@ -14,6 +14,7 @@
 | [09-ai-feature-branch.md](./09-ai-feature-branch.md) | Local AI feature branch continuity note      |
 | [10-data-model.md](./10-data-model.md)           | Visual DB, class, relation, and flow diagrams     |
 | [11-community-game.md](./11-community-game.md)    | Next feature idea: submissions, guessing, user ranking |
+| [security-guardrails.md](./security-guardrails.md) | Email, sign-in and write abuse caps, kill switch |
 | [owner-actions.md](./owner-actions.md)           | To-dos only the owner can do (domains, dashboards, local sync) |
 
 For a quick orientation, see [`/CLAUDE.md`](../CLAUDE.md) (also linked from

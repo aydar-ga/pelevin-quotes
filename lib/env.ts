@@ -30,6 +30,7 @@ const schema = z.object({
   RANDOM_QUOTE_RATE_LIMIT_WINDOW_SECONDS: optional(z.string()),
   VOTE_RATE_LIMIT: optional(z.string()),
   VOTE_RATE_LIMIT_WINDOW_SECONDS: optional(z.string()),
+  AUTH_EMAIL_ENABLED: optional(z.string()),
   DEV_TEST_AUTH: flag,
   DEV_TEST_USER_EMAIL: optional(z.email()),
   E2E_TEST_MODE: flag,

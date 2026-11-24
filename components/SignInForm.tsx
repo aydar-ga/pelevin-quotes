@@ -16,6 +16,9 @@ export default function SignInForm({
 }: SignInFormProps) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  // Honeypot: invisible to people, filled by naive bots; the server fakes
+  // success for it and never sends an email.
+  const [website, setWebsite] = useState("");
   const [mode, setMode] = useState<Mode>("sign-in");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,20 +35,22 @@ export default function SignInForm({
             name: trimmedName,
             callbackURL,
             newUserCallbackURL: callbackURL,
-            metadata: { intent: mode },
+            metadata: website ? { intent: mode, website } : { intent: mode },
           }
         : {
             email,
             callbackURL,
-            metadata: { intent: mode },
+            metadata: website ? { intent: mode, website } : { intent: mode },
           };
     const { error } = await signIn.magicLink(payload);
     if (error) {
       setStatus("error");
       setErrorMessage(
-        mode === "sign-in"
-          ? "Почта не нашлась. Если ты впервые здесь — жми регистрацию."
-          : error.message ?? "Что-то пошло не так. Попробуй ещё раз.",
+        error.status === 429 || error.status === 503
+          ? (error.message ?? "Что-то пошло не так. Попробуй позже.")
+          : mode === "sign-in"
+            ? "Почта не нашлась. Если ты впервые здесь — жми регистрацию."
+            : (error.message ?? "Что-то пошло не так. Попробуй ещё раз."),
       );
       return;
     }
@@ -124,6 +129,16 @@ export default function SignInForm({
           />
         </>
       )}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        className="absolute -left-[9999px] h-px w-px opacity-0"
+      />
       <label htmlFor="email" className="mb-2 block text-sm font-medium">
         Почта
       </label>

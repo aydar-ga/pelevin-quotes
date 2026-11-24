@@ -144,3 +144,8 @@ Defence in depth: `/dev/login` and `/api/test/last-magic-link` also check
 even if a test flag is set by mistake. Magic links are kept in the in-memory
 store only in dev/e2e test mode, never in Production
 (`shouldCaptureMagicLink` in `lib/dev-test-auth.ts`).
+
+## Abuse guardrails
+
+Email caps, the `AUTH_EMAIL_ENABLED` kill switch, magic-link verify limits
+and the sign-out origin check: see [security-guardrails.md](./security-guardrails.md).

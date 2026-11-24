@@ -19,6 +19,12 @@ vi.mock("@/lib/rate-limit", () => ({
     result.allowed ? {} : { "Retry-After": "60" },
 }));
 
+const checkUserWriteCap = vi.fn();
+
+vi.mock("@/lib/abuse-guard", () => ({
+  checkUserWriteCap: (...args: unknown[]) => checkUserWriteCap(...args),
+}));
+
 import { POST } from "@/app/api/votes/route";
 
 function voteRequest(body: string, contentType = "application/json") {
@@ -32,6 +38,7 @@ function voteRequest(body: string, contentType = "application/json") {
 describe("/api/votes", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    checkUserWriteCap.mockResolvedValue(true);
     getServerSession.mockResolvedValue({ user: { id: "user-1" } });
     checkVoteRateLimit.mockResolvedValue({
       allowed: true,
@@ -127,5 +134,14 @@ describe("/api/votes", () => {
       downvotes: 1,
       userVote: 1,
     });
+  });
+
+  it("returns 429 once the user's daily write cap is spent", async () => {
+    checkUserWriteCap.mockResolvedValue(false);
+    const response = await POST(
+      voteRequest(JSON.stringify({ quoteId: 1, value: 1 })),
+    );
+    expect(response.status).toBe(429);
+    expect(setQuoteVote).not.toHaveBeenCalled();
   });
 });

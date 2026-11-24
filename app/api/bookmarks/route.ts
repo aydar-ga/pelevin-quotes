@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { checkUserWriteCap } from "@/lib/abuse-guard";
 import { getServerSession } from "@/lib/auth-server";
 import { countBookmarks, listBookmarks, toggleBookmark } from "@/lib/bookmarks";
 import { isQuoteId, readJsonObject } from "@/lib/request-body";
@@ -23,6 +24,13 @@ export async function POST(request: Request) {
   const session = await getServerSession();
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!(await checkUserWriteCap(session.user.id))) {
+    return NextResponse.json(
+      { error: "На сегодня хватит. Возвращайся завтра." },
+      { status: 429 },
+    );
   }
 
   const body = await readJsonObject(request);

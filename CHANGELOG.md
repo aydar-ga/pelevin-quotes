@@ -64,6 +64,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- Durable abuse guardrails for sign-in email (`lib/abuse-guard.ts`, table
+  `abuse_counters`): honeypot, `AUTH_EMAIL_ENABLED` kill switch, per-recipient,
+  per-IP and app-wide caps, fail closed on DB errors, hashed keys only;
+  magic-link verify capped per IP; magic links single-use and stored hashed;
+  300 writes per user per day. See `docs/security-guardrails.md`.
 - Security headers on every route: HSTS, `nosniff`, strict referrer policy,
   `Permissions-Policy`, `X-Frame-Options: DENY`, no `X-Powered-By`, and a
   report-only CSP with `frame-ancestors 'none'`; asserted in unit and e2e

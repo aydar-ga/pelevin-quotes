@@ -4,6 +4,7 @@ import {
   index,
   integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
@@ -116,3 +117,19 @@ export const quoteVotes = pgTable(
 );
 
 export type QuoteVote = typeof quoteVotes.$inferSelect;
+
+// Durable abuse counters (lib/abuse-guard.ts): one row per bucket, hashed key
+// and fixed UTC window. Keys are HMACs, never raw emails or IPs.
+export const abuseCounters = pgTable(
+  "abuse_counters",
+  {
+    bucket: text("bucket").notNull(),
+    keyHash: text("key_hash").notNull(),
+    windowStart: timestamp("window_start", { withTimezone: true }).notNull(),
+    count: integer("count").notNull().default(0),
+  },
+  (table) => [
+    primaryKey({ columns: [table.bucket, table.keyHash, table.windowStart] }),
+    index("abuse_counters_window_start_idx").on(table.windowStart),
+  ],
+);

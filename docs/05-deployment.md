@@ -84,6 +84,7 @@ it, closed:
 | `DATABASE_URL` | required on first DB use | any DB-backed request |
 | `BETTER_AUTH_SECRET` | required, ≥ 32 chars, no fallback | any auth/session request |
 | `BETTER_AUTH_URL` | valid URL; required in Production | auth requests in Production |
+| `AUTH_EMAIL_ENABLED` | kill switch: email is sent only when exactly `true` | every sign-in email (503) |
 | `RESEND_API_KEY`, `AUTH_EMAIL_FROM` | required in Production | sending a magic link in Production (outside Production a missing key logs and skips) |
 | `UPSTASH_REDIS_REST_URL` | valid URL if set | rate-limited requests |
 | `DEV_TEST_AUTH`, `E2E_TEST_MODE` | ignored in Production (`VERCEL_ENV=production`) | never |
