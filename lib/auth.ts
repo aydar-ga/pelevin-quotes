@@ -54,8 +54,7 @@ export function createAuth() {
           await assertMagicLinkIntentAllowed(email, metadata, ctx?.body?.name);
           if (shouldCaptureMagicLink()) rememberMagicLink(email, url, token);
           if (shouldSkipMagicLinkEmail(email)) return;
-          // Every real send passes the durable abuse guard first; see
-          // docs/security-guardrails.md.
+          // Every real send passes the durable abuse guard first.
           const decision = await checkMagicLinkSend({
             email,
             ip: clientIp(ctx?.headers ?? ctx?.request?.headers),

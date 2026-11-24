@@ -74,6 +74,5 @@
 
 ---
 
-<sub>🔧 Technical notes for the maintainer live in [docs/](docs/DEVELOPMENT.md).</sub>
 
 <sub>© Aydar Gazizullin — all rights reserved. See [LICENSE](LICENSE).</sub>

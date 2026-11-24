@@ -3,7 +3,7 @@
 Project notes for Claude Code (and any other AI assistant) working in this repo.
 
 This file mirrors `AGENTS.md` — keep them in sync if you edit one. Both are
-short on purpose; the deep documentation lives in [`docs/`](./docs).
+short on purpose; the deep documentation lives in the owner's private notes at `../ag-dev-meta/projects/pelevin-quotes/docs/` (this repo is public).
 
 ## TL;DR
 
@@ -18,19 +18,9 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 
 ## Where to look first
 
-| Doc                                                       | When you need it                              |
-| --------------------------------------------------------- | --------------------------------------------- |
-| [docs/DEVELOPMENT.md](./docs/DEVELOPMENT.md)              | Stack, scripts, shipped log, technical roadmap |
-| [docs/01-architecture.md](./docs/01-architecture.md)      | Understand the module layout                  |
-| [docs/02-framework-selection.md](./docs/02-framework-selection.md) | Why each library — before swapping anything |
-| [docs/03-database.md](./docs/03-database.md)              | Schema, seeding, migrations                   |
-| [docs/04-development.md](./docs/04-development.md)        | Scripts, conventions, local setup             |
-| [docs/05-deployment.md](./docs/05-deployment.md)          | Vercel deploys, env vars, rollback            |
-| [docs/06-testing.md](./docs/06-testing.md)                | Vitest + Testing Library                      |
-| [docs/07-auth.md](./docs/07-auth.md)                      | Better Auth, magic links, auth UX             |
-| [docs/08-product-voice.md](./docs/08-product-voice.md)    | Russian UX copy voice                         |
-| [docs/09-ai-feature-branch.md](./docs/09-ai-feature-branch.md) | Local AI branch continuity               |
-| [docs/10-data-model.md](./docs/10-data-model.md)          | Visual DB, class, relation, and flow maps     |
+This repository is public. Its internal docs live in the owner's private notes at `../ag-dev-meta/projects/pelevin-quotes/docs/`. Start with `README.md` there (the index), then `DEVELOPMENT.md` (stack, scripts, shipped log, technical roadmap), the numbered guides `01-architecture.md` to `11-community-game.md`, and `owner-actions.md`.
+
+**Never commit internal notes to this repo:** owner actions, incident or rotation logs, security rationale and thresholds, monitoring setup, account plans, audits, roadmaps or changelogs. They go in the private docs.
 
 ## Hard rules
 
@@ -39,8 +29,8 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
   make it pass. Never commit with a red suite.
 - **Keep the docs in sync, README stays non-technical.** `README.md` is a
   visitor showcase: no stack, commands, env vars or infra. Stack, scripts,
-  "Shipped" and the technical roadmap live in `docs/DEVELOPMENT.md`; update it
-  *in the same commit* as the change. Visitor-visible changes (features,
+  "Shipped" and the technical roadmap live in the private `DEVELOPMENT.md`; update it
+  *in the same change set* as the change. Visitor-visible changes (features,
   roadmap status) also update the README's showcase sections.
 - **Don't reintroduce Supabase.** We migrated away from it intentionally
   (see `CHANGELOG.md` v2.0.0).
@@ -51,14 +41,14 @@ Next.js 16 (App Router, React 19) ──▶ Drizzle ORM ──▶ Neon Postgres
 - **Don't bypass the precommit hook** (`--no-verify`) unless a human asks.
 - **Don't run `npm run db:seed` against production.** It drops the table.
 - **User-facing copy is Russian.** Keep it cool, sharp, compact, and informal;
-  see `docs/08-product-voice.md`. Code/comments/commits/docs are English.
+  see the private `08-product-voice.md`. Code/comments/commits/docs are English.
 
 ## Automatic workflow (every code change)
 
 1. Add or update a failing test under `tests/`.
 2. Implement the change.
 3. Run `npm run lint && npm run type-check && npm test && npm run build`.
-4. Update `docs/DEVELOPMENT.md` (and any relevant `docs/` page) if the stack,
+4. Update the private `DEVELOPMENT.md` (and any relevant private docs page) if the stack,
    scripts, "Shipped", or the roadmap changed; update the README showcase if
    visitors would notice.
 5. Commit (precommit hook re-runs lint-staged + type-check + tests).
@@ -93,4 +83,4 @@ preview URLs. Manual:
 vercel deploy --prod
 ```
 
-See [`docs/05-deployment.md`](./docs/05-deployment.md).
+See the private `05-deployment.md`.

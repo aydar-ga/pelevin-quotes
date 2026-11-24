@@ -1,7 +1,7 @@
 # GitHub Copilot / Copilot Chat instructions
 
 This repo's full agent guidance lives in [`/AGENTS.md`](../AGENTS.md) and
-[`/CLAUDE.md`](../CLAUDE.md), with deep documentation under [`/docs/`](../docs).
+[`/CLAUDE.md`](../CLAUDE.md), with deep documentation in the owner's private notes (`../ag-dev-meta/projects/pelevin-quotes/docs/`).
 
 ## TL;DR for inline completions
 
@@ -10,17 +10,17 @@ This repo's full agent guidance lives in [`/AGENTS.md`](../AGENTS.md) and
   implementation. Never propose code that ships without a test.
 - **Docs stay in sync; README stays non-technical.** When suggesting a change
   that affects the stack, scripts, "Shipped", or roadmap, also suggest the
-  matching `docs/DEVELOPMENT.md` edit in the same change set. The README is a
+  matching the private `DEVELOPMENT.md` edit in the same change set. The README is a
   visitor showcase with no technical detail.
 - TypeScript strict — never use `any`; use Drizzle's inferred types.
 - Tests live under `tests/`, written with Vitest + Testing Library.
 - Don't co-locate tests with sources.
 - Don't add "what" comments; only "why", when non-obvious.
 - Russian for user-facing copy; English everywhere else. Follow
-  `docs/08-product-voice.md`: cool, sharp, compact, informal.
+  the private `08-product-voice.md`: cool, sharp, compact, informal.
 - Visual DB, class, relation, and runtime flow docs live in
-  `docs/10-data-model.md`; keep them in sync with schema or route changes.
-- Don't suggest Supabase — we migrated off it (CHANGELOG v2.0.0).
+  the private `10-data-model.md`; keep them in sync with schema or route changes.
+- Don't suggest Supabase — we migrated off it (v2.0.0).
 
 ## Suggested verification
 

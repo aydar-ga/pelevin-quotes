@@ -88,7 +88,7 @@ jobs:
       - name: Vitest — unit & component tests in tests/
         run: npm test
 
-      # The 4 accepted moderate drizzle-kit findings (docs/owner-actions.md)
+      # The 4 accepted moderate drizzle-kit findings (dev-only, accepted)
       # stay below this bar; any high or critical advisory fails CI.
       - name: npm audit — fail on high or critical advisories
         run: npm audit --audit-level=high

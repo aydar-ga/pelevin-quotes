@@ -1,17 +1,17 @@
-See AGENTS.md and docs/ for full project guidance.
+See AGENTS.md. Internal docs live in the owner's private notes (../ag-dev-meta/projects/pelevin-quotes/docs/); this repo is public.
 
 TL;DR:
 - Next.js 16 (App Router, React 19) + Drizzle + Neon Postgres on Vercel.
 - TDD is the default. Write a failing test in tests/ first, then implement.
   Never commit with red tests. Precommit hook enforces it.
 - README.md is a non-technical visitor showcase. Stack, scripts, "Shipped" and
-  the technical roadmap live in docs/DEVELOPMENT.md; update it in the SAME
-  commit. Visitor-visible changes also update the README showcase.
+  the technical roadmap live in the private DEVELOPMENT.md; update it in the SAME
+  change set. Visitor-visible changes also update the README showcase.
 - Don't reintroduce Supabase.
 - No "what" comments — only "why", when non-obvious.
 - Tests live in tests/, never co-located. Run with `npm test`.
 - Verify with: npm run lint && npm run type-check && npm test && npm run build
-- User-facing copy is Russian and follows docs/08-product-voice.md: cool,
+- User-facing copy is Russian and follows the private 08-product-voice.md: cool,
   sharp, compact, informal. Code/docs are English.
-- DB/class/relation diagrams live in docs/10-data-model.md; keep them in sync
+- DB/class/relation diagrams live in the private 10-data-model.md; keep them in sync
   with lib/schema.ts and route contracts.
