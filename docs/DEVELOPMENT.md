@@ -86,6 +86,11 @@ Aider / Continue), [`CLAUDE.md`](../CLAUDE.md), `.cursorrules`, and
 
 ## Shipped (technical log)
 
+- **Security hardening (2026-11-24)** — durable sign-in email and write caps
+  with a kill switch ([security-guardrails.md](./security-guardrails.md));
+  Zod-validated env (`lib/env.ts`) and API inputs; enforced CSP + OWASP
+  headers; dev/test routes 404 in Production; CI with actionlint, audit gate,
+  SHA-pinned actions and Dependabot; e2e against a production build.
 - **Custom domain** `https://pelevin-like.app` — owned, on Vercel DNS.
 - **Magic-link auth** via Better Auth (MIT, OSS). Passwordless slide-in panel on
   the home page; login asks only for email, registration asks for name + email.
