@@ -22,6 +22,12 @@ export async function signInForE2E(page: Page) {
     );
   }
 
+  // Each sign-in looks like its own client, so the suite never trips the
+  // durable per-IP magic-link verify cap (20 per 10 minutes).
+  const octet = () => Math.floor(Math.random() * 250) + 1;
+  await page.setExtraHTTPHeaders({
+    "x-real-ip": `10.${octet()}.${octet()}.${octet()}`,
+  });
   await page.goto("/dev/login");
   await page.waitForURL(/\/(\?welcome=1)?$/);
   await waitForSessionEmail(page, DEV_TEST_USER_EMAIL);
