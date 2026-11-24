@@ -15,7 +15,7 @@ Keep `AGENTS.md` and `CLAUDE.md` in sync if you edit either.
 
 ## TL;DR
 
-A minimalist Next.js app that serves random Pelevin quotes from a Neon
+A minimalist Next.js app that serves random Pelevin-style quotes (original lines, not real Pelevin quotes) from a Neon
 Postgres table. Deployed on Vercel.
 
 ```

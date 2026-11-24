@@ -14,25 +14,20 @@ Agents add items here and never tick them; the owner ticks them.
 - [ ] **Enable auto-renew for `pelevin-like.app`** in Vercel → Domains. The
       domain expires on 2027-05-29. If it lapses, the site and the magic-link
       sender domain stop working.
-- [ ] **Optional: set Vercel → Settings → Node.js Version to 24.x.** Builds
-      already use Node 24 because `package.json` `engines.node` overrides the
-      dashboard value (still 20.x). Changing it only removes the build warning.
 - [ ] **Optional: add Upstash Redis** (`UPSTASH_REDIS_REST_URL`,
       `UPSTASH_REDIS_REST_TOKEN`) to Production. Without it, the random-quote
       and vote rate limits are per serverless instance, not global. See
       [`05-deployment.md`](./05-deployment.md).
 
-- [ ] **Add `BETTER_AUTH_SECRET` (≥ 32 chars) and `BETTER_AUTH_URL` to Vercel
-      Preview** if you want sign-in to work on preview deployments. Today only
-      Production and Development have them, so since the env module landed
-      Preview auth requests fail closed with a clear error (browsing quotes
-      still works). Use a different secret from Production.
-- [ ] **Enable private vulnerability reporting** (GitHub → Settings → Code
-      security). `/.well-known/security.txt` points reporters to
-      `github.com/aydar-ga/pelevin-quotes/security/advisories/new`, which only
-      accepts reports once this is on.
-
 ## Done
+
+- [x] **Vercel Node.js Version set to 24.x** (2026-11-24, via the Vercel API).
+- [x] **`BETTER_AUTH_SECRET` added to Vercel Preview** (2026-11-24; its own
+      random value, separate from Production). `BETTER_AUTH_URL` is optional
+      outside Production, so preview sign-in uses the request origin.
+- [x] **GitHub security turned on** (2026-11-24): private vulnerability
+      reporting (so the `security.txt` link works), secret scanning, push
+      protection, Dependabot alerts and security fixes, CodeQL default setup.
 
 - [x] **Sync your local checkout** after the 2026-11-23 history rewrite. Done
       by the orchestrating agent on 2026-11-23: local `main` = `origin/main`

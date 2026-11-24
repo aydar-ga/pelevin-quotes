@@ -7,7 +7,7 @@ short on purpose; the deep documentation lives in [`docs/`](./docs).
 
 ## TL;DR
 
-A minimalist Next.js app that serves random Pelevin quotes from a Neon
+A minimalist Next.js app that serves random Pelevin-style quotes (original lines, not real Pelevin quotes) from a Neon
 Postgres table. Deployed on Vercel.
 
 ```
