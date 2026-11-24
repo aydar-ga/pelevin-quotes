@@ -64,6 +64,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- CI: least-privilege `permissions`, `concurrency`, SHA-pinned actions,
+  actionlint, `npm audit --audit-level=high` gate, Dependabot (npm + actions,
+  weekly, grouped); Playwright now runs against `next build && next start`.
 - Zod schemas for every API input with a 2 KB JSON body cap; Secure (in
   Production), HttpOnly, SameSite=Lax session cookies; `/.well-known/security.txt`.
 - Durable abuse guardrails for sign-in email (`lib/abuse-guard.ts`, table

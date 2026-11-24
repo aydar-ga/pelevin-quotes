@@ -130,12 +130,20 @@ Or in the dashboard: Deployments → ⋯ → **Promote to Production**.
 `.github/workflows/ci.yml` runs on pushes to `main`, `develop`, `feature/*`,
 `fix/*`, `release/*`, and on PRs into `main` / `develop`.
 
-The workflow has two jobs:
+The workflow has three jobs:
 
 ```
-test:  npm ci → lint → type-check → Vitest → db:push → db:seed → Playwright E2E
+lint-workflows: actionlint
+test:  npm ci → lint → type-check → Vitest → npm audit (high+) → db:push → db:seed
+       → Playwright E2E against next build && next start
 build: npm ci → next build
 ```
+
+Hardening: top-level `permissions: contents: read`; `concurrency` cancels
+superseded runs; `actions/*` are pinned to commit SHAs. `.github/dependabot.yml`
+bumps npm (minor/patch grouped) and GitHub Actions weekly, with a 3-day
+cooldown. The 4 accepted moderate drizzle-kit advisories stay below the audit
+bar.
 
 The test job uses an ephemeral Postgres 16 service container, so it does not
 need a Neon secret. The build job uses a placeholder `DATABASE_URL`; route

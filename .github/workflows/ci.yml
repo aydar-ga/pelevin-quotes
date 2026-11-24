@@ -1,10 +1,13 @@
 # CI for pelevin-quotes (Next.js + Neon + Better Auth).
 #
-# Two jobs, sequential:
-#   1. test  — lint, types, Vitest unit tests, Playwright API E2E (single pipeline)
+# Jobs:
+#   0. lint-workflows — actionlint on .github/workflows
+#   1. test  — lint, types, Vitest, npm audit (high+), Playwright E2E against a
+#              production build (`next build && next start`)
 #   2. build — production `next build` (only after all tests pass)
 #
 # E2E uses an ephemeral Postgres 16 service container (no Neon secret required).
+# Third-party actions are pinned to commit SHAs; Dependabot bumps them.
 
 name: Pelevin-Quotes CI
 
@@ -21,7 +24,24 @@ on:
       - main
       - develop
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  lint-workflows:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout — clone the repository at the triggering ref
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: actionlint — static checks for GitHub Actions workflows
+        run: docker run --rm -v "$PWD:/repo" --workdir /repo rhysd/actionlint:1.7.12 -color
+
   test:
     name: Lint, types, unit & API E2E tests
     runs-on: ubuntu-latest
@@ -48,10 +68,10 @@ jobs:
 
     steps:
       - name: Checkout — clone the repository at the triggering ref
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
       - name: Node.js (.nvmrc) — install runtime and cache npm dependencies
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -68,6 +88,11 @@ jobs:
       - name: Vitest — unit & component tests in tests/
         run: npm test
 
+      # The 4 accepted moderate drizzle-kit findings (docs/owner-actions.md)
+      # stay below this bar; any high or critical advisory fails CI.
+      - name: npm audit — fail on high or critical advisories
+        run: npm audit --audit-level=high
+
       - name: Database — push schema for API E2E
         run: npm run db:push -- --force
 
@@ -77,7 +102,7 @@ jobs:
       - name: Playwright — download Chromium and OS dependencies for headless runs
         run: npx playwright install --with-deps chromium
 
-      - name: Playwright — API smoke, bookmarks, session, and dev-login auth flow
+      - name: Playwright — E2E against a production build (next build && next start)
         run: npm run test:e2e
         env:
           CI: "true"
@@ -91,10 +116,10 @@ jobs:
 
     steps:
       - name: Checkout — clone the repository at the triggering ref
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
       - name: Node.js (.nvmrc) — install runtime and cache npm dependencies
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version-file: .nvmrc
           cache: npm
