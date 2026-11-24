@@ -50,6 +50,18 @@ cross-site origin`).
 Votes and bookmarks need a session (401 otherwise) and share a durable cap of
 **300 writes per user per day** → **429**. There are no anonymous writes.
 
+## Cookies, inputs and disclosure
+
+- Session cookies are HttpOnly and SameSite=Lax everywhere, and Secure (so
+  `__Secure-` prefixed) in Production (`advanced` in `lib/auth.ts`). Trusted
+  origin is `BETTER_AUTH_URL`. A `__Host-` prefix was not adopted: renaming the
+  cookie would sign everyone out and trigger a burst of sign-in emails.
+- Every API input goes through Zod (`lib/request-body.ts`): JSON write bodies
+  are capped at 2 KB and must be `application/json`; route ids are strict
+  integers. No `NEXT_PUBLIC_*` variable holds a secret; error responses are
+  short JSON messages, never stack traces.
+- `/.well-known/security.txt` points to GitHub security advisories.
+
 ## Operating it
 
 - Turn sign-in email off instantly: set `AUTH_EMAIL_ENABLED` to anything but

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { isE2eTestModeEnabled } from "@/lib/dev-test-auth";
 import { env } from "@/lib/env";
 import { readMagicLink } from "@/lib/magic-link-store";
@@ -15,15 +16,18 @@ export async function GET(request: Request) {
     );
   }
 
-  const email = new URL(request.url).searchParams.get("email");
-  if (!email) {
+  const parsed = z
+    .email()
+    .max(254)
+    .safeParse(new URL(request.url).searchParams.get("email"));
+  if (!parsed.success) {
     return NextResponse.json(
       { error: "email query param required" },
       { status: 400 },
     );
   }
 
-  const entry = readMagicLink(email);
+  const entry = readMagicLink(parsed.data);
   if (!entry) {
     return NextResponse.json({ found: false }, { status: 404 });
   }

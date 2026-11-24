@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { checkUserWriteCap } from "@/lib/abuse-guard";
 import { getServerSession } from "@/lib/auth-server";
 import { countBookmarks, listBookmarks, toggleBookmark } from "@/lib/bookmarks";
-import { isQuoteId, readJsonObject } from "@/lib/request-body";
+import { bookmarkBodySchema, readJsonObject } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 
@@ -33,12 +33,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const body = await readJsonObject(request);
-  const quoteId = body?.quoteId;
-
-  if (!isQuoteId(quoteId)) {
+  const parsed = bookmarkBodySchema.safeParse(await readJsonObject(request));
+  if (!parsed.success) {
     return NextResponse.json({ error: "Invalid quoteId" }, { status: 400 });
   }
+  const { quoteId } = parsed.data;
 
   const bookmarked = await toggleBookmark(session.user.id, quoteId);
   const total = await countBookmarks(session.user.id);

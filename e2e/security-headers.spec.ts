@@ -36,4 +36,12 @@ test.describe("security headers", () => {
 
     expect(violations).toEqual([]);
   });
+
+  test("publishes security.txt with a contact", async ({ request }) => {
+    const response = await request.get("/.well-known/security.txt");
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+    expect(body).toMatch(/^Contact: https:\/\/github\.com\/aydar-ga\/pelevin-quotes\/security\/advisories/m);
+    expect(body).toMatch(/^Expires: /m);
+  });
 });

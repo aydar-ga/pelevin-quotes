@@ -26,12 +26,18 @@ function honeypotFrom(metadata: unknown): unknown {
     : undefined;
 }
 
-function createAuth() {
+export function createAuth() {
   return betterAuth({
     baseURL: isProductionDeployment()
       ? requireEnv("BETTER_AUTH_URL")
       : env().BETTER_AUTH_URL,
     secret: requireEnv("BETTER_AUTH_SECRET"),
+    advanced: {
+      // Production always gets Secure cookies (Better Auth then adds the
+      // __Secure- prefix); elsewhere it follows the base URL's protocol.
+      ...(isProductionDeployment() ? { useSecureCookies: true } : {}),
+      defaultCookieAttributes: { httpOnly: true, sameSite: "lax" },
+    },
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: { user, session, account, verification },

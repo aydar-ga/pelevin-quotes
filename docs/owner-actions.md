@@ -27,6 +27,10 @@ Agents add items here and never tick them; the owner ticks them.
       Production and Development have them, so since the env module landed
       Preview auth requests fail closed with a clear error (browsing quotes
       still works). Use a different secret from Production.
+- [ ] **Enable private vulnerability reporting** (GitHub → Settings → Code
+      security). `/.well-known/security.txt` points reporters to
+      `github.com/aydar-ga/pelevin-quotes/security/advisories/new`, which only
+      accepts reports once this is on.
 
 ## Done
 

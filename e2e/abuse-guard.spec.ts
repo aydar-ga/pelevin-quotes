@@ -53,6 +53,11 @@ test.describe("sign-out", () => {
   test("is POST-only and refuses a cross-site origin", async ({ page }) => {
     await signInForE2E(page);
 
+    const sessionCookie = (await page.context().cookies()).find((c) =>
+      c.name.endsWith("session_token"),
+    );
+    expect(sessionCookie).toMatchObject({ httpOnly: true, sameSite: "Lax" });
+
     const viaGet = await page.request.get("/api/auth/sign-out");
     expect(viaGet.status()).not.toBe(200);
 

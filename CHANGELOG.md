@@ -64,6 +64,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- Zod schemas for every API input with a 2 KB JSON body cap; Secure (in
+  Production), HttpOnly, SameSite=Lax session cookies; `/.well-known/security.txt`.
 - Durable abuse guardrails for sign-in email (`lib/abuse-guard.ts`, table
   `abuse_counters`): honeypot, `AUTH_EMAIL_ENABLED` kill switch, per-recipient,
   per-IP and app-wide caps, fail closed on DB errors, hashed keys only;

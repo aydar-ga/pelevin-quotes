@@ -3,6 +3,7 @@ import { getServerSession } from "@/lib/auth-server";
 import { isBookmarked } from "@/lib/bookmarks";
 import { getQuoteById } from "@/lib/quotes";
 import { getQuoteVoteSummary } from "@/lib/votes";
+import { quoteIdParamSchema } from "@/lib/request-body";
 
 export const dynamic = "force-dynamic";
 
@@ -10,12 +11,11 @@ export async function GET(
   _request: Request,
   context: { params: Promise<{ id: string }> },
 ) {
-  const { id } = await context.params;
-  const quoteId = Number(id);
-
-  if (!Number.isInteger(quoteId) || quoteId < 1) {
+  const parsed = quoteIdParamSchema.safeParse((await context.params).id);
+  if (!parsed.success) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
+  const quoteId = parsed.data;
 
   const quote = await getQuoteById(quoteId);
   if (!quote) {
