@@ -125,9 +125,8 @@ Aider / Continue), [`CLAUDE.md`](../CLAUDE.md), `.cursorrules`, and
 
 ## Roadmap (technical notes)
 
-- [ ] **Enforce the CSP.** It ships as `Content-Security-Policy-Report-Only`
-      (see `docs/05-deployment.md` → Security headers). Once Production shows no
-      violations, rename the header to enforce it and keep the e2e check.
+- [x] **Enforce the CSP.** Done 2026-11-24 after a clean report-only run in
+      e2e and Production (see `docs/05-deployment.md` → Security headers).
 
 ### Features
 

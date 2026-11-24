@@ -1,9 +1,10 @@
 const isDev = process.env.NODE_ENV === "development";
 
-// Report-only until it has run clean in Production: the App Router emits
-// inline scripts, so script-src needs 'unsafe-inline' (static policy, no nonce,
-// keeps pages static). Dev adds eval for React Refresh and the Vercel
-// Analytics debug script.
+// Enforced after running clean as report-only in e2e and Production. The App
+// Router emits inline scripts, so script-src needs 'unsafe-inline' (static
+// policy, no nonce, keeps pages static). Dev adds eval for React Refresh and
+// the Vercel Analytics debug script. No upgrade-insecure-requests: HSTS
+// already forces HTTPS, and it would break the http://localhost e2e server.
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}`,
@@ -28,10 +29,10 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=()",
   },
-  // Enforced framing protection; the CSP's frame-ancestors is report-only.
+  // Legacy twin of frame-ancestors 'none' for older browsers.
   { key: "X-Frame-Options", value: "DENY" },
   {
-    key: "Content-Security-Policy-Report-Only",
+    key: "Content-Security-Policy",
     value: contentSecurityPolicy,
   },
 ];

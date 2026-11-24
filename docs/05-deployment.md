@@ -106,16 +106,17 @@ drops `X-Powered-By`:
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
-- `X-Frame-Options: DENY` (enforced framing protection)
-- `Content-Security-Policy-Report-Only` with `default-src 'self'`,
+- `X-Frame-Options: DENY` (legacy twin of `frame-ancestors`)
+- `Content-Security-Policy` (enforced) with `default-src 'self'`,
   `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`,
   `frame-ancestors 'none'` and `'unsafe-inline'` scripts (the App Router's
   inline scripts; a static policy keeps pages static).
 
-The CSP is report-only on purpose. `e2e/security-headers.spec.ts` asserts the
-headers and that browsing `/`, `/top` and `/q/1` logs no CSP violation. Switch
-the header name to `Content-Security-Policy` only once Production has also run
-clean.
+The CSP shipped report-only first and was enforced on 2026-11-24, after e2e
+and a read-only browse of Production (`/`, `/top`, `/q/8`, sign-in panel)
+showed zero violations. `e2e/security-headers.spec.ts` asserts the headers and
+that browsing the public pages logs no CSP violation; keep it green when adding
+third-party scripts, images or fetches.
 
 ## Rollback
 

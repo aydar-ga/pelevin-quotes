@@ -26,10 +26,10 @@ describe("security headers (next.config)", () => {
     expect(headers["x-frame-options"]).toBe("DENY");
   });
 
-  it("ships the CSP as report-only, never enforced", async () => {
+  it("enforces the CSP (it ran clean as report-only in e2e and Production)", async () => {
     const headers = await headersForAllRoutes();
-    expect(headers["content-security-policy"]).toBeUndefined();
-    const csp = headers["content-security-policy-report-only"];
+    expect(headers["content-security-policy-report-only"]).toBeUndefined();
+    const csp = headers["content-security-policy"];
     for (const directive of [
       "default-src 'self'",
       "object-src 'none'",

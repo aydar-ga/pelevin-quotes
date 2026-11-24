@@ -64,6 +64,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 
+- Content-Security-Policy enforced (was report-only) after zero violations in
+  e2e and on Production.
 - CI: least-privilege `permissions`, `concurrency`, SHA-pinned actions,
   actionlint, `npm audit --audit-level=high` gate, Dependabot (npm + actions,
   weekly, grouped); Playwright now runs against `next build && next start`.

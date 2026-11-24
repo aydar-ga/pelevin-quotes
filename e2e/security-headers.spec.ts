@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("security headers", () => {
-  test("home sends the baseline headers and a report-only CSP", async ({
+  test("home sends the baseline headers and an enforced CSP", async ({
     request,
   }) => {
     const response = await request.get("/");
@@ -11,7 +11,7 @@ test.describe("security headers", () => {
     expect(headers["permissions-policy"]).toContain("camera=()");
     expect(headers["x-frame-options"]).toBe("DENY");
     expect(headers["strict-transport-security"]).toContain("max-age=");
-    expect(headers["content-security-policy-report-only"]).toContain(
+    expect(headers["content-security-policy"]).toContain(
       "frame-ancestors 'none'",
     );
     expect(headers["x-powered-by"]).toBeUndefined();
