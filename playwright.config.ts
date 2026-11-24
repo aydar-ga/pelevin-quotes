@@ -26,10 +26,12 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `next dev -p ${PORT}`,
+    // A production build, not `next dev`: what ships, without on-demand
+    // compiles or dev-only React checks.
+    command: `next build && next start -p ${PORT}`,
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 300_000,
     env: {
       DATABASE_URL: process.env.DATABASE_URL ?? "",
       // Dev login bypass — no magic-link UI, no Resend emails in E2E.

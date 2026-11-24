@@ -38,6 +38,9 @@ export function createAuth() {
       ...(isProductionDeployment() ? { useSecureCookies: true } : {}),
       defaultCookieAttributes: { httpOnly: true, sameSite: "lax" },
     },
+    // E2E signs in many times a minute from one IP. Better Auth's own limiter
+    // stays on everywhere else; both test flags are forced off in Production.
+    ...(shouldCaptureMagicLink() ? { rateLimit: { enabled: false } } : {}),
     database: drizzleAdapter(db, {
       provider: "pg",
       schema: { user, session, account, verification },

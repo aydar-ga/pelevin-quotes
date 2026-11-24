@@ -62,8 +62,8 @@ npm run test:coverage     # v8 coverage → ./coverage/index.html
 npm run test:e2e
 ```
 
-Requires `DATABASE_URL` in `.env.local` (or env). Playwright spawns `next dev` on
-port `3100` (override with `E2E_PORT`) with `DEV_TEST_AUTH=true`,
+Requires `DATABASE_URL` in `.env.local` (or env). Playwright builds and starts a
+production server (`next build && next start`) on port `3100` (override with `E2E_PORT`) with `DEV_TEST_AUTH=true`,
 `E2E_TEST_MODE=true`, and `RESEND_API_KEY` cleared — tests sign in via
 `/dev/login` (`dev@test.local`). **No magic-link UI, no Resend emails.**
 

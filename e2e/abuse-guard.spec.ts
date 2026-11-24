@@ -40,7 +40,12 @@ test.describe("abuse guardrails (durable counters)", () => {
     for (let i = 0; i < 21; i++) {
       const response = await request.get(
         `/api/auth/magic-link/verify?token=bogus-${run}-${i}&callbackURL=/`,
-        { headers: asIp(ip), maxRedirects: 0 },
+        // Same client IP for our durable cap (x-real-ip); a fresh
+        // x-forwarded-for keeps Better Auth's own per-IP limiter out of it.
+        {
+          headers: { "x-real-ip": ip, "x-forwarded-for": freshIp() },
+          maxRedirects: 0,
+        },
       );
       statuses.push(response.status());
     }

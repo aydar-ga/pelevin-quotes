@@ -25,4 +25,16 @@ describe("lib/auth", () => {
       sameSite: "lax",
     });
   });
+
+  it("turns off Better Auth's in-memory limiter only in dev/e2e test mode, never in Production", () => {
+    vi.stubEnv("BETTER_AUTH_SECRET", "s".repeat(32));
+    vi.stubEnv("DATABASE_URL", "postgresql://u:p@localhost:5432/db");
+    vi.stubEnv("E2E_TEST_MODE", "true");
+    vi.stubEnv("VERCEL_ENV", "");
+    expect(createAuth().options.rateLimit?.enabled).toBe(false);
+
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("BETTER_AUTH_URL", "https://pelevin-like.app");
+    expect(createAuth().options.rateLimit?.enabled).not.toBe(false);
+  });
 });

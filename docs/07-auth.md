@@ -124,9 +124,9 @@ email delivery outside CI.
 npm run test:e2e
 ```
 
-Playwright spawns a dedicated dev server on port `3100` with `DEV_TEST_AUTH=true`
-(see `playwright.config.ts`). Stop any other `next dev` in the same repo first
-(Next.js allows only one dev instance per directory).
+Playwright builds the app and starts a production server (`next build && next
+start`) on port `3100` with `DEV_TEST_AUTH=true` (see `playwright.config.ts`).
+The build writes `.next/`, so stop any `next dev` in the same repo first.
 
 ## Production checklist
 
